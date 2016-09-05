@@ -5,3 +5,8 @@ Use camelCase for all names, both in Java, Javascript, CSS and HTML
 
 --- Spaces, no tabs ---
 Make sure your IDE is set to write 4 spaces when you press the tab-key. NOT a tab character.
+
+--- Git and branching ---
+NEVER work on the Master branch, this branch is for release versions only.
+NEVER work on the dev branch, this is for complete and functional code only.
+Whenever you want to work, use a seperate branch for that specific functionality, then, when it's done and functioning, you can merge it into the dev branch.
