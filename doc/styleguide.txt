@@ -1,0 +1,7 @@
+STYLE GUIDE FOR POKEMONGO
+
+--- Variable and naming conventions ---
+Use camelCase for all names, both in Java, Javascript, CSS and HTML
+
+--- Spaces, no tabs ---
+Make sure your IDE is set to write 4 spaces when you press the tab-key. NOT a tab character.
