@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.pokemongo.model.User;
+import com.sun.tools.internal.ws.wsdl.document.jaxws.Exception;
 
 @Stateful
 public class UserDAO {
@@ -17,5 +18,14 @@ public class UserDAO {
             System.out.println("Great Success!!!");
         }
     }
-
+    
+    public User getUser(long userId) {
+        User returnUser = em.find(User.class, userId);
+        
+        if (returnUser != null) {
+            return returnUser;
+        } else {
+            return null;
+        }
+    }
 }

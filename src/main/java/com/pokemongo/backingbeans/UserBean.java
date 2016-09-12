@@ -67,5 +67,12 @@ public class UserBean implements Serializable {
         User user = new User(userName, email);
         localUser.storeUser(user);
     }
+    
+    public void getUser() {
+        User user = localUser.getUser(1);
+        System.out.println(user.getUserName());
+        System.out.println(user.getId());
+        System.out.println(user.getPokemons().get(0).getName());
+    }
 
 }

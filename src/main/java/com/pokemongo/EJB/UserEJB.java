@@ -17,5 +17,10 @@ public class UserEJB implements LocalUser {
     public void storeUser(User user) {
         userDAO.storeUser(user);
     }
-
+    
+    @Override
+    public User getUser(long userId) {
+        return userDAO.getUser(userId);
+    }
+    
 }

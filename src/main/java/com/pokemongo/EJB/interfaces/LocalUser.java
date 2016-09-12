@@ -8,5 +8,6 @@ import com.pokemongo.model.User;
 public interface LocalUser {
 
     void storeUser(User user);
-
+    
+    User getUser(long userId);
 }
