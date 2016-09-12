@@ -7,9 +7,14 @@ import com.pokemongo.model.User;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 import java.io.Serializable;
 import java.util.List;
 
+@Path("user")
 @Named(value = "userBean")
 @SessionScoped
 public class UserBean implements Serializable {
@@ -67,12 +72,25 @@ public class UserBean implements Serializable {
         User user = new User(userName, email);
         localUser.storeUser(user);
     }
-    
+
     public void getUser() {
         User user = localUser.getUser(1);
         System.out.println(user.getUserName());
         System.out.println(user.getId());
         System.out.println(user.getPokemons().get(0).getName());
+    }
+
+    @POST
+    @Path("login")
+    @Produces("application/json")
+    public Response saved(User user) {
+        // TODO implement function to check for duplicate users.
+        if (user != null) {
+            localUser.storeUser(user);
+            return Response.status(Response.Status.CREATED).build();
+        } else {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
     }
 
 }
