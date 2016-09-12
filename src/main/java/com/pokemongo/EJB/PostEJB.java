@@ -6,6 +6,7 @@ import com.pokemongo.model.Post;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.List;
 
 @Stateless
 public class PostEJB implements LocalPost {
@@ -21,5 +22,10 @@ public class PostEJB implements LocalPost {
     @Override
     public Post getPost(long postId) {
         return postDAO.getPost(postId);
+    }
+    
+    @Override
+    public List<Post> getAllPosts() {
+        return postDAO.getAllPosts();
     }
 }

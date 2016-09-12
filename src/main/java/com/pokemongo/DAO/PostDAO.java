@@ -5,6 +5,7 @@ import com.pokemongo.model.Post;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateful
 public class PostDAO {
@@ -21,5 +22,9 @@ public class PostDAO {
     public Post getPost(long postId) {
         
         return em.find(Post.class, postId);
+    }
+    
+    public List<Post> getAllPosts() {
+        return em.createNamedQuery("Post.findAll").getResultList();
     }
 }

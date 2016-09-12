@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
+@NamedQuery(name="Post.findAll", query = "SELECT p FROM Post p")
 public class Post implements Serializable{
     
     private static final long serialVersionUID = 6787577451747845441L;

@@ -8,6 +8,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Named(value = "postBean")
 @SessionScoped
@@ -17,6 +18,7 @@ public class PostBean implements Serializable{
     
     private String title;
     private String content;
+    private List<Post> posts;
     
     @EJB
     private LocalPost localPost;
@@ -35,6 +37,12 @@ public class PostBean implements Serializable{
         System.out.println(post.getTitle());
         System.out.println(post.getContent());
         System.out.println(post.getPostTime());
+    }
+    
+    public void getAllPosts() {
+        posts = localPost.getAllPosts();
+    
+        System.out.println(posts);
     }
     
     /* Getters and Setters */
