@@ -7,4 +7,6 @@ import javax.ejb.Local;
 @Local
 public interface LocalPost {
     void savePost(Post post);
+    
+    Post getPost(long postId);
 }

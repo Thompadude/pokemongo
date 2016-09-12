@@ -37,6 +37,12 @@ Wadup yo.
 </h:form>
 
 <h:form>
+    <h:commandButton action="#{postBean.getPost}"
+                     value="Get a post">
+    </h:commandButton>
+</h:form>
+
+<h:form>
 
     <h:outputLabel for="userName" value="Title: "/>
     <h:inputText id="title" value="#{postBean.title}" required="true"/>

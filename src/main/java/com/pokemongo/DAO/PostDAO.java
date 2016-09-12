@@ -17,4 +17,9 @@ public class PostDAO {
             System.out.println("Hoppla, baby!");
         }
     }
+    
+    public Post getPost(long postId) {
+        
+        return em.find(Post.class, postId);
+    }
 }

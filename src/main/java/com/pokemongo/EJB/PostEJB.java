@@ -17,4 +17,9 @@ public class PostEJB implements LocalPost {
     public void savePost(Post post) {
         postDAO.savePost(post);
     }
+    
+    @Override
+    public Post getPost(long postId) {
+        return postDAO.getPost(postId);
+    }
 }

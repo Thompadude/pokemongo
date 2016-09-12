@@ -1,6 +1,5 @@
 package com.pokemongo.backingbeans;
 
-import com.pokemongo.EJB.PostEJB;
 import com.pokemongo.EJB.interfaces.LocalPost;
 import com.pokemongo.model.Post;
 
@@ -8,6 +7,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Named(value = "postBean")
 @SessionScoped
@@ -29,6 +29,16 @@ public class PostBean implements Serializable{
         localPost.savePost(post);
     }
     
+    public void getPost() {
+        Post post = localPost.getPost(3L);
+    
+        System.out.println(post.getTitle());
+        System.out.println(post.getContent());
+        System.out.println(post.getPostTime());
+    }
+    
+    /* Getters and Setters */
+    
     public String getTitle() {
         return title;
     }
@@ -44,4 +54,6 @@ public class PostBean implements Serializable{
     public void setContent(String content) {
         this.content = content;
     }
+    
+    
 }
