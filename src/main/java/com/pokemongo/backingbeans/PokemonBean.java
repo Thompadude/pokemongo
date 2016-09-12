@@ -78,18 +78,11 @@ public class PokemonBean implements Serializable {
         pokemon.setPokedexNumber(134124);
 
         User user = new User();
-        user.setUserName("New Awesome User");
-        user.setEmail("hemligt");
-
-        List<Pokemon> pokemons = new ArrayList<Pokemon>();
-        pokemons.add(pokemon);
+        user.setId(1L);
+        
         pokemon.setOwner(user);
-        user.setPokemons(pokemons);
-
-        user.setTokenId("Google TOKEN!!!");
 
         localPokemon.storePokeMon(pokemon);
-        localUser.storeUser(user);
     }
 
 }

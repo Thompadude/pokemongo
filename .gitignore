@@ -50,7 +50,7 @@ nb-configuration.xml
 *.apk
 *.ap_
 *.dex
-*.class
+classes
 bin/
 gen/
 .gradle/
