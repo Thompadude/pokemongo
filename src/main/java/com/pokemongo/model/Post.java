@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Post implements Serializable{
@@ -16,9 +15,14 @@ public class Post implements Serializable{
     private Long id;
     private String title;
     private String content;
+    @ManyToOne
+    @JoinColumn(name="authorId")
     private User author;
     private LocalDateTime postTime;
+    @ManyToOne
+    @JoinColumn(name="parentPostId")
     private Post parentPost;
+    @OneToMany(mappedBy = "parentPost")
     private List<Post> childPosts;
     
     

@@ -36,5 +36,18 @@ Wadup yo.
     </h:commandButton>
 </h:form>
 
+<h:form>
+
+    <h:outputLabel for="userName" value="Title: "/>
+    <h:inputText id="title" value="#{postBean.title}" required="true"/>
+
+    <h:outputLabel for="email" value="Content: "/>
+    <h:inputTextarea id="content" value="#{postBean.content}" required="true"/>
+
+    <h:commandButton action="#{postBean.savePost}"
+                     value="Save">
+    </h:commandButton>
+</h:form>
+
 </body>
 </html>
