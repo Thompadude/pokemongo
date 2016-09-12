@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Pokemongo</title>
@@ -10,9 +10,19 @@
 <body>
 Wadup yo.
 <h:form>
-    <h:commandButton action="#{userBean.saveUser()}"
-                     value="Save a user!">
-    </h:commandButton>
+    <h:panelGrid>
+
+        <h:outputLabel for="userName" value="User Name: "/>
+        <h:inputText id="userName" value="#{userBean.userName}" required="true"/>
+
+        <h:outputLabel for="email" value="Email: "/>
+        <h:inputText id="email" value="#{userBean.email}" required="true"/>
+
+        <h:commandButton action="#{userBean.saveUser()}"
+                         value="Save a user!">
+        </h:commandButton>
+
+    </h:panelGrid>
 </h:form>
 <h:form>
     <h:commandButton action="#{pokemonBean.savePokemon}"
