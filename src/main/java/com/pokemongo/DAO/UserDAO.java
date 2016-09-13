@@ -5,7 +5,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.pokemongo.model.User;
-import com.sun.tools.internal.ws.wsdl.document.jaxws.Exception;
 
 @Stateful
 public class UserDAO {
