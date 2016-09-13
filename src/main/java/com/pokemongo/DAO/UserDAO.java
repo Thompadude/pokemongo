@@ -1,10 +1,11 @@
 package com.pokemongo.DAO;
 
+import com.pokemongo.model.User;
+
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import com.pokemongo.model.User;
+import java.util.List;
 
 @Stateful
 public class UserDAO {
@@ -17,14 +18,13 @@ public class UserDAO {
             System.out.println("Great Success!!!");
         }
     }
-    
+
     public User getUser(long userId) {
-        User returnUser = em.find(User.class, userId);
-        
-        if (returnUser != null) {
-            return returnUser;
-        } else {
-            return null;
-        }
+        return em.find(User.class, userId);
     }
+
+    public List<User> getAllUsers() {
+        return em.createNamedQuery("User.findAll").getResultList();
+    }
+
 }

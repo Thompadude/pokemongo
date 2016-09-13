@@ -2,11 +2,13 @@ package com.pokemongo.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 
     private static final long serialVersionUID = -5911276687433073942L;

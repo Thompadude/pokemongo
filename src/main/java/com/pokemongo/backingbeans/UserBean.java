@@ -84,13 +84,17 @@ public class UserBean implements Serializable {
     @Path("login")
     @Produces("application/json")
     public Response saved(User user) {
-        // TODO implement function to check for duplicate users.
-        if (user != null) {
-            localUser.storeUser(user);
-            return Response.status(Response.Status.CREATED).build();
-        } else {
-            return Response.status(Response.Status.NO_CONTENT).build();
+        // Get list of all users in database.
+        List<User> allUsers = localUser.getAllUsers();
+        for (User u : allUsers) {
+            // Check if user already exist in the database.
+            if (u.getEmail() != null && u.getEmail().equals(user.getEmail())) {
+                System.out.println("User already in database!");
+                return Response.status(Response.Status.FOUND).build();
+            }
         }
+        localUser.storeUser(user);
+        return Response.status(Response.Status.CREATED).build();
     }
 
 }

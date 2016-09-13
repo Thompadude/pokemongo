@@ -1,11 +1,12 @@
 package com.pokemongo.EJB;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-
 import com.pokemongo.DAO.UserDAO;
 import com.pokemongo.EJB.interfaces.LocalUser;
 import com.pokemongo.model.User;
+
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import java.util.List;
 
 @Stateless
 public class UserEJB implements LocalUser {
@@ -17,10 +18,15 @@ public class UserEJB implements LocalUser {
     public void storeUser(User user) {
         userDAO.storeUser(user);
     }
-    
+
     @Override
     public User getUser(long userId) {
         return userDAO.getUser(userId);
     }
-    
+
+    @Override
+    public List<User> getAllUsers() {
+        return userDAO.getAllUsers();
+    }
+
 }
