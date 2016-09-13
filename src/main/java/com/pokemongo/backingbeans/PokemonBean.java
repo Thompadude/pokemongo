@@ -1,7 +1,6 @@
 package com.pokemongo.backingbeans;
 
-import com.pokemongo.EJB.interfaces.LocalPokemon;
-import com.pokemongo.EJB.interfaces.LocalUser;
+import com.pokemongo.enterprisejavabeans.interfaces.LocalPokemon;
 import com.pokemongo.model.Pokemon;
 import com.pokemongo.model.User;
 
@@ -9,8 +8,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named(value = "pokemonBean")
 @SessionScoped
@@ -25,10 +22,6 @@ public class PokemonBean implements Serializable {
     private User owner;
     @EJB
     private LocalPokemon localPokemon;
-
-    // Remove after testing!
-    @EJB
-    private LocalUser localUser;
 
     public Integer getPokedexNumber() {
         return pokedexNumber;
@@ -73,16 +66,16 @@ public class PokemonBean implements Serializable {
     public void savePokemon() {
         Pokemon pokemon = new Pokemon();
         pokemon.setName("Pokemongo");
-        pokemon.setCp(12);
-        pokemon.setHp(234);
+        pokemon.setCombatPower(12);
+        pokemon.setHealthPoints(234);
         pokemon.setPokedexNumber(134124);
 
         User user = new User();
         user.setId(1L);
-        
+
         pokemon.setOwner(user);
 
-        localPokemon.storePokeMon(pokemon);
+        localPokemon.savePokemon(pokemon);
     }
 
 }

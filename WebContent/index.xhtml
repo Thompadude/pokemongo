@@ -21,7 +21,7 @@ Wadup yo.
         <h:outputLabel for="email" value="Email: "/>
         <h:inputText id="email" value="#{userBean.email}" required="true"/>
 
-        <h:commandButton action="#{userBean.saveUser()}"
+        <h:commandButton action="#{userBean.saveUserFromForm()}"
                          value="Save a user!">
         </h:commandButton>
 
@@ -34,19 +34,19 @@ Wadup yo.
 </h:form>
 
 <h:form>
-    <h:commandButton action="#{userBean.getUser}"
+    <h:commandButton action="#{userBean.fetchUser}"
                      value="Get the user">
     </h:commandButton>
 </h:form>
 
 <h:form>
-    <h:commandButton action="#{postBean.getPost}"
+    <h:commandButton action="#{postBean.fetchPost}"
                      value="Get a post">
     </h:commandButton>
 </h:form>
 
 <h:form>
-    <h:commandButton action="#{postBean.getAllPosts}"
+    <h:commandButton action="#{postBean.fetchAllPosts}"
                      value="Get all posts">
     </h:commandButton>
 </h:form>

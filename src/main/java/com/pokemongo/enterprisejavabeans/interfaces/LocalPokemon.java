@@ -1,4 +1,4 @@
-package com.pokemongo.EJB.interfaces;
+package com.pokemongo.enterprisejavabeans.interfaces;
 
 import com.pokemongo.model.Pokemon;
 
@@ -7,6 +7,6 @@ import javax.ejb.Local;
 @Local
 public interface LocalPokemon {
 
-    void storePokeMon(Pokemon pokemon);
+    void savePokemon(Pokemon pokemon);
 
 }

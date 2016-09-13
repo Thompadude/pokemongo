@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+@NamedQuery(name = "User.fetchAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 
     private static final long serialVersionUID = -5911276687433073942L;
@@ -41,10 +41,6 @@ public class User implements Serializable {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getUserName() {
         return userName;
     }
@@ -67,6 +63,11 @@ public class User implements Serializable {
 
     public void setTokenId(String tokenId) {
         this.tokenId = tokenId;
+    }
+
+    // TODO For testing purposes. Remove later!
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

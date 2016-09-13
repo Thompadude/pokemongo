@@ -1,11 +1,10 @@
 package com.pokemongo.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 @Entity
 public class Pokemon implements Serializable {
@@ -16,18 +15,14 @@ public class Pokemon implements Serializable {
     private Long id;
     private Integer pokedexNumber;
     private String name;
-    private Integer cp;
-    private Integer hp;
+    private Integer combatPower;
+    private Integer healthPoints;
     @ManyToOne
     @JoinColumn(name = "ownerId")
     private User owner;
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Integer getPokedexNumber() {
@@ -46,20 +41,20 @@ public class Pokemon implements Serializable {
         this.name = name;
     }
 
-    public Integer getCp() {
-        return cp;
+    public Integer getCombatPower() {
+        return combatPower;
     }
 
-    public void setCp(Integer cp) {
-        this.cp = cp;
+    public void setCombatPower(Integer combatPower) {
+        this.combatPower = combatPower;
     }
 
-    public Integer getHp() {
-        return hp;
+    public Integer getHealthPoints() {
+        return healthPoints;
     }
 
-    public void setHp(Integer hp) {
-        this.hp = hp;
+    public void setHealthPoints(Integer healthPoints) {
+        this.healthPoints = healthPoints;
     }
 
     public User getOwner() {

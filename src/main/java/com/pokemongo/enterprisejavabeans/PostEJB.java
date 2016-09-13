@@ -1,7 +1,7 @@
-package com.pokemongo.EJB;
+package com.pokemongo.enterprisejavabeans;
 
-import com.pokemongo.DAO.PostDAO;
-import com.pokemongo.EJB.interfaces.LocalPost;
+import com.pokemongo.dataaccessobjects.PostDAO;
+import com.pokemongo.enterprisejavabeans.interfaces.LocalPost;
 import com.pokemongo.model.Post;
 
 import javax.ejb.EJB;
@@ -10,22 +10,23 @@ import java.util.List;
 
 @Stateless
 public class PostEJB implements LocalPost {
-    
+
     @EJB
     private PostDAO postDAO;
-    
+
     @Override
     public void savePost(Post post) {
         postDAO.savePost(post);
     }
-    
+
     @Override
-    public Post getPost(long postId) {
-        return postDAO.getPost(postId);
+    public Post fetchPost(long postId) {
+        return postDAO.fetchPost(postId);
     }
-    
+
     @Override
-    public List<Post> getAllPosts() {
-        return postDAO.getAllPosts();
+    public List<Post> fetchAllPosts() {
+        return postDAO.fetchAllPosts();
     }
+
 }

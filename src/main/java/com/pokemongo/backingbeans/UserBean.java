@@ -1,6 +1,6 @@
 package com.pokemongo.backingbeans;
 
-import com.pokemongo.EJB.interfaces.LocalUser;
+import com.pokemongo.enterprisejavabeans.interfaces.LocalUser;
 import com.pokemongo.model.Pokemon;
 import com.pokemongo.model.User;
 
@@ -60,21 +60,13 @@ public class UserBean implements Serializable {
         this.pokemons = pokemons;
     }
 
-    public LocalUser getLocalUser() {
-        return localUser;
-    }
-
-    public void setLocalUser(LocalUser localUser) {
-        this.localUser = localUser;
-    }
-
-    public void saveUser() {
+    public void saveUserFromForm() {
         User user = new User(userName, email);
-        localUser.storeUser(user);
+        localUser.saveUser(user);
     }
 
-    public void getUser() {
-        User user = localUser.getUser(1);
+    public void fetchUser() {
+        User user = localUser.fetchUser(1);
         System.out.println(user.getUserName());
         System.out.println(user.getId());
         System.out.println(user.getPokemons().get(0).getName());
@@ -83,18 +75,25 @@ public class UserBean implements Serializable {
     @POST
     @Path("login")
     @Produces("application/json")
-    public Response saved(User user) {
-        // Get list of all users in database.
-        List<User> allUsers = localUser.getAllUsers();
-        for (User u : allUsers) {
-            // Check if user already exist in the database.
-            if (u.getEmail() != null && u.getEmail().equals(user.getEmail())) {
-                System.out.println("User already in database!");
-                return Response.status(Response.Status.FOUND).build();
+    public Response saveUser(User loggedInUser) {
+        if (checkForDuplicateUsers(loggedInUser)) {
+            return Response.status(Response.Status.FOUND).build();
+        }
+
+        localUser.saveUser(loggedInUser);
+        return Response.status(Response.Status.CREATED).build();
+    }
+
+    private boolean checkForDuplicateUsers(User loggedInUser) {
+        boolean isDuplicatedUser = false;
+        List<User> allUsers = localUser.fetchAllUsers();
+        for (User user : allUsers) {
+            if (user.getEmail() != null && user.getEmail().equals(loggedInUser.getEmail())) {
+                isDuplicatedUser = true;
+                break;
             }
         }
-        localUser.storeUser(user);
-        return Response.status(Response.Status.CREATED).build();
+        return isDuplicatedUser;
     }
 
 }

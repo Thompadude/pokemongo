@@ -1,4 +1,4 @@
-package com.pokemongo.DAO;
+package com.pokemongo.dataaccessobjects;
 
 import com.pokemongo.model.Post;
 
@@ -9,22 +9,22 @@ import java.util.List;
 
 @Stateful
 public class PostDAO {
-    
+
     @PersistenceContext
     private EntityManager em;
-    
+
     public void savePost(Post post) {
         if (em.merge(post) != null) {
-            System.out.println("Hoppla, baby!");
+            System.out.println("*LOG* " + post.getTitle() + " saved to database.");
         }
     }
-    
-    public Post getPost(long postId) {
-        
+
+    public Post fetchPost(long postId) {
         return em.find(Post.class, postId);
     }
-    
-    public List<Post> getAllPosts() {
-        return em.createNamedQuery("Post.findAll").getResultList();
+
+    public List<Post> fetchAllPosts() {
+        return em.createNamedQuery("Post.fetchAll").getResultList();
     }
+
 }

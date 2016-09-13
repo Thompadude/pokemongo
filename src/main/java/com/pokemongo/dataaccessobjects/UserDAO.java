@@ -1,4 +1,4 @@
-package com.pokemongo.DAO;
+package com.pokemongo.dataaccessobjects;
 
 import com.pokemongo.model.User;
 
@@ -13,18 +13,18 @@ public class UserDAO {
     @PersistenceContext
     EntityManager em;
 
-    public void storeUser(User user) {
+    public void saveUser(User user) {
         if (em.merge(user) != null) {
-            System.out.println("Great Success!!!");
+            System.out.println("*LOG* " + user.getUserName() + " saved to database.");
         }
     }
 
-    public User getUser(long userId) {
+    public User fetchUser(long userId) {
         return em.find(User.class, userId);
     }
 
-    public List<User> getAllUsers() {
-        return em.createNamedQuery("User.findAll").getResultList();
+    public List<User> fetchAllUsers() {
+        return em.createNamedQuery("User.fetchAll").getResultList();
     }
 
 }
