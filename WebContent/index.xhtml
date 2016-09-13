@@ -1,69 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
->
-<head>
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Pokemongo</title>
-</head>
-<body>
-Wadup yo.
-<br/>
-<br/>
-<br/>
-<h:form>
-    <h:panelGrid>
+    <title>PokeMongo</title>
+    <h:outputStylesheet library="css" name="normalize.css"></h:outputStylesheet>
+    <h:outputStylesheet library="css" name="stylesheet.css"></h:outputStylesheet>
+</h:head>
+<h:body>
 
-        <h:outputLabel for="userName" value="User Name: "/>
-        <h:inputText id="userName" value="#{userBean.userName}" required="true"/>
+    <div class="header">
 
-        <h:outputLabel for="email" value="Email: "/>
-        <h:inputText id="email" value="#{userBean.email}" required="true"/>
+        <span class="title">PokeMongo</span>
 
-        <h:commandButton action="#{userBean.saveUser()}"
-                         value="Save a user!">
-        </h:commandButton>
+        <span class="menuItem">ITEM</span>
+        <span class="menuItem">ITEM</span>
+        <span class="menuItem">ITEM</span>
+        <span class="menuItem">ITEM</span>
 
-    </h:panelGrid>
-</h:form>
-<h:form>
-    <h:commandButton action="#{pokemonBean.savePokemon}"
-                     value="Save a pokemon!">
-    </h:commandButton>
-</h:form>
+    </div>
 
-<h:form>
-    <h:commandButton action="#{userBean.getUser}"
-                     value="Get the user">
-    </h:commandButton>
-</h:form>
+    <div class="leftArea">LEFT</div>
 
-<h:form>
-    <h:commandButton action="#{postBean.getPost}"
-                     value="Get a post">
-    </h:commandButton>
-</h:form>
+    <div class="rightArea">RIGHT</div>
 
-<h:form>
-    <h:commandButton action="#{postBean.getAllPosts}"
-                     value="Get all posts">
-    </h:commandButton>
-</h:form>
+    <div class="footer">FOOTER</div>
 
-<h:form>
-    <h:outputLabel for="userName" value="Title: "/>
-    <h:inputText id="title" value="#{postBean.title}" required="true"/>
-
-    <h:outputLabel for="email" value="Content: "/>
-    <h:inputTextarea id="content" value="#{postBean.content}" required="true"/>
-
-    <h:commandButton action="#{postBean.savePost}"
-                     value="Save">
-    </h:commandButton>
-</h:form>
-
-<a href="googleLogin.jsp">Go to login</a>
-
-</body>
+</h:body>
 </html>
