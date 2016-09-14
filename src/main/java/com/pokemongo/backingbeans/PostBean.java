@@ -17,7 +17,10 @@ public class PostBean implements Serializable {
 
     private String title;
     private String content;
+    private String childPostTitle;
+    private String childPostContent;
     private List<Post> posts;
+    private List<Post> childPosts;
     @EJB
     private LocalPost localPost;
 
@@ -38,11 +41,36 @@ public class PostBean implements Serializable {
     }
 
     public List<Post> getPosts() {
-        return localPost.fetchAllPosts();
+        posts = localPost.fetchAllPosts();
+        return posts;
     }
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+
+    public List<Post> getChildPosts() {
+        return childPosts;
+    }
+
+    public void setChildPosts(List<Post> childPosts) {
+        this.childPosts = childPosts;
+    }
+
+    public String getChildPostTitle() {
+        return childPostTitle;
+    }
+
+    public void setChildPostTitle(String childPostTitle) {
+        this.childPostTitle = childPostTitle;
+    }
+
+    public String getChildPostContent() {
+        return childPostContent;
+    }
+
+    public void setChildPostContent(String childPostContent) {
+        this.childPostContent = childPostContent;
     }
 
     public void savePost() {
@@ -53,10 +81,23 @@ public class PostBean implements Serializable {
     }
 
     public void fetchPost() {
-        Post post = localPost.fetchPost(3L);
-        System.out.println(post.getTitle());
-        System.out.println(post.getContent());
-        System.out.println(post.getPostTime());
+        Post post = localPost.fetchPost(1L);
+        System.out.println(post.getChildPosts().get(2).getTitle());
+        System.out.println("*LOG* post.getTitle(): " + post.getTitle());
+        System.out.println("*LOG* post.getContent(): " + post.getContent());
+        System.out.println("*LOG* post.getPostTime(): " + post.getPostTime());
+        System.out.println("*LOG* post.getChildPosts().size(): " + post.getChildPosts().size());
+    }
+
+    public void print(long id) {
+        System.out.println("*LOG* ID of ROW: " + id);
+    }
+
+    public void addChildPost(long id) {
+        Post childPost = new Post();
+        childPost.setTitle(childPostTitle);
+        childPost.setContent(childPostContent);
+        localPost.addChildPost(id, childPost);
     }
 
 }

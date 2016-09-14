@@ -7,5 +7,6 @@
         <class>com.pokemongo.model.Pokemon</class>
         <class>com.pokemongo.model.Post</class>
         <class>com.pokemongo.model.User</class>
+        <shared-cache-mode>NONE</shared-cache-mode>
     </persistence-unit>
 </persistence>

@@ -14,4 +14,6 @@ public interface LocalPost {
 
     List<Post> fetchAllPosts();
 
+    void addChildPost(long postId, Post childPost);
+
 }

@@ -29,4 +29,11 @@ public class PostEJB implements LocalPost {
         return postDAO.fetchAllPosts();
     }
 
+    @Override
+    public void addChildPost(long postId, Post childPost) {
+        Post parentPost = postDAO.fetchPost(postId);
+        childPost.setParentPost(parentPost);
+        postDAO.savePost(childPost);
+    }
+
 }

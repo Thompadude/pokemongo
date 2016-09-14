@@ -74,12 +74,32 @@ Wadup yo.
 <br/>
 <h:dataTable value="#{postBean.posts}" var="post">
     <h:column>
+        <f:facet name="header">Post ID</f:facet>
+        #{post.id}
+    </h:column>
+    <h:column>
         <f:facet name="header">Post Title</f:facet>
         #{post.title}
     </h:column>
     <h:column>
         <f:facet name="header">Post Content</f:facet>
         #{post.content}
+    </h:column> 
+    <h:column>
+        <h:form>
+            <h:commandButton value="Get index (System.out)" action="#{postBean.print(post.id)}"/>
+        </h:form>
+    </h:column>
+    <h:column>
+        <h:form>
+            <h:outputLabel for="childPostTitle" value="Title: "/>
+            <h:inputText id="childPostTitle" value="#{postBean.childPostTitle}"/>
+
+            <h:outputLabel for="childPostContent" value="Reply: "/>
+            <h:inputText id="childPostContent" value="#{postBean.childPostContent}"/>
+
+            <h:commandButton value="Reply" action="#{postBean.addChildPost(post.id)}"/>
+        </h:form>
     </h:column>
 </h:dataTable>
 <!-- END Present all posts in a Java Server Faces loop -->
