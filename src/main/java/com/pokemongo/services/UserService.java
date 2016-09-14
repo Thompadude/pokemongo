@@ -1,6 +1,6 @@
-package com.pokemongo.dataaccessobjects;
+package com.pokemongo.services;
 
-import com.pokemongo.model.User;
+import com.pokemongo.models.User;
 
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Stateful
-public class UserDAO {
+public class UserService {
 
     @PersistenceContext
     EntityManager em;

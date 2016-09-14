@@ -1,6 +1,6 @@
-package com.pokemongo.enterprisejavabeans.interfaces;
+package com.pokemongo.business.interfaces;
 
-import com.pokemongo.model.Pokemon;
+import com.pokemongo.models.Pokemon;
 
 import javax.ejb.Local;
 

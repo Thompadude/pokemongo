@@ -1,6 +1,6 @@
-package com.pokemongo.dataaccessobjects;
+package com.pokemongo.services;
 
-import com.pokemongo.model.Post;
+import com.pokemongo.models.Post;
 
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Stateful
-public class PostDAO {
+public class PostService {
 
     @PersistenceContext
     private EntityManager em;

@@ -1,8 +1,8 @@
-package com.pokemongo.backingbeans;
+package com.pokemongo.controllers;
 
-import com.pokemongo.enterprisejavabeans.interfaces.LocalUser;
-import com.pokemongo.model.Pokemon;
-import com.pokemongo.model.User;
+import com.pokemongo.business.interfaces.LocalUser;
+import com.pokemongo.models.Pokemon;
+import com.pokemongo.models.User;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -15,9 +15,9 @@ import java.io.Serializable;
 import java.util.List;
 
 @Path("user")
-@Named(value = "userBean")
+@Named(value = "userController")
 @SessionScoped
-public class UserBean implements Serializable {
+public class UserController implements Serializable {
 
     private static final long serialVersionUID = 288653009259087195L;
 

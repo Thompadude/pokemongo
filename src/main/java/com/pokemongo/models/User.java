@@ -1,4 +1,4 @@
-package com.pokemongo.model;
+package com.pokemongo.models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

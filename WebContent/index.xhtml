@@ -16,49 +16,49 @@ Wadup yo.
     <h:panelGrid>
 
         <h:outputLabel for="userName" value="User Name: "/>
-        <h:inputText id="userName" value="#{userBean.userName}" required="true"/>
+        <h:inputText id="userName" value="#{userController.userName}" required="true"/>
 
         <h:outputLabel for="email" value="Email: "/>
-        <h:inputText id="email" value="#{userBean.email}" required="true"/>
+        <h:inputText id="email" value="#{userController.email}" required="true"/>
 
-        <h:commandButton action="#{userBean.saveUserFromForm()}"
+        <h:commandButton action="#{userController.saveUserFromForm()}"
                          value="Save a user!">
         </h:commandButton>
 
     </h:panelGrid>
 </h:form>
 <h:form>
-    <h:commandButton action="#{pokemonBean.savePokemon}"
+    <h:commandButton action="#{pokemonController.savePokemon}"
                      value="Save a pokemon!">
     </h:commandButton>
 </h:form>
 
 <h:form>
-    <h:commandButton action="#{userBean.fetchUser}"
+    <h:commandButton action="#{userController.fetchUser}"
                      value="Get the user">
     </h:commandButton>
 </h:form>
 
 <h:form>
-    <h:commandButton action="#{postBean.fetchPost}"
+    <h:commandButton action="#{postController.fetchPost}"
                      value="Get a post">
     </h:commandButton>
 </h:form>
 
 <h:form>
-    <h:commandButton action="#{postBean.fetchAllPosts}"
+    <h:commandButton action="#{postController.fetchAllPosts}"
                      value="Get all posts">
     </h:commandButton>
 </h:form>
 
 <h:form>
     <h:outputLabel for="userName" value="Title: "/>
-    <h:inputText id="title" value="#{postBean.title}" required="true"/>
+    <h:inputText id="title" value="#{postController.title}" required="true"/>
 
     <h:outputLabel for="email" value="Content: "/>
-    <h:inputTextarea id="content" value="#{postBean.content}" required="true"/>
+    <h:inputTextarea id="content" value="#{postController.content}" required="true"/>
 
-    <h:commandButton action="#{postBean.savePost}"
+    <h:commandButton action="#{postController.savePost}"
                      value="Save">
     </h:commandButton>
 </h:form>
@@ -72,7 +72,7 @@ Wadup yo.
 <br/>
 <br/>
 <br/>
-<h:dataTable value="#{postBean.postsWithoutParent}" var="post">
+<h:dataTable value="#{postController.postsWithoutParent}" var="post">
     <h:column>
         <f:facet name="header">Post ID</f:facet>
         #{post.id}
@@ -87,18 +87,18 @@ Wadup yo.
     </h:column> 
     <h:column>
         <h:form>
-            <h:commandButton value="Get index (System.out)" action="#{postBean.print(post.id)}"/>
+            <h:commandButton value="Get index (System.out)" action="#{postController.print(post.id)}"/>
         </h:form>
     </h:column>
     <h:column>
         <h:form>
             <h:outputLabel for="childPostTitle" value="Title: "/>
-            <h:inputText id="childPostTitle" value="#{postBean.childPostTitle}"/>
+            <h:inputText id="childPostTitle" value="#{postController.childPostTitle}"/>
 
             <h:outputLabel for="childPostContent" value="Reply: "/>
-            <h:inputText id="childPostContent" value="#{postBean.childPostContent}"/>
+            <h:inputText id="childPostContent" value="#{postController.childPostContent}"/>
 
-            <h:commandButton value="Reply" action="#{postBean.addChildPost(post.id)}"/>
+            <h:commandButton value="Reply" action="#{postController.addChildPost(post.id)}"/>
         </h:form>
     </h:column>
 </h:dataTable>

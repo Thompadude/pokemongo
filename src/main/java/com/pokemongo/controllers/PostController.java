@@ -1,7 +1,7 @@
-package com.pokemongo.backingbeans;
+package com.pokemongo.controllers;
 
-import com.pokemongo.enterprisejavabeans.interfaces.LocalPost;
-import com.pokemongo.model.Post;
+import com.pokemongo.business.interfaces.LocalPost;
+import com.pokemongo.models.Post;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -9,9 +9,9 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-@Named(value = "postBean")
+@Named(value = "postController")
 @SessionScoped
-public class PostBean implements Serializable {
+public class PostController implements Serializable {
 
     private static final long serialVersionUID = -5930735123556838017L;
 

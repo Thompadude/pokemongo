@@ -1,17 +1,17 @@
-package com.pokemongo.backingbeans;
+package com.pokemongo.controllers;
 
-import com.pokemongo.enterprisejavabeans.interfaces.LocalPokemon;
-import com.pokemongo.model.Pokemon;
-import com.pokemongo.model.User;
+import com.pokemongo.business.interfaces.LocalPokemon;
+import com.pokemongo.models.Pokemon;
+import com.pokemongo.models.User;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 
-@Named(value = "pokemonBean")
+@Named(value = "pokemonController")
 @SessionScoped
-public class PokemonBean implements Serializable {
+public class PokemonController implements Serializable {
 
     private static final long serialVersionUID = -4300941170573356047L;
 

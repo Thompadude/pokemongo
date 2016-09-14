@@ -1,6 +1,6 @@
-package com.pokemongo.enterprisejavabeans.interfaces;
+package com.pokemongo.business.interfaces;
 
-import com.pokemongo.model.Post;
+import com.pokemongo.models.Post;
 
 import javax.ejb.Local;
 import java.util.List;

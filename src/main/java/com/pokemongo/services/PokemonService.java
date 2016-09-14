@@ -1,14 +1,13 @@
-package com.pokemongo.dataaccessobjects;
+package com.pokemongo.services;
 
-import com.pokemongo.model.Pokemon;
+import com.pokemongo.models.Pokemon;
 
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.logging.Logger;
 
 @Stateful
-public class PokemonDAO {
+public class PokemonService {
 
     @PersistenceContext
     private EntityManager em;
