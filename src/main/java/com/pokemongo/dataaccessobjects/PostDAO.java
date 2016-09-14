@@ -27,4 +27,8 @@ public class PostDAO {
         return em.createNamedQuery("Post.fetchAll").getResultList();
     }
 
+    public List<Post> fetchPostsWithoutParent() {
+        return em.createNamedQuery("Post.fetchPostsWithoutParent").getResultList();
+    }
+
 }

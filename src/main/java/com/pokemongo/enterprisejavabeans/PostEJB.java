@@ -36,4 +36,9 @@ public class PostEJB implements LocalPost {
         postDAO.savePost(childPost);
     }
 
+    @Override
+    public List<Post> fetchPostsWithoutParent() {
+        return postDAO.fetchPostsWithoutParent();
+    }
+
 }

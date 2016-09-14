@@ -6,7 +6,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@NamedQuery(name = "Post.fetchAll", query = "SELECT p FROM Post p")
+@NamedQueries({
+        @NamedQuery(name = "Post.fetchAll", query = "SELECT p FROM Post p"),
+        @NamedQuery(name = "Post.fetchPostsWithoutParent", query = "SELECT p FROM Post p WHERE p.parentPost = NULL")
+})
 public class Post implements Serializable {
 
     private static final long serialVersionUID = 6787577451747845441L;

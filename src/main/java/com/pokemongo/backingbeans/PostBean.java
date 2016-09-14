@@ -20,6 +20,7 @@ public class PostBean implements Serializable {
     private String childPostTitle;
     private String childPostContent;
     private List<Post> posts;
+    private List<Post> postsWithoutParent;
     private List<Post> childPosts;
     @EJB
     private LocalPost localPost;
@@ -47,6 +48,15 @@ public class PostBean implements Serializable {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+
+    public List<Post> getPostsWithoutParent() {
+        postsWithoutParent = localPost.fetchPostsWithoutParent();
+        return postsWithoutParent;
+    }
+
+    public void setPostsWithoutParent(List<Post> postsWithoutParent) {
+        this.postsWithoutParent = postsWithoutParent;
     }
 
     public List<Post> getChildPosts() {

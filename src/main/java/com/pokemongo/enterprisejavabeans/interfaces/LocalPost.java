@@ -16,4 +16,6 @@ public interface LocalPost {
 
     void addChildPost(long postId, Post childPost);
 
+    List<Post> fetchPostsWithoutParent();
+
 }
