@@ -38,7 +38,7 @@ public class PostBean implements Serializable {
     }
 
     public List<Post> getPosts() {
-        return posts;
+        return localPost.fetchAllPosts();
     }
 
     public void setPosts(List<Post> posts) {
@@ -57,11 +57,6 @@ public class PostBean implements Serializable {
         System.out.println(post.getTitle());
         System.out.println(post.getContent());
         System.out.println(post.getPostTime());
-    }
-
-    public void fetchAllPosts() {
-        posts = localPost.fetchAllPosts();
-        System.out.println(posts);
     }
 
 }
