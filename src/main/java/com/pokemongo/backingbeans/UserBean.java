@@ -62,7 +62,9 @@ public class UserBean implements Serializable {
 
     public void saveUserFromForm() {
         User user = new User(userName, email);
-        localUser.saveUser(user);
+        if (!checkForDuplicateUsers(user)) {
+            localUser.saveUser(user);
+        }
     }
 
     public void fetchUser() {
