@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
@@ -11,35 +13,69 @@
     <title>PokeMongo</title>
 
     <h:outputStylesheet library="css" name="normalize.css"></h:outputStylesheet>
-    <h:outputStylesheet library="css" name="stylesheet.css"></h:outputStylesheet>
+    <h:outputStylesheet library="css" name="main.css"></h:outputStylesheet>
 
     <script src="https://apis.google.com/js/platform.js" async="async" defer="defer"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
+    <h:outputStylesheet library="css" name="normalize.css"></h:outputStylesheet>
+    <h:outputStylesheet library="css" name="main.css"></h:outputStylesheet>
+
 </h:head>
 <h:body>
 
+    <b:navBar brand="PokeMongo" brandHref="#" position="top" sticky="false">
+        <b:navbarLinks>
+            <b:navLink value="PokePortal" href="#"></b:navLink>
+            <b:navLink value="My Profile" href="#"></b:navLink>
 
-    <div class="header">
+        </b:navbarLinks>
+        <b:navbarLinks pull="right">
+            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+            <a href="#" onclick="signOut();">Sign out</a>
+        </b:navbarLinks>
+    </b:navBar>
 
-        <span class="title">PokeMongo</span>
+    <b:container>
+        <b:row>
+            <b:column mediumScreen="6" styleClass="leftSection">
 
-        <span class="menuItem">ITEM</span>
-        <span class="menuItem">ITEM</span>
-        <span class="menuItem">ITEM</span>
-        <span class="menuItem">ITEM</span>
+                <b:row>
+                    <b:column span="12">
+                        <div class="post">post</div>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="11" offset="1">
+                        <div class="post reply">reply</div>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="10" offset="2">
+                        <div class="post reply">reply</div>
+                    </b:column>
+                </b:row>
 
-    </div>
+                <b:row>
+                    <b:column span="12">
+                        <div class="post">post</div>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="11" offset="1">
+                        <div class="post reply">reply</div>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="10" offset="2">
+                        <div class="post reply">reply</div>
+                    </b:column>
+                </b:row>
 
-    <div class="leftArea">LEFT</div>
-
-    <div class="rightArea">RIGHT</div>
-
-    <div class="footer">FOOTER</div>
-
-    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-    <a href="#" onclick="signOut();">Sign out</a>
-
+            </b:column>
+            <b:column mediumScreen="6" styleClass="rightSection"></b:column>
+        </b:row>
+    </b:container>
 
 </h:body>
 

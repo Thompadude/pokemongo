@@ -13,8 +13,6 @@ function onSignIn(googleUser) {
         tokenId: id_token
     };
 
-    console.log(user);
-
     // AJAX POST call to backend.
     var basicUrl = 'http://localhost:8080/PokeMongo/api/';
     $.ajax({
