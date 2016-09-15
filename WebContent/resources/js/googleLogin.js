@@ -2,11 +2,8 @@
 
 'use strict';
 
-console.log(sessionStorage.getItem('isSignedIn'));
-
 function onSignIn(googleUser) {
-    debugger;
-    if (sessionStorage.getItem('isSignedIn') === 'false') {
+    if (sessionStorage.getItem('isSignedIn') === 'false' || sessionStorage.getItem('isSignedIn') === null) {
         sessionStorage.setItem('isSignedIn', "true");
 
         var profile = googleUser.getBasicProfile();
@@ -16,12 +13,12 @@ function onSignIn(googleUser) {
         document.getElementById("hiddenGoogleLoginForm:email").value = profile.getEmail();
         document.getElementById("hiddenGoogleLoginForm:tokenId").value = id_token;
         // TODO fix this. Won't work :-(
-        document.getElementById("hiddenGoogleLoginForm").submit();
+        //document.getElementById("hiddenGoogleLoginForm").submit();
+        $('.submitButton').click();
     }
 }
 
 function signOut() {
-    debugger;
     sessionStorage.setItem('isSignedIn', "false");
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
