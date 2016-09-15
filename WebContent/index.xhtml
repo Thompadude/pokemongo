@@ -1,108 +1,84 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
->
-<head>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+<h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Pokemongo</title>
-</head>
-<body>
-Wadup yo.
-<br/>
-<br/>
-<br/>
-<h:form>
-    <h:panelGrid>
 
-        <h:outputLabel for="userName" value="User Name: "/>
-        <h:inputText id="userName" value="#{userController.userName}" required="true"/>
+    <meta name="google-signin-scope" content="profile email"></meta>
+    <meta name="google-signin-client_id"
+          content="85390473584-aead42mt4mhtf5d2brevqd0dan46s0d7.apps.googleusercontent.com"></meta>
 
-        <h:outputLabel for="email" value="Email: "/>
-        <h:inputText id="email" value="#{userController.email}" required="true"/>
+    <title>PokeMongo</title>
 
-        <h:commandButton action="#{userController.saveUserFromForm()}"
-                         value="Save a user!">
-        </h:commandButton>
+    <h:outputStylesheet library="css" name="normalize.css"></h:outputStylesheet>
+    <h:outputStylesheet library="css" name="main.css"></h:outputStylesheet>
 
-    </h:panelGrid>
-</h:form>
-<h:form>
-    <h:commandButton action="#{pokemonController.savePokemon}"
-                     value="Save a pokemon!">
-    </h:commandButton>
-</h:form>
+    <script src="https://apis.google.com/js/platform.js" async="async" defer="defer"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
-<h:form>
-    <h:commandButton action="#{userController.fetchUser}"
-                     value="Get the user">
-    </h:commandButton>
-</h:form>
+    <h:outputStylesheet library="css" name="normalize.css"></h:outputStylesheet>
+    <h:outputStylesheet library="css" name="main.css"></h:outputStylesheet>
 
-<h:form>
-    <h:commandButton action="#{postController.fetchPost}"
-                     value="Get a post">
-    </h:commandButton>
-</h:form>
+</h:head>
+<h:body>
 
-<h:form>
-    <h:commandButton action="#{postController.fetchAllPosts}"
-                     value="Get all posts">
-    </h:commandButton>
-</h:form>
+    <b:navBar brand="PokeMongo" brandHref="#" position="top" sticky="false">
+        <b:navbarLinks>
+            <b:navLink value="PokePortal" href="#"></b:navLink>
+            <b:navLink value="My Profile" href="#"></b:navLink>
 
-<h:form>
-    <h:outputLabel for="userName" value="Title: "/>
-    <h:inputText id="title" value="#{postController.title}" required="true"/>
+        </b:navbarLinks>
+        <b:navbarLinks pull="right">
+            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+            <a href="#" onclick="signOut();">Sign out</a>
+        </b:navbarLinks>
+    </b:navBar>
 
-    <h:outputLabel for="email" value="Content: "/>
-    <h:inputTextarea id="content" value="#{postController.content}" required="true"/>
+    <b:container>
+        <b:row>
+            <b:column mediumScreen="6" styleClass="leftSection">
 
-    <h:commandButton action="#{postController.savePost}"
-                     value="Save">
-    </h:commandButton>
-</h:form>
+                <b:row>
+                    <b:column span="12">
+                        <div class="post">post</div>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="11" offset="1">
+                        <div class="post reply">reply</div>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="10" offset="2">
+                        <div class="post reply">reply</div>
+                    </b:column>
+                </b:row>
 
-<a href="googleLogin.jsp">Go to login</a>
+                <b:row>
+                    <b:column span="12">
+                        <div class="post">post</div>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="11" offset="1">
+                        <div class="post reply">reply</div>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="10" offset="2">
+                        <div class="post reply">reply</div>
+                    </b:column>
+                </b:row>
 
-<!-- START Present all posts in a Java Server Faces loop -->
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<h:dataTable value="#{postController.postsWithoutParent}" var="post">
-    <h:column>
-        <f:facet name="header">Post ID</f:facet>
-        #{post.id}
-    </h:column>
-    <h:column>
-        <f:facet name="header">Post Title</f:facet>
-        #{post.title}
-    </h:column>
-    <h:column>
-        <f:facet name="header">Post Content</f:facet>
-        #{post.content}
-    </h:column> 
-    <h:column>
-        <h:form>
-            <h:commandButton value="Get index (System.out)" action="#{postController.print(post.id)}"/>
-        </h:form>
-    </h:column>
-    <h:column>
-        <h:form>
-            <h:outputLabel for="childPostTitle" value="Title: "/>
-            <h:inputText id="childPostTitle" value="#{postController.childPostTitle}"/>
+            </b:column>
+            <b:column mediumScreen="6" styleClass="rightSection"></b:column>
+        </b:row>
+    </b:container>
 
-            <h:outputLabel for="childPostContent" value="Reply: "/>
-            <h:inputText id="childPostContent" value="#{postController.childPostContent}"/>
+</h:body>
 
-            <h:commandButton value="Reply" action="#{postController.addChildPost(post.id)}"/>
-        </h:form>
-    </h:column>
-</h:dataTable>
-<!-- END Present all posts in a Java Server Faces loop -->
+<h:outputScript library="js" name="googleLogin.js"></h:outputScript>
 
-</body>
 </html>
