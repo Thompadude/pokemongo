@@ -23,6 +23,6 @@
     margin-top: 0.5rem;
 }
 
-/*#hiddenGoogleLoginForm {*/
-    /*display: none;*/
-/*}*/
+#hiddenGoogleLoginForm {
+    display: none;
+}
