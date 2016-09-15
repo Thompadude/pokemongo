@@ -6,6 +6,8 @@ import com.pokemongo.models.User;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -13,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 @Path("user")
 @Named(value = "userController")
@@ -96,6 +99,28 @@ public class UserController implements Serializable {
             }
         }
         return isDuplicatedUser;
+    }
+
+    private <T> void setSessionObject(T object) {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        Map<String, Object> sessionMap = externalContext.getSessionMap();
+        sessionMap.put("data", object);
+    }
+
+    public void testPrintUser() {
+        System.out.println("*LOG* userName: " + userName);
+        System.out.println("*LOG* email: " + email);
+        System.out.println("*LOG* tokenId: " + tokenId);
+
+        User user = new User(userName, email, tokenId);
+
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        Map<String, Object> sessionMap = externalContext.getSessionMap();
+        sessionMap.put("data", user);
+
+        User test = (User) sessionMap.get("data");
+
+        System.out.println("*LOG* SESSION: " + test.getUserName());
     }
 
 }

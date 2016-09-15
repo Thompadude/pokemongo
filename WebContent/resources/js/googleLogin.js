@@ -2,30 +2,25 @@
 
 'use strict';
 
+console.log(sessionStorage.getItem('isSignedIn'));
+
 function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    var id_token = googleUser.getAuthResponse().id_token;
+    if (!sessionStorage.getItem('isSignedIn')) {
+        var profile = googleUser.getBasicProfile();
+        var id_token = googleUser.getAuthResponse().id_token;
 
-    // Fetch the desired data from the profile.
-    var user = {
-        userName: profile.getName(),
-        email: profile.getEmail(),
-        tokenId: id_token
-    };
+        document.getElementById("hiddenGoogleLoginForm:userName").value = profile.getName();
+        document.getElementById("hiddenGoogleLoginForm:email").value = profile.getEmail();
+        document.getElementById("hiddenGoogleLoginForm:tokenId").value = id_token;
+        document.getElementById("hiddenGoogleLoginForm").submit();
+    }
 
-    // AJAX POST call to backend.
-    var basicUrl = 'http://localhost:8080/PokeMongo/api/';
-    $.ajax({
-        url: basicUrl + 'user/login',
-        method: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(user)
-    });
-}
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+            sessionStorage.setItem('isSignedIn', false);
+        });
+    }
 
-function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-        console.log('User signed out.');
-    });
 }

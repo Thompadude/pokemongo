@@ -21,6 +21,12 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "owner")
     private List<Pokemon> pokemons;
 
+    public User(String userName, String email, String tokenId) {
+        this.userName = userName;
+        this.email = email;
+        this.tokenId = tokenId;
+    }
+
     public User(String userName, String email) {
         this.userName = userName;
         this.email = email;
