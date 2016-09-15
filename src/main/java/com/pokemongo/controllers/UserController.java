@@ -9,10 +9,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -77,16 +74,12 @@ public class UserController implements Serializable {
         System.out.println(user.getPokemons().get(0).getName());
     }
 
-    @POST
-    @Path("login")
-    @Produces("application/json")
-    public Response saveUser(User loggedInUser) {
-        if (checkForDuplicateUsers(loggedInUser)) {
-            return Response.status(Response.Status.FOUND).build();
+    public void saveUser() {
+        User user = new User(userName, email, tokenId);
+        if (!checkForDuplicateUsers(user)) {
+            localUser.saveUser(user);
         }
-
-        localUser.saveUser(loggedInUser);
-        return Response.status(Response.Status.CREATED).build();
+        setSessionObject(user);
     }
 
     private boolean checkForDuplicateUsers(User loggedInUser) {
@@ -101,26 +94,10 @@ public class UserController implements Serializable {
         return isDuplicatedUser;
     }
 
-    private <T> void setSessionObject(T object) {
+    private void setSessionObject(User loggedInUser) {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Map<String, Object> sessionMap = externalContext.getSessionMap();
-        sessionMap.put("data", object);
-    }
-
-    public void testPrintUser() {
-        System.out.println("*LOG* userName: " + userName);
-        System.out.println("*LOG* email: " + email);
-        System.out.println("*LOG* tokenId: " + tokenId);
-
-        User user = new User(userName, email, tokenId);
-
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, Object> sessionMap = externalContext.getSessionMap();
-        sessionMap.put("data", user);
-
-        User test = (User) sessionMap.get("data");
-
-        System.out.println("*LOG* SESSION: " + test.getUserName());
+        sessionMap.put("loggedInUser", loggedInUser);
     }
 
 }
