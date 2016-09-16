@@ -6,7 +6,7 @@ import javax.ejb.Local;
 import java.util.List;
 
 @Local
-public interface LocalPost {
+public interface PostHandler {
 
     void savePost(Post post);
 

@@ -1,7 +1,7 @@
 package com.pokemongo.business;
 
 import com.pokemongo.services.PostService;
-import com.pokemongo.business.interfaces.LocalPost;
+import com.pokemongo.business.interfaces.PostHandler;
 import com.pokemongo.models.Post;
 
 import javax.ejb.EJB;
@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 import java.util.List;
 
 @Stateless
-public class PostHandler implements LocalPost {
+public class PostEJB implements PostHandler {
 
     @EJB
     private PostService postService;

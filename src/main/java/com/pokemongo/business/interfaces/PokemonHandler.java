@@ -5,7 +5,7 @@ import com.pokemongo.models.Pokemon;
 import javax.ejb.Local;
 
 @Local
-public interface LocalPokemon {
+public interface PokemonHandler {
 
     void savePokemon(Pokemon pokemon);
 

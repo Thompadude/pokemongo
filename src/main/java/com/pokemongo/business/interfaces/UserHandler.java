@@ -6,12 +6,13 @@ import javax.ejb.Local;
 import java.util.List;
 
 @Local
-public interface LocalUser {
+public interface UserHandler {
 
     void saveUser(User user);
 
     User fetchUser(long userId);
 
     List<User> fetchAllUsers();
-
+    
+    boolean isDuplicate(User user);
 }
