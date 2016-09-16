@@ -44,6 +44,12 @@ public class UserController implements Serializable {
         sessionMap.put("loggedInUser", loggedInUser);
     }
     
+    public User fetchLoggedInUser () {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        Map<String, Object> sessionMap = externalContext.getSessionMap();
+        return (User) sessionMap.get("loggedInUser");
+    }
+    
     /* Getters and Setters */
     
     public String getUserName() {

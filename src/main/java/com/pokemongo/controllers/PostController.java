@@ -2,9 +2,13 @@ package com.pokemongo.controllers;
 
 import com.pokemongo.business.interfaces.PostHandler;
 import com.pokemongo.models.Post;
+import com.pokemongo.models.User;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedProperty;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -12,9 +16,9 @@ import java.util.List;
 @Named(value = "postController")
 @SessionScoped
 public class PostController implements Serializable {
-
+    
     private static final long serialVersionUID = -5930735123556838017L;
-
+    
     private String title;
     private String content;
     private String childPostTitle;
@@ -24,11 +28,13 @@ public class PostController implements Serializable {
     private List<Post> childPosts;
     @EJB
     private PostHandler postHandler;
-
+    @Inject
+    private UserController userController;
     public void savePost() {
         Post post = new Post();
         post.setTitle(title);
         post.setContent(content);
+        post.setAuthor(userController.fetchLoggedInUser());
         postHandler.savePost(post);
     }
     
@@ -54,6 +60,14 @@ public class PostController implements Serializable {
     }
     
     /* Getters and Setters */
+    
+    public UserController getUserController() {
+        return userController;
+    }
+    
+    public void setUserController(UserController userController) {
+        this.userController = userController;
+    }
     
     public String getTitle() {
         return title;
@@ -112,5 +126,5 @@ public class PostController implements Serializable {
     public void setChildPostContent(String childPostContent) {
         this.childPostContent = childPostContent;
     }
-
+    
 }
