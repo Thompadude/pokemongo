@@ -45,4 +45,9 @@ public class UserEJB implements UserHandler {
         return isDuplicatedUser;
     }
     
+    @Override
+    public User fetchUserByEmail(String email) {
+        return userService.fetchUserByEmail(email);
+    }
+    
 }

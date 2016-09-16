@@ -15,4 +15,6 @@ public interface UserHandler {
     List<User> fetchAllUsers();
     
     boolean isDuplicate(User user);
+    
+    User fetchUserByEmail(String tokenId);
 }

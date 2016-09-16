@@ -26,5 +26,8 @@ public class UserService {
     public List<User> fetchAllUsers() {
         return em.createNamedQuery("User.fetchAll").getResultList();
     }
-
+    
+    public User fetchUserByEmail(String email) {
+        return em.createNamedQuery("User.fetchByEmail", User.class).setParameter("email", email).getSingleResult();
+    }
 }

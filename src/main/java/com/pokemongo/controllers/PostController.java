@@ -34,7 +34,9 @@ public class PostController implements Serializable {
         Post post = new Post();
         post.setTitle(title);
         post.setContent(content);
-        post.setAuthor(userController.fetchLoggedInUser());
+        User author = userController.fetchLoggedInUser();
+        System.out.println("THE ID: " + author.getId());
+        post.setAuthor(author);
         postHandler.savePost(post);
     }
     

@@ -26,8 +26,8 @@ public class UserController implements Serializable {
     @EJB
     private UserHandler userHandler;
 
-    public void fetchUser() {
-        //TODO write dis
+    public User fetchUserByToken(String tokenId) {
+        return userHandler.fetchUserByEmail(tokenId);
     }
     
     public void saveUser() {
@@ -41,13 +41,23 @@ public class UserController implements Serializable {
     private void setLoggedInUser(User loggedInUser) {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Map<String, Object> sessionMap = externalContext.getSessionMap();
-        sessionMap.put("loggedInUser", loggedInUser);
+        
+        User sessionUser = userHandler.fetchUserByEmail(loggedInUser.getEmail());
+        
+        sessionMap.put("loggedInUser", sessionUser);
+        
+        System.out.println("Logged in user is: " + sessionMap.get("loggedInUser"));
     }
     
     public User fetchLoggedInUser () {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Map<String, Object> sessionMap = externalContext.getSessionMap();
-        return (User) sessionMap.get("loggedInUser");
+        
+        User returnUser = (User) sessionMap.get("loggedInUser");
+        
+        System.out.println("FETCHED: " + returnUser.getId() + ", " + returnUser.getUserName());
+        
+        return returnUser;
     }
     
     /* Getters and Setters */

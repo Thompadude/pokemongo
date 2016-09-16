@@ -3,8 +3,8 @@
 $('#hiddenGoogleLoginForm').find('input[type=text]').val('');
 
 function onSignIn(googleUser) {
-    if (sessionStorage.getItem('isSignedIn') === 'false' || sessionStorage.getItem('isSignedIn') === null) {
-        sessionStorage.setItem('isSignedIn', "true");
+    //if (sessionStorage.getItem('isSignedIn') === 'false' || sessionStorage.getItem('isSignedIn') === null) {
+    //    sessionStorage.setItem('isSignedIn', "true");
 
         var profile = googleUser.getBasicProfile();
         var id_token = googleUser.getAuthResponse().id_token;
@@ -15,7 +15,7 @@ function onSignIn(googleUser) {
         document.getElementById("hiddenGoogleLoginForm:email").value = profile.getEmail();
         document.getElementById("hiddenGoogleLoginForm:tokenId").value = id_token;
         $('.submitButton').click();
-    }
+   // }
 }
 
 function signOut() {
