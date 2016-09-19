@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui">
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -23,6 +24,7 @@
 </h:head>
 <h:body>
 
+    <!-- NavBar -->
     <b:navBar brand="PokeMongo" brandHref="#" position="top" sticky="false">
         <b:navbarLinks>
             <b:navLink value="PokePortal" href="#"></b:navLink>
@@ -37,53 +39,43 @@
 
     <b:container>
         <b:row>
+
+            <!--Left Section-->
             <b:column mediumScreen="6" styleClass="leftSection">
 
                 <b:row>
                     <b:column mediumScreen="12">
 
+                        <!-- New Post Form -->
                         <h:form>
                             <b:inputText placeholder="Post title" id="title" value="#{postController.title}"/>
-                            <b:inputTextarea placeholder="Write new post..." id="content" value="#{postController.content}"/>
+                            <b:inputTextarea placeholder="Write new post..." id="content"
+                                             value="#{postController.content}"/>
                             <b:commandButton value="Post!" look="primary" action="#{postController.savePost}"/>
                         </h:form>
-
                     </b:column>
                 </b:row>
 
                 <b:row>
-                    <b:column span="12">
-                        <div class="post">post</div>
-                    </b:column>
-                </b:row>
-                <b:row>
-                    <b:column span="11" offset="1">
-                        <div class="post reply">reply</div>
-                    </b:column>
-                </b:row>
-                <b:row>
-                    <b:column span="10" offset="2">
-                        <div class="post reply">reply</div>
-                    </b:column>
-                </b:row>
-
-                <b:row>
-                    <b:column span="12">
-                        <div class="post">post</div>
-                    </b:column>
-                </b:row>
-                <b:row>
-                    <b:column span="11" offset="1">
-                        <div class="post reply">reply</div>
-                    </b:column>
-                </b:row>
-                <b:row>
-                    <b:column span="10" offset="2">
-                        <div class="post reply">reply</div>
+                    <b:column mediumScreen="12">
+                        <h:form>
+                            <ul>
+                                <ui:repeat value="#{postController.postsWithoutParent}" var="post">
+                                    <li><h:outputText value="#{post.title}"/><h:outputText value="#{post.id}"/></li>
+                                    <ul>
+                                        <ui:repeat value="#{post.childPosts}" var="child">
+                                            <li><h:outputText value="#{child.title}"/></li>
+                                        </ui:repeat>
+                                    </ul>
+                                </ui:repeat>
+                            </ul>
+                        </h:form>
                     </b:column>
                 </b:row>
 
             </b:column>
+
+            <!--Right Section-->
             <b:column mediumScreen="6" styleClass="rightSection"></b:column>
         </b:row>
     </b:container>
@@ -92,7 +84,8 @@
         <h:inputText id="userName" value="#{userController.userName}"></h:inputText>
         <h:inputText id="email" value="#{userController.email}"></h:inputText>
         <h:inputText id="tokenId" value="#{userController.tokenId}"></h:inputText>
-        <b:commandButton styleClass="submitButton" ajax="true" update="@none" action="#{userController.saveUser}"></b:commandButton>
+        <b:commandButton styleClass="submitButton" ajax="true" update="@none"
+                         action="#{userController.saveUser}"></b:commandButton>
     </h:form>
 
 
