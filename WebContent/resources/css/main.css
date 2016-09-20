@@ -1,28 +1,22 @@
 .leftSection {
-    height: 50rem;
-}
+  height: 50rem; }
 
 .rightSection {
-    background-image: url("#{resource['img:pokemonMap.png']}");
-    height: 50rem;
-}
+  height: 50rem; }
 
 .post {
-    border: 1px solid #000;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-
-    background-color: chocolate;
-
-    margin-top: 1rem;
-    margin-right: 1rem;
-}
+  border: 1px solid #000;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  background-color: beige;
+  margin-top: 1rem;
+  margin-right: 1rem; }
 
 .reply {
-    background-color: #d2926c;
-    margin-top: 0.5rem;
-}
+  margin-top: 0.5rem;
+  color: red; }
 
 #hiddenGoogleLoginForm {
-    /*display: none;*/
-}
+  display: none; }
+
+/*# sourceMappingURL=main.css.map */
