@@ -15,6 +15,7 @@ public class Post implements Serializable {
     private static final long serialVersionUID = 6787577451747845441L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String content;
@@ -25,7 +26,7 @@ public class Post implements Serializable {
     @ManyToOne
     @JoinColumn(name = "parentPostId")
     private Post parentPost;
-    @OneToMany(mappedBy = "parentPost")
+    @OneToMany(mappedBy = "parentPost", fetch = FetchType.EAGER)
     private List<Post> childPosts;
 
     public Long getId() {
