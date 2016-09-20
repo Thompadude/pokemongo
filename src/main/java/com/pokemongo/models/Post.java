@@ -29,6 +29,14 @@ public class Post implements Serializable {
     @OneToMany(mappedBy = "parentPost", fetch = FetchType.EAGER)
     private List<Post> childPosts;
 
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public Post() {
+    }
+
     public Long getId() {
         return id;
     }

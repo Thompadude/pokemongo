@@ -1,11 +1,15 @@
 package com.pokemongo.business;
 
-import com.pokemongo.services.PostService;
 import com.pokemongo.business.interfaces.PostHandler;
+import com.pokemongo.controllers.UserController;
+import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Post;
+import com.pokemongo.models.User;
+import com.pokemongo.services.PostService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.util.List;
 
 @Stateless
@@ -13,10 +17,18 @@ public class PostEJB implements PostHandler {
 
     @EJB
     private PostService postService;
+    @Inject
+    private UserController userController;
 
     @Override
-    public void savePost(Post post) {
-        postService.savePost(post);
+    public void savePost(Post post) throws UserNotLoggedInException {
+        if (userController.fetchLoggedInUser() != null) {
+            User author = userController.fetchLoggedInUser();
+            post.setAuthor(author);
+            postService.savePost(post);
+        } else {
+            throw new UserNotLoggedInException();
+        }
     }
 
     @Override
