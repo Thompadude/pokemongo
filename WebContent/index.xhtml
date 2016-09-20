@@ -47,7 +47,8 @@
                     <b:column mediumScreen="12">
 
                         <!-- New Post Form -->
-                        <h:form>
+                        <h:form id="postForm">
+                            <h:messages></h:messages>
                             <b:inputText placeholder="Post title" id="title" value="#{postController.title}"/>
                             <b:inputTextarea placeholder="Write new post..." id="content"
                                              value="#{postController.content}"/>
@@ -86,6 +87,8 @@
         <h:inputText id="tokenId" value="#{userController.tokenId}"></h:inputText>
         <b:commandButton styleClass="submitButton" ajax="true" update="@none"
                          action="#{userController.saveUser}"></b:commandButton>
+        <b:commandButton styleClass="logOutButton" ajax="true" update="@none"
+                         action="#{userController.logOutUser}"></b:commandButton>
     </h:form>
 
 

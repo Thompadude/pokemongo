@@ -1,9 +1,6 @@
 package com.pokemongo.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -12,6 +9,7 @@ public class Pokemon implements Serializable {
     private static final long serialVersionUID = -1790191399726700022L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer pokedexNumber;
     private String name;

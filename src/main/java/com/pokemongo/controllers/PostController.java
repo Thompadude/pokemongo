@@ -7,7 +7,10 @@ import com.pokemongo.models.User;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
+import javax.faces.view.facelets.Facelet;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -34,10 +37,15 @@ public class PostController implements Serializable {
         Post post = new Post();
         post.setTitle(title);
         post.setContent(content);
-        User author = userController.fetchLoggedInUser();
-        System.out.println("THE ID: " + author.getId());
-        post.setAuthor(author);
-        postHandler.savePost(post);
+        if (userController.fetchLoggedInUser() != null) {
+            User author = userController.fetchLoggedInUser();
+            System.out.println("THE ID: " + author.getId());
+            post.setAuthor(author);
+            postHandler.savePost(post);
+        } else {
+            FacesMessage message = new FacesMessage("You must be logged in");
+            FacesContext.getCurrentInstance().addMessage("formId:postForm", message);
+        }
     }
     
     public void fetchPost() {
