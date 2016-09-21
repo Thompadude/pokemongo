@@ -48,19 +48,15 @@
                     <b:column mediumScreen="12">
 
                         <!-- New Post Form -->
-                        <h:panelGroup id="postFormWrapper">
+                        <h:form id="postForm">
                             <c:if test="#{userController.isUserLoggedIn}">
-                                <h:form id="postForm">
-                                    <h:messages></h:messages>
-                                    <b:inputText placeholder="Post title" id="title" value="#{postController.title}"/>
-                                    <b:inputTextarea placeholder="Write new post..." id="content"
-                                                     value="#{postController.content}"/>
-                                    <b:commandButton value="Post!" look="primary" action="#{postController.savePost()}"/>
-                                </h:form>
+                                <h:messages></h:messages>
+                                <b:inputText placeholder="Post title" id="title" value="#{postController.title}"/>
+                                <b:inputTextarea placeholder="Write new post..." id="content"
+                                                 value="#{postController.content}"/>
+                                <b:commandButton value="Post!" look="primary" action="#{postController.savePost}"/>
                             </c:if>
-
-                        </h:panelGroup>
-
+                        </h:form>
 
                     </b:column>
                 </b:row>
@@ -93,9 +89,9 @@
         <h:inputText id="userName" value="#{userController.userName}"></h:inputText>
         <h:inputText id="email" value="#{userController.email}"></h:inputText>
         <h:inputText id="tokenId" value="#{userController.tokenId}"></h:inputText>
-        <b:commandButton styleClass="submitButton" ajax="true" update=":postFormWrapper"
+        <b:commandButton styleClass="submitButton" ajax="true" update=":postForm"
                          action="#{userController.saveUser}"></b:commandButton>
-        <b:commandButton styleClass="logOutButton" ajax="true" update=":postFormWrapper"
+        <b:commandButton styleClass="logOutButton" ajax="true" update=":postForm"
                          action="#{userController.logOutUser}"></b:commandButton>
     </h:form>
 
