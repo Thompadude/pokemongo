@@ -3,6 +3,7 @@ package com.pokemongo.controllers;
 import com.pokemongo.business.interfaces.PostHandler;
 import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Post;
+import com.pokemongo.models.User;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -20,8 +21,7 @@ public class PostController implements Serializable {
 
     private String title;
     private String content;
-    private String childPostTitle;
-    private String childPostContent;
+    private String replyContent;
     private List<Post> posts;
     private List<Post> postsWithoutParent;
     private List<Post> childPosts;
@@ -38,9 +38,15 @@ public class PostController implements Serializable {
         }
     }
 
-    public void fetchPost() {
+    public void saveReply(long postId) {
+        System.out.println("replyContent");
+        Post reply = new Post(replyContent);
+        postHandler.saveReply(reply, postId);
+    }
+
+    public void fetchPost(long postId) {
         //TODO Replace with production code
-        Post post = postHandler.fetchPost(1L);
+        Post post = postHandler.fetchPost(postId);
         System.out.println(post.getChildPosts().get(2).getTitle());
         System.out.println("*LOG* post.getTitle(): " + post.getTitle());
         System.out.println("*LOG* post.getContent(): " + post.getContent());
@@ -52,13 +58,6 @@ public class PostController implements Serializable {
         System.out.println("*LOG* ID of ROW: " + id);
     }
 
-    public void addChildPost(long id) {
-        Post childPost = new Post();
-        childPost.setTitle(childPostTitle);
-        childPost.setContent(childPostContent);
-        postHandler.addChildPost(id, childPost);
-    }
-    
     /* Getters and Setters */
 
     public String getTitle() {
@@ -75,6 +74,14 @@ public class PostController implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getReplyContent() {
+        return replyContent;
+    }
+
+    public void setReplyContent(String replyContent) {
+        this.replyContent = replyContent;
     }
 
     public List<Post> getPosts() {
@@ -101,22 +108,6 @@ public class PostController implements Serializable {
 
     public void setChildPosts(List<Post> childPosts) {
         this.childPosts = childPosts;
-    }
-
-    public String getChildPostTitle() {
-        return childPostTitle;
-    }
-
-    public void setChildPostTitle(String childPostTitle) {
-        this.childPostTitle = childPostTitle;
-    }
-
-    public String getChildPostContent() {
-        return childPostContent;
-    }
-
-    public void setChildPostContent(String childPostContent) {
-        this.childPostContent = childPostContent;
     }
 
 }

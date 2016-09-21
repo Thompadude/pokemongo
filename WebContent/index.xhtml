@@ -48,7 +48,7 @@
                     <b:column mediumScreen="12">
 
                         <!-- New Post Form -->
-                        <h:form id="postForm">
+                        <h:form styleClass="postForm">
                             <c:if test="#{userController.isUserLoggedIn}">
                                 <h:messages></h:messages>
                                 <b:inputText placeholder="Post title" id="title" value="#{postController.title}"/>
@@ -63,18 +63,27 @@
 
                 <b:row>
                     <b:column mediumScreen="12">
-                        <h:form>
-                            <ul>
-                                <ui:repeat value="#{postController.postsWithoutParent}" var="post">
-                                    <li><h:outputText value="#{post.title}"/><h:outputText value="#{post.id}"/></li>
-                                    <ul>
-                                        <ui:repeat value="#{post.childPosts}" var="child">
-                                            <li><h:outputText value="#{child.title}"/></li>
-                                        </ui:repeat>
-                                    </ul>
-                                </ui:repeat>
-                            </ul>
-                        </h:form>
+                        <ul>
+                            <ui:repeat value="#{postController.postsWithoutParent}" var="post">
+
+                                <li>
+                                    <h:form styleClass="postForm">
+                                        <c:if test="#{userController.isUserLoggedIn}">
+                                            <b:inputTextarea placeholder="Write reply..." id="replyContent" value="#{postController.replyContent}"></b:inputTextarea>
+                                            <b:commandButton value="Post!" look="primary" action="#{postController.saveReply(post.id)}"/>
+                                        </c:if>
+                                    </h:form>
+                                </li>
+
+                                <li><h:outputText value="#{post.title}"/><h:outputText value="#{post.id}"/></li>
+                                <ul>
+                                    <ui:repeat value="#{post.childPosts}" var="child">
+                                        <li><h:outputText value="#{child.title}"/></li>
+                                    </ui:repeat>
+                                </ul>
+
+                            </ui:repeat>
+                        </ul>
                     </b:column>
                 </b:row>
 
@@ -89,9 +98,9 @@
         <h:inputText id="userName" value="#{userController.userName}"></h:inputText>
         <h:inputText id="email" value="#{userController.email}"></h:inputText>
         <h:inputText id="tokenId" value="#{userController.tokenId}"></h:inputText>
-        <b:commandButton styleClass="submitButton" ajax="true" update=":postForm"
+        <b:commandButton styleClass="submitButton" ajax="true" update="@(.postForm)"
                          action="#{userController.saveUser}"></b:commandButton>
-        <b:commandButton styleClass="logOutButton" ajax="true" update=":postForm"
+        <b:commandButton styleClass="logOutButton" ajax="true" update="@(.postForm)"
                          action="#{userController.logOutUser}"></b:commandButton>
     </h:form>
 

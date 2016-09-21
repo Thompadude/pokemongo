@@ -11,6 +11,8 @@ public interface PostHandler {
 
     void savePost(Post post) throws UserNotLoggedInException;
 
+    void saveReply(Post reply, long parentId);
+
     Post fetchPost(long postId);
 
     List<Post> fetchAllPosts();

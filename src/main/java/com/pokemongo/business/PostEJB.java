@@ -1,6 +1,7 @@
 package com.pokemongo.business;
 
 import com.pokemongo.business.interfaces.PostHandler;
+import com.pokemongo.controllers.PostController;
 import com.pokemongo.controllers.UserController;
 import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Post;
@@ -29,6 +30,16 @@ public class PostEJB implements PostHandler {
         } else {
             throw new UserNotLoggedInException();
         }
+    }
+
+    @Override
+    public void saveReply(Post reply, long parentId) {
+        // TODO add error handling
+        User author = userController.fetchLoggedInUser();
+        Post parentPost = postService.fetchPost(parentId);
+        reply.setAuthor(author);
+        reply.setParentPost(parentPost);
+        postService.savePost(reply);
     }
 
     @Override

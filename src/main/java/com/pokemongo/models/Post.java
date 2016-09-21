@@ -34,6 +34,10 @@ public class Post implements Serializable {
         this.content = content;
     }
 
+    public Post(String content) {
+        this.content = content;
+    }
+
     public Post() {
     }
 
