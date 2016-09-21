@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
@@ -47,13 +48,20 @@
                     <b:column mediumScreen="12">
 
                         <!-- New Post Form -->
-                        <h:form id="postForm">
-                            <h:messages></h:messages>
-                            <b:inputText placeholder="Post title" id="title" value="#{postController.title}"/>
-                            <b:inputTextarea placeholder="Write new post..." id="content"
-                                             value="#{postController.content}"/>
-                            <b:commandButton value="Post!" look="primary" action="#{postController.savePost()}"/>
-                        </h:form>
+                        <h:panelGroup id="postFormWrapper">
+                            <c:if test="#{userController.isUserLoggedIn}">
+                                <h:form id="postForm">
+                                    <h:messages></h:messages>
+                                    <b:inputText placeholder="Post title" id="title" value="#{postController.title}"/>
+                                    <b:inputTextarea placeholder="Write new post..." id="content"
+                                                     value="#{postController.content}"/>
+                                    <b:commandButton value="Post!" look="primary" action="#{postController.savePost()}"/>
+                                </h:form>
+                            </c:if>
+
+                        </h:panelGroup>
+
+
                     </b:column>
                 </b:row>
 
@@ -85,12 +93,11 @@
         <h:inputText id="userName" value="#{userController.userName}"></h:inputText>
         <h:inputText id="email" value="#{userController.email}"></h:inputText>
         <h:inputText id="tokenId" value="#{userController.tokenId}"></h:inputText>
-        <b:commandButton styleClass="submitButton" ajax="true" update="@none"
+        <b:commandButton styleClass="submitButton" ajax="true" update=":postFormWrapper"
                          action="#{userController.saveUser}"></b:commandButton>
-        <b:commandButton styleClass="logOutButton" ajax="true" update="@none"
+        <b:commandButton styleClass="logOutButton" ajax="true" update=":postFormWrapper"
                          action="#{userController.logOutUser}"></b:commandButton>
     </h:form>
-
 
 </h:body>
 

@@ -19,6 +19,7 @@ public class UserController implements Serializable {
 
     private static final long serialVersionUID = 288653009259087195L;
 
+    private boolean isUserLoggedIn = false;
     private String userName;
     private String email;
     private String tokenId;
@@ -42,6 +43,7 @@ public class UserController implements Serializable {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Map<String, Object> sessionMap = externalContext.getSessionMap();
         sessionMap.put("loggedInUser", null);
+        setIsUserLoggedIn(false);
     }
 
     private void setLoggedInUser(User loggedInUser) {
@@ -51,6 +53,7 @@ public class UserController implements Serializable {
         User sessionUser = userHandler.fetchUserByEmail(loggedInUser.getEmail());
 
         sessionMap.put("loggedInUser", sessionUser);
+        setIsUserLoggedIn(true);
 
         System.out.println("Logged in user is: " + sessionMap.get("loggedInUser"));
     }
@@ -69,6 +72,14 @@ public class UserController implements Serializable {
     }
     
     /* Getters and Setters */
+
+    public boolean getIsUserLoggedIn() {
+        return isUserLoggedIn;
+    }
+
+    public void setIsUserLoggedIn(boolean userLoggedIn) {
+        isUserLoggedIn = userLoggedIn;
+    }
 
     public String getUserName() {
         return userName;
