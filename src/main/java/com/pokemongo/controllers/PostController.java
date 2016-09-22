@@ -38,10 +38,13 @@ public class PostController implements Serializable {
         }
     }
 
-    public void saveReply(long postId) {
+    public String saveReply(long postId) {
         System.out.println("replyContent");
         Post reply = new Post(replyContent);
         postHandler.saveReply(reply, postId);
+    
+        replyContent = "";
+        return "/index.xhtml?faces-redirect=true";
     }
 
     public void fetchPost(long postId) {

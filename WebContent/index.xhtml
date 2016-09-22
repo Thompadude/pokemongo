@@ -63,9 +63,15 @@
 
                 <b:row>
                     <b:column mediumScreen="12">
-                        <ul>
-                            <ui:repeat value="#{postController.postsWithoutParent}" var="post">
+                        <ul class="postList">
+                            <!--<ui:repeat value="#{postController.postsWithoutParent}" var="post">-->
+                            <c:forEach var="post" items="#{postController.postsWithoutParent}">
 
+
+                                <li>
+                                    <h:outputText value="#{post.title}"/>
+                                    <h:outputText value="#{post.content}"/>
+                                </li>
                                 <li>
                                     <h:form styleClass="postForm">
                                         <c:if test="#{userController.isUserLoggedIn}">
@@ -74,15 +80,15 @@
                                         </c:if>
                                     </h:form>
                                 </li>
-
-                                <li><h:outputText value="#{post.title}"/><h:outputText value="#{post.id}"/></li>
                                 <ul>
-                                    <ui:repeat value="#{post.childPosts}" var="child">
-                                        <li><h:outputText value="#{child.title}"/></li>
-                                    </ui:repeat>
+                                    <c:forEach items="#{post.childPosts}" var="child">
+                                        <li><h:outputText value="#{child.content}"/></li>
+                                    </c:forEach>
                                 </ul>
 
-                            </ui:repeat>
+                                <hr/>
+                            </c:forEach>
+                            <!--</ui:repeat>-->
                         </ul>
                     </b:column>
                 </b:row>
@@ -98,10 +104,8 @@
         <h:inputText id="userName" value="#{userController.userName}"></h:inputText>
         <h:inputText id="email" value="#{userController.email}"></h:inputText>
         <h:inputText id="tokenId" value="#{userController.tokenId}"></h:inputText>
-        <b:commandButton styleClass="submitButton" ajax="true" update="@(.postForm)"
-                         action="#{userController.saveUser}"></b:commandButton>
-        <b:commandButton styleClass="logOutButton" ajax="true" update="@(.postForm)"
-                         action="#{userController.logOutUser}"></b:commandButton>
+        <b:commandButton styleClass="submitButton" ajax="true" update="@(.postForm)" action="#{userController.saveUser}"></b:commandButton>
+        <b:commandButton styleClass="logOutButton" ajax="true" update="@(.postForm)" action="#{userController.logOutUser}"></b:commandButton>
     </h:form>
 
 </h:body>
