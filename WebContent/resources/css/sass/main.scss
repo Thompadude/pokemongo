@@ -1,27 +1,43 @@
+//Variables
+$lightGrey: #eeeeee;
+$mediumGrey: #d1d1d1;
+
 .leftSection {
     height: 50rem;
 }
 
 .rightSection {
-    //background-image: url("#{resource['img:pokemonMap.png']}");
     height: 50rem;
 }
 
-.post {
-    border: 1px solid #000;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-
-    background-color: beige;
-
-    margin-top: 1rem;
-    margin-right: 1rem;
+.leftSection__postList {
+    margin: 0;
+    padding: 0;
 }
 
-.reply {
-    margin-top: 0.5rem;
-    color: red;
+.leftSection__postList__item {
+  list-style-type: none;
 }
+
+.parentPost {
+    border-radius: 3px;
+    padding: 1rem;
+}
+
+.parentPost--default {
+  background-color: $lightGrey;
+  border: 1px solid $mediumGrey;
+}
+
+.parentPost__title {
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+
+.leftSection__postList__childList {
+    margin-left: 1rem;
+}
+
 
 #hiddenGoogleLoginForm {
     display: none;

@@ -63,16 +63,23 @@
 
                 <b:row>
                     <b:column mediumScreen="12">
-                        <ul class="postList">
+                        <ul class="leftSection__postList">
                             <!--<ui:repeat value="#{postController.postsWithoutParent}" var="post">-->
                             <c:forEach var="post" items="#{postController.postsWithoutParent}">
 
 
-                                <li>
-                                    <h:outputText value="#{post.title}"/>
-                                    <h:outputText value="#{post.content}"/>
-                                </li>
-                                <li>
+                                <li class="leftSection__postList__item">
+                                    <div class="parentPost parentPost--default">
+                                        <div class="parentPostTitle">
+                                            <h:outputText value="#{post.title}"/>
+                                        </div>
+                                        <div class="parentPostContent">
+                                            <h:outputText value="#{post.content}"/>
+                                        </div>
+                                    </div>
+                                    <div class="parentPostReplyButton">
+                                        Reply
+                                    </div>
                                     <h:form styleClass="postForm">
                                         <c:if test="#{userController.isUserLoggedIn}">
                                             <b:inputTextarea placeholder="Write reply..." id="replyContent" value="#{postController.replyContent}"></b:inputTextarea>
@@ -80,9 +87,15 @@
                                         </c:if>
                                     </h:form>
                                 </li>
-                                <ul>
+                                <ul class="leftSection__postList__childList">
                                     <c:forEach items="#{post.childPosts}" var="child">
-                                        <li><h:outputText value="#{child.content}"/></li>
+                                        <li>
+                                            <div class="childPost">
+                                                <p class="childPostContent">
+                                                    <h:outputText value="#{child.content}"/>
+                                                </p>
+                                            </div>
+                                        </li>
                                     </c:forEach>
                                 </ul>
 
