@@ -1,9 +1,6 @@
 .leftSection {
   height: 50rem; }
 
-.rightSection {
-  height: 50rem; }
-
 .leftSection__postList {
   margin: 0;
   padding: 0; }
@@ -13,18 +10,26 @@
 
 .parentPost {
   border-radius: 3px;
-  padding: 1rem; }
+  padding: 1rem;
+  margin-top: 2rem; }
 
 .parentPost--default {
   background-color: #eeeeee;
   border: 1px solid #d1d1d1; }
 
 .parentPost__title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-top: 0; }
 
+.parentPost__commentsBtn {
+  z-index: 100; }
+
 .leftSection__postList__childList {
-  margin-left: 1rem; }
+  margin-left: 1rem;
+  display: none; }
+
+.parentPost__formWrapper {
+  display: none; }
 
 #hiddenGoogleLoginForm {
   display: none; }

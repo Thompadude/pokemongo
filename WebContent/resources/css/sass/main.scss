@@ -6,9 +6,9 @@ $mediumGrey: #d1d1d1;
     height: 50rem;
 }
 
-.rightSection {
-    height: 50rem;
-}
+//.rightSection {
+//    height: 50rem;
+//}
 
 .leftSection__postList {
     margin: 0;
@@ -16,28 +16,37 @@ $mediumGrey: #d1d1d1;
 }
 
 .leftSection__postList__item {
-  list-style-type: none;
+    list-style-type: none;
 }
 
 .parentPost {
     border-radius: 3px;
     padding: 1rem;
+    margin-top: 2rem;
 }
 
 .parentPost--default {
-  background-color: $lightGrey;
-  border: 1px solid $mediumGrey;
+    background-color: $lightGrey;
+    border: 1px solid $mediumGrey;
 }
 
 .parentPost__title {
-  font-size: 1.5rem;
-  margin-top: 0;
+    font-size: 2rem;
+    margin-top: 0;
+}
+
+.parentPost__commentsBtn {
+    z-index: 100;
 }
 
 .leftSection__postList__childList {
     margin-left: 1rem;
+    display: none;
 }
 
+.parentPost__formWrapper {
+    display: none;
+}
 
 #hiddenGoogleLoginForm {
     display: none;
