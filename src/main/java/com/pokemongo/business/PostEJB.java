@@ -1,7 +1,6 @@
 package com.pokemongo.business;
 
 import com.pokemongo.business.interfaces.PostHandler;
-import com.pokemongo.controllers.PostController;
 import com.pokemongo.controllers.UserController;
 import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Post;
@@ -62,6 +61,11 @@ public class PostEJB implements PostHandler {
     @Override
     public List<Post> fetchPostsWithoutParent() {
         return postService.fetchPostsWithoutParent();
+    }
+
+    @Override
+    public List<Post> fetchPostsByKeyword(String keyword) {
+        return postService.fetchPostsByKeyword(keyword);
     }
 
 }

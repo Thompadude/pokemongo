@@ -8,7 +8,8 @@ import java.util.List;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Post.fetchAll", query = "SELECT p FROM Post p"),
-        @NamedQuery(name = "Post.fetchPostsWithoutParent", query = "SELECT p FROM Post p WHERE p.parentPost = NULL")
+        @NamedQuery(name = "Post.fetchPostsWithoutParent", query = "SELECT p FROM Post p WHERE p.parentPost = NULL"),
+        @NamedQuery(name = "Post.fetchPostsByKeyWord", query = "SELECT p FROM Post p WHERE p.content=:keyword OR p.title=:keyword")
 })
 public class Post implements Serializable {
 
