@@ -44,6 +44,9 @@ public class PostController implements Serializable {
         Post reply = new Post(replyContent);
         postHandler.saveReply(reply, postId);
 
+        // If the user search for a post and comment on it this will update the search result list.
+        fetchPostsWithoutParentByKeyword();
+
         replyContent = "";
         return "/index.xhtml?faces-redirect=true";
     }
