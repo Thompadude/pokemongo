@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <!--Search Posts-->
+    <b:row>
+        <b:column mediumScreen="12">
+            <h:form styleClass="postForm">
+                <b:inputText placeholder="Search in post titles and content..." value="#{postController.searchWord}"></b:inputText>
+                <b:commandButton value="Search!" look="primary" action="#{postController.fetchPostsWithoutParentByKeyword}"></b:commandButton>
+            </h:form>
+        </b:column>
+    </b:row>
+
+    <!--Search Results-->
+    <b:row>
+        <b:column mediumScreen="12">
+            <ul class="leftSection__postList">
+                <c:forEach var="post" items="#{postController.postSearchResults}">
+                    <li class="leftSection__postList__item">
+                        <div class="parentPost parentPost--default">
+                            <div class="parentPost__title">
+                                <h:outputText value="#{post.title}"/>
+                            </div>
+                            <div class="parentPost__content">
+                                <h:outputText value="#{post.content}"/>
+                            </div>
+                        </div>
+                        <div class="parentPost__commentsBtn">
+                            Comments
+                        </div>
+                        <div class="parentPost__formWrapper">
+                            <h:form styleClass="postForm">
+                                <c:if test="#{userController.isUserLoggedIn}">
+                                    <b:inputTextarea placeholder="Write reply..." id="replyContent" value="#{postController.replyContent}"></b:inputTextarea>
+                                    <b:commandButton value="Reply!" look="primary" action="#{postController.saveReply(post.id)}"/>
+                                </c:if>
+                            </h:form>
+                        </div>
+                    </li>
+                    <ul class="leftSection__postList__childList">
+                        <c:forEach items="#{post.childPosts}" var="child">
+                            <li>
+                                <div class="childPost">
+                                    <p class="childPostContent">
+                                        <h:outputText value="#{child.content}"/>
+                                    </p>
+                                </div>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </c:forEach>
+            </ul>
+        </b:column>
+    </b:row>
+</ui:composition>
