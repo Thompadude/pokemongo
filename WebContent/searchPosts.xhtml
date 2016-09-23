@@ -8,7 +8,9 @@
         <b:column mediumScreen="12">
             <h:form styleClass="postForm">
                 <b:inputText placeholder="Search in post titles and content..." value="#{postController.searchWord}"></b:inputText>
-                <b:commandButton value="Search!" look="primary" action="#{postController.fetchPostsWithoutParentByKeyword}"></b:commandButton>
+                <div class="btnWrapper--right">
+                    <b:commandButton value="Search!" look="primary" action="#{postController.fetchPostsWithoutParentByKeyword}"></b:commandButton>
+                </div>
             </h:form>
         </b:column>
     </b:row>
@@ -22,6 +24,7 @@
                         <div class="post post--default">
                             <div class="post__title">
                                 <h:outputText value="#{post.title}"/>
+                                <h:outputText styleClass="post__author" value="Posted by: #{post.author.userName} @ #{post.postTime}"/>
                             </div>
                             <div class="post__content">
                                 <h:outputText value="#{post.content}"/>
@@ -39,6 +42,7 @@
                             <li class="postList__childList__item">
                                 <div class="post post--comment">
                                     <h:outputText value="#{child.content}"/>
+                                    <h:outputText styleClass="post__author" value="Posted by: #{post.author.userName} @ #{post.postTime}"/>
                                 </div>
                             </li>
                         </c:forEach>

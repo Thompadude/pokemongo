@@ -73,6 +73,7 @@
                                     <div class="post post--default">
                                         <div class="post__title">
                                             <h:outputText value="#{post.title}"/>
+                                            <h:outputText styleClass="post__author" value="Posted by: #{post.author.userName} @ #{post.postTime}"/>
                                         </div>
                                         <div class="post__content">
                                             <h:outputText value="#{post.content}"/>
@@ -93,6 +94,7 @@
                                         <li class="postList__childList__item">
                                             <div class="post post--comment">
                                                 <h:outputText value="#{child.content}"/>
+                                                <h:outputText styleClass="post__author" value="Posted by: #{post.author.userName} @ #{post.postTime}"/>
                                             </div>
                                         </li>
                                     </c:forEach>
