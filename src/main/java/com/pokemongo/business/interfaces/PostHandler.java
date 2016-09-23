@@ -21,6 +21,6 @@ public interface PostHandler {
 
     List<Post> fetchPostsWithoutParent();
 
-    List<Post> fetchPostsByKeyword(String keyword);
+    List<Post> fetchPostsWithoutParentByKeyword(String keyword);
 
 }

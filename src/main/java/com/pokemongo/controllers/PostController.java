@@ -62,8 +62,8 @@ public class PostController implements Serializable {
         System.out.println("*LOG* ID of ROW: " + id);
     }
 
-    public void fetchPostsByKeyWord() {
-        postSearchResults = postHandler.fetchPostsByKeyword(searchWord);
+    public void fetchPostsWithoutParentByKeyword() {
+        postSearchResults = postHandler.fetchPostsWithoutParentByKeyword(searchWord);
     }
 
     /* Getters and Setters */

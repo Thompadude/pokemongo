@@ -64,7 +64,7 @@ public class PostEJB implements PostHandler {
     }
 
     @Override
-    public List<Post> fetchPostsByKeyword(String keyword) {
+    public List<Post> fetchPostsWithoutParentByKeyword(String keyword) {
         return postService.fetchPostsByKeyword(keyword);
     }
 
