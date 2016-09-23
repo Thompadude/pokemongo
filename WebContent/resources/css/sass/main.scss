@@ -1,50 +1,68 @@
 //Variables
 $lightGrey: #eeeeee;
 $mediumGrey: #d1d1d1;
+$darkGrey: #b0b0b0;
 
-.leftSection {
-    height: 50rem;
+$childListPadding: 4rem;
+
+html {
+    margin-bottom: 10rem;
 }
 
-//.rightSection {
-//    height: 50rem;
-//}
-
-.leftSection__postList {
+.postList {
     margin: 0;
     padding: 0;
 }
 
-.leftSection__postList__item {
+.postList__item {
     list-style-type: none;
 }
 
-.parentPost {
+.post {
     border-radius: 3px;
     padding: 1rem;
     margin-top: 2rem;
 }
 
-.parentPost--default {
+.post--default {
     background-color: $lightGrey;
     border: 1px solid $mediumGrey;
 }
 
-.parentPost__title {
+.post--comment {
+    background-color: $mediumGrey;
+    border: 1px solid $darkGrey;
+}
+
+.post__title {
     font-size: 2rem;
     margin-top: 0;
 }
 
-.parentPost__commentsBtn {
-    z-index: 100;
+.btnWrapper--right {
+    text-align: right;
 }
 
-.leftSection__postList__childList {
-    margin-left: 1rem;
+.button {
+    cursor: pointer;
+}
+
+.button--comments {
+
+}
+
+.postList__childList {
+    padding-left: $childListPadding;
     display: none;
 }
 
-.parentPost__formWrapper {
+.postList__childList__item {
+    list-style-type: none;
+}
+
+.postList__formWrapper {
+    margin-top: 1em;
+    padding-left: $childListPadding;
     display: none;
 }
 
