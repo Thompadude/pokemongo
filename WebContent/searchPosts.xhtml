@@ -16,42 +16,48 @@
     <!--Search Results-->
     <b:row>
         <b:column mediumScreen="12">
-            <ul class="leftSection__postList">
+            <ul class="postList">
                 <c:forEach var="post" items="#{postController.postSearchResults}">
-                    <li class="leftSection__postList__item">
-                        <div class="parentPost parentPost--default">
-                            <div class="parentPost__title">
+                    <li class="postList__item">
+                        <div class="post post--default">
+                            <div class="post__title">
                                 <h:outputText value="#{post.title}"/>
                             </div>
-                            <div class="parentPost__content">
+                            <div class="post__content">
                                 <h:outputText value="#{post.content}"/>
                             </div>
-                        </div>
-                        <div class="parentPost__commentsBtn">
-                            Comments
-                        </div>
-                        <div class="parentPost__formWrapper">
-                            <h:form styleClass="postForm">
-                                <c:if test="#{userController.isUserLoggedIn}">
-                                    <b:inputTextarea placeholder="Write reply..." id="replyContent" value="#{postController.replyContent}"></b:inputTextarea>
-                                    <b:commandButton value="Reply!" look="primary" action="#{postController.saveReply(post.id)}"/>
-                                </c:if>
-                            </h:form>
+                            <div class="btnWrapper--right">
+                                <a class="button button--comments">
+                                    <span class="btn__label">Comments</span>
+                                    <span class="btn__arrow">&#8681;</span>
+                                </a>
+                            </div>
                         </div>
                     </li>
-                    <ul class="leftSection__postList__childList">
+                    <ul class="postList__childList hideable">
                         <c:forEach items="#{post.childPosts}" var="child">
-                            <li>
-                                <div class="childPost">
-                                    <p class="childPostContent">
-                                        <h:outputText value="#{child.content}"/>
-                                    </p>
+                            <li class="postList__childList__item">
+                                <div class="post post--comment">
+                                    <h:outputText value="#{child.content}"/>
                                 </div>
                             </li>
                         </c:forEach>
                     </ul>
+                    <div class="postList__formWrapper hideable">
+                        <h:form styleClass="postForm">
+                            <c:if test="#{userController.isUserLoggedIn}">
+                                <b:inputTextarea placeholder="Write reply..." id="replyContent" value="#{postController.replyContent}"></b:inputTextarea>
+
+                                <div class="btnWrapper--right">
+                                    <b:commandButton value="Reply!" look="primary" action="#{postController.saveReply(post.id)}"/>
+                                </div>
+                            </c:if>
+                        </h:form>
+                    </div>
                 </c:forEach>
             </ul>
         </b:column>
     </b:row>
+    <!--TODO use CSS instead of br-->
+    <br/>
 </ui:composition>
