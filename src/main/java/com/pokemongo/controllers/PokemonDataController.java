@@ -23,6 +23,14 @@ public class PokemonDataController implements Serializable {
     @EJB
     private PokemonDataHandler pokemonDataHandler;
 
+    // TODO test method - remove later!
+    public void getSelectedPokemonTEST(Long pokedexNumber) {
+        // TODO pokedex is null - need to fix!
+        System.out.println(pokedexNumber);
+    }
+
+    /* Getters and Setters */
+
     public Integer getPokedexNumber() {
         return pokedexNumber;
     }
@@ -62,6 +70,14 @@ public class PokemonDataController implements Serializable {
 
     public void setPokemonDataList(List<PokemonData> pokemonDataList) {
         this.pokemonDataList = pokemonDataList;
+    }
+
+    public PokemonDataHandler getPokemonDataHandler() {
+        return pokemonDataHandler;
+    }
+
+    public void setPokemonDataHandler(PokemonDataHandler pokemonDataHandler) {
+        this.pokemonDataHandler = pokemonDataHandler;
     }
 
 }

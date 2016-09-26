@@ -127,6 +127,19 @@
             <!--Right Section-->
             <b:column mediumScreen="6" styleClass="rightSection">
 
+                <!--For testing-->
+                <!--Broken code!-->
+                <h:form>
+                    <b:selectOneMenu id="pokemonSelectMenu" value="#{pokemonDataController}">
+                        <f:selectItems value="#{pokemonDataController.pokemonDataList}" var="p"></f:selectItems>
+                    </b:selectOneMenu>
+                    <b:commandButton value="Test me!" action="#{pokemonDataController.getSelectedPokemonTEST(p.id)}"></b:commandButton>
+                </h:form>
+                <br/>
+                <br/>
+                <br/>
+                <!--End test-->
+
                 <button onclick="addPokemon()">
 
                     Generate pokemon
@@ -156,13 +169,6 @@
         <b:commandButton styleClass="logOutButton" ajax="true" update="@(.postForm)" action="#{userController.logOutUser}"></b:commandButton>
     </h:form>
 
-    <!--For testing-->
-    <h:form>
-        <b:selectOneMenu value="#{pokemonDataController.pokedexNumber}">
-            <f:selectItems value="#{pokemonDataController.pokemonDataList}"></f:selectItems>
-        </b:selectOneMenu>
-    </h:form>
-    <!--End test-->
 
 </h:body>
 
