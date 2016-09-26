@@ -1,5 +1,6 @@
 package com.pokemongo.business.interfaces;
 
+import com.pokemongo.exceptions.FormException;
 import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Post;
 
@@ -21,6 +22,6 @@ public interface PostHandler {
 
     List<Post> fetchPostsWithoutParent();
 
-    List<Post> fetchPostsWithoutParentByKeyword(String keyword);
+    List<Post> fetchPostsWithoutParentByKeyword(String keyword) throws FormException;
 
 }
