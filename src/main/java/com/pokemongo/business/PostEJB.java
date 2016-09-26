@@ -6,6 +6,8 @@ import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Post;
 import com.pokemongo.models.User;
 import com.pokemongo.services.PostService;
+import com.pokemongo.utilities.LogProvider;
+import org.apache.logging.log4j.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -19,9 +21,25 @@ public class PostEJB implements PostHandler {
     private PostService postService;
     @Inject
     private UserController userController;
+    private Logger logger = LogProvider.getLogger();
 
     @Override
     public void savePost(Post post) throws UserNotLoggedInException {
+    
+        logger.trace("Trace");
+    
+        logger.debug("Debug");
+    
+        logger.info("Info");
+    
+        logger.warn("Warning");
+    
+        logger.error("Error");
+    
+        logger.fatal("Fatal");
+        
+        
+        System.out.println("Save sout");
         if (userController.fetchLoggedInUser() != null) {
             User author = userController.fetchLoggedInUser();
             post.setAuthor(author);
