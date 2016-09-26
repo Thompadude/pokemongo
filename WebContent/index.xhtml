@@ -18,6 +18,10 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async="async" defer="defer"></script>
+    <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?signed_in=true&amp;callback=initMap&amp;key=AIzaSyCgXXGotMPSlX-ZFpAGWt51_4cMQPWADuI
+"></script>
+
+    <h:outputScript library="js" name="map.js"></h:outputScript>
     <h:outputScript library="js" name="posts.js"></h:outputScript>
 
 </h:head>
@@ -54,6 +58,7 @@
                                 <b:inputText placeholder="Post title" id="title" value="#{postController.title}"/>
                                 <b:inputTextarea placeholder="Write new post..." id="content"
                                                  value="#{postController.content}"/>
+
                                 <div class="btnWrapper--right">
                                     <b:commandButton value="Post!" look="primary" action="#{postController.savePost}"/>
                                 </div>
@@ -103,6 +108,7 @@
                                     <h:form styleClass="postForm">
                                         <c:if test="#{userController.isUserLoggedIn}">
                                             <b:inputTextarea placeholder="Write reply..." id="replyContent" value="#{postController.replyContent}"></b:inputTextarea>
+
                                             <div class="btnWrapper--right">
                                                 <b:commandButton value="Reply!" look="primary" action="#{postController.saveReply(post.id)}"/>
                                             </div>
@@ -118,7 +124,26 @@
             </b:column>
 
             <!--Right Section-->
-            <b:column mediumScreen="6" styleClass="rightSection"></b:column>
+            <b:column mediumScreen="6" styleClass="rightSection">
+
+                <button onclick="addPokemon()">
+
+                    Generate pokemon
+                </button>
+                <br/>
+                <br/>pokemon index number:
+                <input id="indexNumber" type="text" name="firstname" value=""></input>
+                (Note: Leaving this empty or giving it a value of more than 3 digits will result in randomizing)
+
+                <br/>latitude:
+                <input id="latitude" type="text" name="firstname" value=""></input>
+
+                <br/>longitude:
+                <input id="longitude" type="text" name="firstname" value=""></input>
+
+                <div id="map"></div>
+
+            </b:column>
         </b:row>
     </b:container>
 
