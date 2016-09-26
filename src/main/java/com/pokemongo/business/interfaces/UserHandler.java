@@ -17,4 +17,9 @@ public interface UserHandler {
     boolean isDuplicate(User user);
     
     User fetchUserByEmail(String tokenId);
+    
+    /**
+     * Returns true when the user is logged in
+     */
+    boolean logIn(User user);
 }

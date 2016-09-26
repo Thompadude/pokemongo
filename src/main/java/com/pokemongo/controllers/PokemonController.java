@@ -23,22 +23,6 @@ public class PokemonController implements Serializable {
     @EJB
     private PokemonHandler pokemonHandler;
 
-    public void savePokemon() {
-        //TODO Replace with production code
-        Pokemon pokemon = new Pokemon();
-        pokemon.setName("Pokemongo");
-        pokemon.setCombatPower(12);
-        pokemon.setHealthPoints(234);
-        pokemon.setPokedexNumber(134124);
-
-        User user = new User();
-        user.setId(1L);
-
-        pokemon.setOwner(user);
-
-        pokemonHandler.savePokemon(pokemon);
-    }
-   
     /* Getters and Setters */
     
     public Integer getPokedexNumber() {

@@ -126,8 +126,8 @@
         <h:inputText id="userName" value="#{userController.userName}"></h:inputText>
         <h:inputText id="email" value="#{userController.email}"></h:inputText>
         <h:inputText id="tokenId" value="#{userController.tokenId}"></h:inputText>
-        <b:commandButton styleClass="submitButton" ajax="true" update="@(.postForm)" action="#{userController.saveUser}"></b:commandButton>
-        <b:commandButton styleClass="logOutButton" ajax="true" update="@(.postForm)" action="#{userController.logOutUser}"></b:commandButton>
+        <b:commandButton styleClass="logInButton" ajax="true" update="@(.postForm)" action="#{userController.logIn}"></b:commandButton>
+        <b:commandButton styleClass="logOutButton" ajax="true" update="@(.postForm)" action="#{userController.logOut}"></b:commandButton>
     </h:form>
 
 </h:body>

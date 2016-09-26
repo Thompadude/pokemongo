@@ -3,16 +3,23 @@ package com.pokemongo.business;
 import com.pokemongo.services.UserService;
 import com.pokemongo.business.interfaces.UserHandler;
 import com.pokemongo.models.User;
+import com.pokemongo.utilities.LogProvider;
+import org.apache.logging.log4j.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import java.util.List;
+import java.util.Map;
 
 @Stateless
 public class UserEJB implements UserHandler {
 
     @EJB
     private UserService userService;
+    
+    Logger logger = LogProvider.getLogger();
 
     @Override
     public void saveUser(User user) {
@@ -48,6 +55,28 @@ public class UserEJB implements UserHandler {
     @Override
     public User fetchUserByEmail(String email) {
         return userService.fetchUserByEmail(email);
+    }
+    
+    @Override
+    public boolean logIn(User user) {
+        if (!isDuplicate(user)) {
+            saveUser(user);
+        }
+    
+        return setLoggedInUser(user);
+    }
+    
+    private boolean setLoggedInUser(User loggedInUser) {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        Map<String, Object> sessionMap = externalContext.getSessionMap();
+        
+        User sessionUser = fetchUserByEmail(loggedInUser.getEmail());
+        
+        sessionMap.put("loggedInUser", sessionUser);
+        
+        logger.info("Logged in user: " + sessionMap.get("loggedInUser"));
+    
+        return true;
     }
     
 }

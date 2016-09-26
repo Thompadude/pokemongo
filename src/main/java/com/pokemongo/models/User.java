@@ -71,10 +71,9 @@ public class User implements Serializable {
     public void setTokenId(String tokenId) {
         this.tokenId = tokenId;
     }
-
-    // TODO For testing purposes. Remove later!
-    public void setId(Long id) {
-        this.id = id;
+    
+    @Override
+    public String toString() {
+        return userName + " (" + email + "), ID: " + id;
     }
-
 }

@@ -11,8 +11,11 @@ import org.apache.logging.log4j.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Map;
 
 @Stateless
 public class PostEJB implements PostHandler {
@@ -26,33 +29,27 @@ public class PostEJB implements PostHandler {
     @Override
     public void savePost(Post post) throws UserNotLoggedInException {
     
-        logger.trace("Trace");
-    
-        logger.debug("Debug");
-    
-        logger.info("Info");
-    
-        logger.warn("Warning");
-    
-        logger.error("Error");
-    
-        logger.fatal("Fatal");
+        User author = fetchLoggedInUser();
         
-        
-        System.out.println("Save sout");
-        if (userController.fetchLoggedInUser() != null) {
-            User author = userController.fetchLoggedInUser();
+        if (author != null) {
             post.setAuthor(author);
             postService.savePost(post);
         } else {
             throw new UserNotLoggedInException();
         }
     }
-
+    
+    private User fetchLoggedInUser() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        Map<String, Object> sessionMap = externalContext.getSessionMap();
+    
+        return (User) sessionMap.get("loggedInUser");
+    }
+    
     @Override
     public void saveReply(Post reply, long parentId) {
         // TODO add error handling
-        User author = userController.fetchLoggedInUser();
+        User author = fetchLoggedInUser();
         Post parentPost = postService.fetchPost(parentId);
         reply.setAuthor(author);
         reply.setParentPost(parentPost);
