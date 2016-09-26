@@ -65,8 +65,17 @@ public class PostController implements Serializable {
         System.out.println("*LOG* ID of ROW: " + id);
     }
 
-    public void fetchPostsWithoutParentByKeyword() {
-        postSearchResults = postHandler.fetchPostsWithoutParentByKeyword(searchWord);
+    public String fetchPostsWithoutParentByKeyword() {
+        // TODO Handle this with an exception
+        if (searchWord.length() < 2) {
+            FacesMessage facesMessage = new FacesMessage("Please type more than two characters");
+            FacesContext.getCurrentInstance().addMessage("formId:postForm", facesMessage);
+            return "/index.xhtml?faces-redirect=false";
+        } else {
+            postSearchResults = postHandler.fetchPostsWithoutParentByKeyword(searchWord);
+            searchWord = "";
+            return "/index.xhtml?faces-redirect=true";
+        }
     }
 
     /* Getters and Setters */
