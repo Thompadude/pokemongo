@@ -31,8 +31,8 @@ public class PokemonDataController implements Serializable {
 
     // TODO test method - remove later!
     public void selectedPokemonTEST() {
-        // TODO pokedex is null - need to fix!
-        System.out.println("Selected pokedex number: " + pokedexNumber);
+        PokemonData pokemonData = pokemonDataHandler.fetchPokemonDataByPokedexNumber(pokedexNumber);
+        System.out.println(pokemonData);
     }
 
     /* Getters and Setters */

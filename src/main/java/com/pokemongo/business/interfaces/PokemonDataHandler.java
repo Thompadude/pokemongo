@@ -8,6 +8,10 @@ import java.util.List;
 @Local
 public interface PokemonDataHandler {
 
-    public List<PokemonData> fetchAllPokemonData();
+    PokemonData fetchPokemonData(long id);
+
+    PokemonData fetchPokemonDataByPokedexNumber(int pokedexNumber);
+
+    List<PokemonData> fetchAllPokemonData();
 
 }

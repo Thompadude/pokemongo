@@ -15,6 +15,16 @@ public class PokemonDataEJB implements PokemonDataHandler {
     private PokemonDataService pokemonDataService;
 
     @Override
+    public PokemonData fetchPokemonData(long id) {
+        return pokemonDataService.fetchPokemonData(id);
+    }
+
+    @Override
+    public PokemonData fetchPokemonDataByPokedexNumber(int pokedexNumber) {
+        return pokemonDataService.fetchPokemonDataByPokedexNumber(pokedexNumber);
+    }
+
+    @Override
     public List<PokemonData> fetchAllPokemonData() {
         return pokemonDataService.fetchAllPokemonData();
     }

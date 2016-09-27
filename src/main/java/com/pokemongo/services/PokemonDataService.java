@@ -13,6 +13,16 @@ public class PokemonDataService {
     @PersistenceContext
     private EntityManager em;
 
+    public PokemonData fetchPokemonDataByPokedexNumber(int pokedexNumber) {
+        return em.createNamedQuery("PokemonData.fetchPokemonDataByPokedexNumber", PokemonData.class)
+                .setParameter("pokedexNumber", pokedexNumber)
+                .getSingleResult();
+    }
+
+    public PokemonData fetchPokemonData(long id) {
+        return em.find(PokemonData.class, id);
+    }
+
     public List<PokemonData> fetchAllPokemonData() {
         return em.createNamedQuery("PokemonData.fetchAll").getResultList();
     }
