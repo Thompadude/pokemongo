@@ -25,7 +25,7 @@ public class PostEJB implements PostHandler {
     @Inject
     private UserController userController;
     private static final  Logger logger = LogManager.getLogger(PostEJB.class);
-
+    
     @Override
     public void savePost(Post post) throws UserNotLoggedInException {
     
@@ -47,30 +47,12 @@ public class PostEJB implements PostHandler {
     }
     
     @Override
-    public void saveReply(Post reply, long parentId) {
-        // TODO add error handling
-        User author = fetchLoggedInUser();
+    public void saveReply(Post reply, long parentId) throws UserNotLoggedInException {
+        
         Post parentPost = postService.fetchPost(parentId);
-        reply.setAuthor(author);
         reply.setParentPost(parentPost);
-        postService.savePost(reply);
-    }
-
-    @Override
-    public Post fetchPost(long postId) {
-        return postService.fetchPost(postId);
-    }
-
-    @Override
-    public List<Post> fetchAllPosts() {
-        return postService.fetchAllPosts();
-    }
-
-    @Override
-    public void addChildPost(long postId, Post childPost) {
-        Post parentPost = postService.fetchPost(postId);
-        childPost.setParentPost(parentPost);
-        postService.savePost(childPost);
+        
+        savePost(reply);
     }
 
     @Override
@@ -79,7 +61,7 @@ public class PostEJB implements PostHandler {
     }
 
     @Override
-    public List<Post> fetchPostsWithoutParentByKeyword(String keyword) {
+    public List<Post> fetchPostsByKeyword(String keyword) {
         return postService.fetchPostsByKeyword(keyword);
     }
 

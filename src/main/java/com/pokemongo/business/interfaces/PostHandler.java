@@ -11,16 +11,10 @@ public interface PostHandler {
 
     void savePost(Post post) throws UserNotLoggedInException;
 
-    void saveReply(Post reply, long parentId);
-
-    Post fetchPost(long postId);
-
-    List<Post> fetchAllPosts();
-
-    void addChildPost(long postId, Post childPost);
+    void saveReply(Post reply, long parentId) throws UserNotLoggedInException;
 
     List<Post> fetchPostsWithoutParent();
 
-    List<Post> fetchPostsWithoutParentByKeyword(String keyword);
+    List<Post> fetchPostsByKeyword(String keyword);
 
 }

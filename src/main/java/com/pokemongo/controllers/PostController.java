@@ -6,6 +6,7 @@ import com.pokemongo.models.Post;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -26,11 +27,14 @@ public class PostController implements Serializable {
     private String searchWord;
     private List<Post> postSearchResults;
     private List<Post> posts;
-    private List<Post> postsWithoutParent;
-    private List<Post> childPosts;
     @EJB
     private PostHandler postHandler;
     private static final Logger logger = LogManager.getLogger(PostController.class);
+    
+    @PostConstruct
+    public void init() {
+        posts = postHandler.fetchPostsWithoutParent();
+    }
 
     public void savePost() {
         
@@ -49,8 +53,12 @@ public class PostController implements Serializable {
     public String saveReply(long postId) {
         
         Post reply = new Post(replyContent);
-        postHandler.saveReply(reply, postId);
-
+        try {
+            postHandler.saveReply(reply, postId);
+        } catch (UserNotLoggedInException e) {
+            //TODO
+        }
+    
         // If the user search for a post and comment on it this will update the search result list.
         fetchPostsByKeyword();
 
@@ -59,15 +67,20 @@ public class PostController implements Serializable {
     }
     
     private void resetFields() {
+    
+        logger.debug("Fetching fresh posts...");
+        posts = postHandler.fetchPostsWithoutParent();
+    
         logger.debug("Resetting input fields.");
-        
         title = "";
         content = "";
         replyContent = "";
     }
     
     public void fetchPostsByKeyword() {
-        postSearchResults = postHandler.fetchPostsWithoutParentByKeyword(searchWord);
+        logger.debug("Fetching posts by keyword: {}", searchWord);
+        
+        postSearchResults = postHandler.fetchPostsByKeyword(searchWord);
     }
 
     /* Getters and Setters */
@@ -113,29 +126,12 @@ public class PostController implements Serializable {
     }
 
     public List<Post> getPosts() {
-        posts = postHandler.fetchAllPosts();
+        
         return posts;
     }
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
-
-    public List<Post> getPostsWithoutParent() {
-        postsWithoutParent = postHandler.fetchPostsWithoutParent();
-        return postsWithoutParent;
-    }
-
-    public void setPostsWithoutParent(List<Post> postsWithoutParent) {
-        this.postsWithoutParent = postsWithoutParent;
-    }
-
-    public List<Post> getChildPosts() {
-        return childPosts;
-    }
-
-    public void setChildPosts(List<Post> childPosts) {
-        this.childPosts = childPosts;
-    }
-
+    
 }
