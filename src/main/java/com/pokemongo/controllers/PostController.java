@@ -3,6 +3,8 @@ package com.pokemongo.controllers;
 import com.pokemongo.business.interfaces.PostHandler;
 import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Post;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -28,8 +30,10 @@ public class PostController implements Serializable {
     private List<Post> childPosts;
     @EJB
     private PostHandler postHandler;
+    private static final Logger logger = LogManager.getLogger(PostController.class);
 
     public void savePost() {
+        
         Post post = new Post(title, content);
         try {
             postHandler.savePost(post);
@@ -37,35 +41,31 @@ public class PostController implements Serializable {
             FacesMessage message = new FacesMessage("You must be logged in");
             FacesContext.getCurrentInstance().addMessage("formId:postForm", message);
         }
+        
+        resetFields();
     }
-
+    
     public String saveReply(long postId) {
-        System.out.println("replyContent");
+        
         Post reply = new Post(replyContent);
         postHandler.saveReply(reply, postId);
 
         // If the user search for a post and comment on it this will update the search result list.
-        fetchPostsWithoutParentByKeyword();
+        fetchPostsByKeyword();
 
-        replyContent = "";
+        resetFields();
         return "/index.xhtml?faces-redirect=true";
     }
-
-    public void fetchPost(long postId) {
-        //TODO Replace with production code
-        Post post = postHandler.fetchPost(postId);
-        System.out.println(post.getChildPosts().get(2).getTitle());
-        System.out.println("*LOG* post.getTitle(): " + post.getTitle());
-        System.out.println("*LOG* post.getContent(): " + post.getContent());
-        System.out.println("*LOG* post.getPostTime(): " + post.getPostTime());
-        System.out.println("*LOG* post.getChildPosts().size(): " + post.getChildPosts().size());
+    
+    private void resetFields() {
+        logger.debug("Resetting input fields.");
+        
+        title = "";
+        content = "";
+        replyContent = "";
     }
-
-    public void print(long id) {
-        System.out.println("*LOG* ID of ROW: " + id);
-    }
-
-    public void fetchPostsWithoutParentByKeyword() {
+    
+    public void fetchPostsByKeyword() {
         postSearchResults = postHandler.fetchPostsWithoutParentByKeyword(searchWord);
     }
 

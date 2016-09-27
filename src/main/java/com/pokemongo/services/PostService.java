@@ -1,7 +1,7 @@
 package com.pokemongo.services;
 
 import com.pokemongo.models.Post;
-import com.pokemongo.utilities.LogProvider;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateful;
@@ -16,14 +16,14 @@ public class PostService {
     @PersistenceContext
     private EntityManager em;
     
-    Logger logger = LogProvider.getLogger();
+    private static final Logger logger = LogManager.getLogger(PostService.class);
 
     public void savePost(Post post) {
         
         logger.info("Saving post...");
         
         if (em.merge(post) != null) {
-            logger.info("Post with title " + post.getTitle() + " successfully saved.");
+            logger.info("Post saved. Title: {}, author id: {}", post.getTitle(), post.getAuthor().getId());
         } else {
             logger.error("Error saving post!");
         }

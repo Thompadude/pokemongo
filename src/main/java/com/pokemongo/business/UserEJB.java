@@ -3,7 +3,7 @@ package com.pokemongo.business;
 import com.pokemongo.services.UserService;
 import com.pokemongo.business.interfaces.UserHandler;
 import com.pokemongo.models.User;
-import com.pokemongo.utilities.LogProvider;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.ejb.EJB;
@@ -19,7 +19,7 @@ public class UserEJB implements UserHandler {
     @EJB
     private UserService userService;
     
-    Logger logger = LogProvider.getLogger();
+    private static final Logger logger = LogManager.getLogger(UserEJB.class);
 
     @Override
     public void saveUser(User user) {
