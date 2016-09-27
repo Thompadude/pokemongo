@@ -13,12 +13,12 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 @Stateful
 public class PostService {
-
+    
     @PersistenceContext
     private EntityManager em;
     
     private static final Logger logger = LogManager.getLogger(PostService.class);
-
+    
     public void savePost(Post post) {
         
         logger.info("Saving post...");
@@ -29,19 +29,11 @@ public class PostService {
             logger.error("Error saving post!");
         }
     }
-
+    
     public Post fetchPost(long postId) {
         return em.find(Post.class, postId);
     }
-
-    public List<Post> fetchAllPosts() {
-        List<Post> allPosts = em.createNamedQuery("Post.fetchAll").getResultList();
-        
-        //logger.debug("Fetched all {} posts", allPosts.size());
-        
-        return allPosts;
-    }
-
+    
     public List<Post> fetchPostsWithoutParent() {
         List<Post> postsWithoutParents = em.createNamedQuery("Post.fetchPostsWithoutParent").getResultList();
         
@@ -49,11 +41,11 @@ public class PostService {
         
         return postsWithoutParents;
     }
-
+    
     public List<Post> fetchPostsByKeyword(String keyword) {
         return em.createNamedQuery("Post.fetchPostsWithoutParentByKeyWord")
                 .setParameter("keyword", "%" + keyword + "%")
                 .getResultList();
     }
-
+    
 }

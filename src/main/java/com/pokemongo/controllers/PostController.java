@@ -19,9 +19,9 @@ import java.util.List;
 @Named(value = "postController")
 @SessionScoped
 public class PostController implements Serializable {
-
+    
     private static final long serialVersionUID = -5930735123556838017L;
-
+    
     private String title;
     private String content;
     private String replyContent;
@@ -36,7 +36,7 @@ public class PostController implements Serializable {
     public void init() {
         posts = postHandler.fetchPostsWithoutParent();
     }
-
+    
     public void savePost() {
         
         Post post = new Post(title, content);
@@ -57,21 +57,18 @@ public class PostController implements Serializable {
         } catch (UserNotLoggedInException e) {
             //TODO
         }
-    
-        // If the user search for a post and comment on it this will update the search result list.
-        fetchPostsByKeyword();
-
+        
         resetFields();
         return "/index.xhtml?faces-redirect=true";
     }
-
-    private void resetFields() {
     
+    private void resetFields() {
+        
         logger.debug("Fetching fresh posts...");
         posts = postHandler.fetchPostsWithoutParent();
-    
+        
         logger.debug("Resetting input fields.");
-
+        
         title = "";
         content = "";
         replyContent = "";
@@ -80,10 +77,8 @@ public class PostController implements Serializable {
     public String fetchPostsByKeyword() {
         logger.debug("Fetching posts by keyword: {}", searchWord);
         
-        postSearchResults = postHandler.fetchPostsByKeyword(searchWord);
-        
         try {
-            postSearchResults = postHandler.fetchPostsWithoutParentByKeyword(searchWord);
+            postSearchResults = postHandler.fetchPostsByKeyword(searchWord);
             searchWord = "";
             return "/index.xhtml?faces-redirect=true";
         } catch (FormException e) {
@@ -94,59 +89,58 @@ public class PostController implements Serializable {
             return "/index.xhtml?faces-redirect=false";
         }
     }
-
+    
     private void displayPostFormMessage(String message) {
         FacesMessage facesMessage = new FacesMessage(message);
         FacesContext.getCurrentInstance().addMessage("formId:postForm", facesMessage);
     }
 
     /* Getters and Setters */
-
+    
     public String getTitle() {
         return title;
     }
-
+    
     public void setTitle(String title) {
         this.title = title;
     }
-
+    
     public String getContent() {
         return content;
     }
-
+    
     public void setContent(String content) {
         this.content = content;
     }
-
+    
     public String getReplyContent() {
         return replyContent;
     }
-
+    
     public void setReplyContent(String replyContent) {
         this.replyContent = replyContent;
     }
-
+    
     public String getSearchWord() {
         return searchWord;
     }
-
+    
     public void setSearchWord(String searchWord) {
         this.searchWord = searchWord;
     }
-
+    
     public List<Post> getPostSearchResults() {
         return postSearchResults;
     }
-
+    
     public void setPostSearchResults(List<Post> postSearchResults) {
         this.postSearchResults = postSearchResults;
     }
-
+    
     public List<Post> getPosts() {
-        
         return posts;
     }
-
+    
     public void setPosts(List<Post> posts) {
         this.posts = posts;
     }

@@ -20,16 +20,14 @@ import java.util.Map;
 
 @Stateless
 public class PostEJB implements PostHandler {
-
+    
     @EJB
     private PostService postService;
-    @Inject
-    private UserController userController;
-    private static final  Logger logger = LogManager.getLogger(PostEJB.class);
-
+    private static final Logger logger = LogManager.getLogger(PostEJB.class);
+    
     @Override
     public void savePost(Post post) throws UserNotLoggedInException {
-    
+        
         User author = fetchLoggedInUser();
         
         if (author != null) {
@@ -43,7 +41,7 @@ public class PostEJB implements PostHandler {
     private User fetchLoggedInUser() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Map<String, Object> sessionMap = externalContext.getSessionMap();
-    
+        
         return (User) sessionMap.get("loggedInUser");
     }
     
@@ -55,12 +53,12 @@ public class PostEJB implements PostHandler {
         
         savePost(reply);
     }
-
+    
     @Override
     public List<Post> fetchPostsWithoutParent() {
         return postService.fetchPostsWithoutParent();
     }
-
+    
     @Override
     public List<Post> fetchPostsByKeyword(String keyword) throws FormException {
         
@@ -70,5 +68,5 @@ public class PostEJB implements PostHandler {
             return postService.fetchPostsByKeyword(keyword);
         }
     }
-
+    
 }
