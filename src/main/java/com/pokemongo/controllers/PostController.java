@@ -1,6 +1,7 @@
 package com.pokemongo.controllers;
 
 import com.pokemongo.business.interfaces.PostHandler;
+import com.pokemongo.exceptions.FormException;
 import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Post;
 import org.apache.logging.log4j.LogManager;
@@ -33,20 +34,20 @@ public class PostController implements Serializable {
     private static final Logger logger = LogManager.getLogger(PostController.class);
 
     public void savePost() {
-        
         Post post = new Post(title, content);
         try {
             postHandler.savePost(post);
         } catch (UserNotLoggedInException e) {
-            FacesMessage message = new FacesMessage("You must be logged in");
-            FacesContext.getCurrentInstance().addMessage("formId:postForm", message);
+            // TODO Create a "real" log
+            System.out.println(e.getMessage());
+            displayPostFormMessage("You must be logged in");
         }
-        
+
         resetFields();
     }
-    
+
     public String saveReply(long postId) {
-        
+
         Post reply = new Post(replyContent);
         postHandler.saveReply(reply, postId);
 
@@ -56,17 +57,31 @@ public class PostController implements Serializable {
         resetFields();
         return "/index.xhtml?faces-redirect=true";
     }
-    
+
     private void resetFields() {
         logger.debug("Resetting input fields.");
-        
+
         title = "";
         content = "";
         replyContent = "";
     }
-    
-    public void fetchPostsByKeyword() {
-        postSearchResults = postHandler.fetchPostsWithoutParentByKeyword(searchWord);
+
+    public String fetchPostsByKeyword() {
+        try {
+            postSearchResults = postHandler.fetchPostsWithoutParentByKeyword(searchWord);
+            searchWord = "";
+            return "/index.xhtml?faces-redirect=true";
+        } catch (FormException e) {
+            // TODO Create a "real" log
+            System.out.println(e.getMessage());
+            displayPostFormMessage("Please type more than two characters");
+            return "/index.xhtml?faces-redirect=false";
+        }
+    }
+
+    private void displayPostFormMessage(String message) {
+        FacesMessage facesMessage = new FacesMessage(message);
+        FacesContext.getCurrentInstance().addMessage("formId:postForm", facesMessage);
     }
 
     /* Getters and Setters */

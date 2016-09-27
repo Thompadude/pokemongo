@@ -7,6 +7,7 @@
     <!--Search Posts-->
     <b:panelGrid colSpans="12">
         <h:form styleClass="postForm">
+            <b:messages/>
             <b:inputText placeholder="Search in post titles and content..." value="#{postController.searchWord}">
                 <f:facet name="append">
                     <b:commandButton styleClass="button--search" look="link" action="#{postController.fetchPostsByKeyword}">

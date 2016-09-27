@@ -2,6 +2,7 @@ package com.pokemongo.business;
 
 import com.pokemongo.business.interfaces.PostHandler;
 import com.pokemongo.controllers.UserController;
+import com.pokemongo.exceptions.FormException;
 import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Post;
 import com.pokemongo.models.User;
@@ -79,8 +80,12 @@ public class PostEJB implements PostHandler {
     }
 
     @Override
-    public List<Post> fetchPostsWithoutParentByKeyword(String keyword) {
-        return postService.fetchPostsByKeyword(keyword);
+    public List<Post> fetchPostsWithoutParentByKeyword(String keyword) throws FormException {
+        if (keyword.length() < 3) {
+            throw new FormException();
+        } else {
+            return postService.fetchPostsByKeyword(keyword);
+        }
     }
 
 }
