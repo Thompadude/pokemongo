@@ -3,6 +3,7 @@ package com.pokemongo.controllers;
 import com.pokemongo.business.interfaces.PokemonDataHandler;
 import com.pokemongo.models.PokemonData;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -23,10 +24,15 @@ public class PokemonDataController implements Serializable {
     @EJB
     private PokemonDataHandler pokemonDataHandler;
 
+    @PostConstruct
+    public void init() {
+        pokemonDataList = pokemonDataHandler.fetchAllPokemonData();
+    }
+
     // TODO test method - remove later!
-    public void getSelectedPokemonTEST(Long pokedexNumber) {
+    public void selectedPokemonTEST() {
         // TODO pokedex is null - need to fix!
-        System.out.println(pokedexNumber);
+        System.out.println("Selected pokedex number: " + pokedexNumber);
     }
 
     /* Getters and Setters */
@@ -64,7 +70,6 @@ public class PokemonDataController implements Serializable {
     }
 
     public List<PokemonData> getPokemonDataList() {
-        pokemonDataList = pokemonDataHandler.fetchAllPokemonData();
         return pokemonDataList;
     }
 

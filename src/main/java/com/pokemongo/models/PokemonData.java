@@ -38,9 +38,4 @@ public class PokemonData {
         return spriteUrl;
     }
 
-    @Override
-    public String toString() {
-        return "#" + id + " - " + name;
-    }
-
 }

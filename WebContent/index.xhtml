@@ -130,10 +130,10 @@
                 <!--For testing-->
                 <!--Broken code!-->
                 <h:form>
-                    <b:selectOneMenu id="pokemonSelectMenu" value="#{pokemonDataController}">
-                        <f:selectItems value="#{pokemonDataController.pokemonDataList}" var="p"></f:selectItems>
+                    <b:selectOneMenu id="pokemonSelectMenu" value="#{pokemonDataController.pokedexNumber}">
+                        <f:selectItems value="#{pokemonDataController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}" itemLabel="# #{pokemon.id} - #{pokemon.name}"></f:selectItems>
                     </b:selectOneMenu>
-                    <b:commandButton value="Test me!" action="#{pokemonDataController.getSelectedPokemonTEST(p.id)}"></b:commandButton>
+                    <b:commandButton value="Test me!" action="#{pokemonDataController.selectedPokemonTEST}"></b:commandButton>
                 </h:form>
                 <br/>
                 <br/>
