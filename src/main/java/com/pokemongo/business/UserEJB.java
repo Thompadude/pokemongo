@@ -18,29 +18,41 @@ public class UserEJB implements UserHandler {
 
     @EJB
     private UserService userService;
-    
+    private ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+    private Map<String, Object> sessionMap = externalContext.getSessionMap();
     private static final Logger logger = LogManager.getLogger(UserEJB.class);
 
     @Override
     public void saveUser(User user) {
         userService.saveUser(user);
     }
-
+    
     @Override
-    public User fetchUser(long userId) {
-        return userService.fetchUser(userId);
+    public boolean logIn(User user) {
+        if (!isDuplicate(user)) {
+            saveUser(user);
+        }
+        
+        return setLoggedInUser(user);
     }
-
+    
     @Override
-    public List<User> fetchAllUsers() {
+    public void logOut() {
+        logger.debug("Logging out user {}", sessionMap.get("loggedInUser"));
+        
+        sessionMap.put("loggedInUser", null);
+        
+        logger.info("User logged out.");
+    }
+    
+    private List<User> fetchAllUsers() {
         return userService.fetchAllUsers();
     }
     
     /**
      * Returns true if the user is already in the database
      */
-    @Override
-    public boolean isDuplicate(User loggedInUser) {
+    private boolean isDuplicate(User loggedInUser) {
         boolean isDuplicatedUser = false;
         List<User> allUsers = fetchAllUsers();
         for (User user : allUsers) {
@@ -52,23 +64,11 @@ public class UserEJB implements UserHandler {
         return isDuplicatedUser;
     }
     
-    @Override
-    public User fetchUserByEmail(String email) {
+    private User fetchUserByEmail(String email) {
         return userService.fetchUserByEmail(email);
     }
     
-    @Override
-    public boolean logIn(User user) {
-        if (!isDuplicate(user)) {
-            saveUser(user);
-        }
-    
-        return setLoggedInUser(user);
-    }
-    
     private boolean setLoggedInUser(User loggedInUser) {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, Object> sessionMap = externalContext.getSessionMap();
         
         User sessionUser = fetchUserByEmail(loggedInUser.getEmail());
         
@@ -78,5 +78,4 @@ public class UserEJB implements UserHandler {
     
         return true;
     }
-    
 }

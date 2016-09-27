@@ -38,7 +38,8 @@ public class PostController implements Serializable {
         try {
             postHandler.savePost(post);
         } catch (UserNotLoggedInException e) {
-            FacesMessage message = new FacesMessage("You must be logged in");
+            //Adds the exception message to the message section of the form
+            FacesMessage message = new FacesMessage(e.getMessage());
             FacesContext.getCurrentInstance().addMessage("formId:postForm", message);
         }
         

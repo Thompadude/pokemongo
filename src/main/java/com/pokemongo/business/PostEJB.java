@@ -35,7 +35,7 @@ public class PostEJB implements PostHandler {
             post.setAuthor(author);
             postService.savePost(post);
         } else {
-            throw new UserNotLoggedInException();
+            throw new UserNotLoggedInException("You must be logged in order to post.");
         }
     }
     

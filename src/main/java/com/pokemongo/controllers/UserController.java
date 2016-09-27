@@ -33,9 +33,8 @@ public class UserController implements Serializable {
     }
 
     public void logOut() {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, Object> sessionMap = externalContext.getSessionMap();
-        sessionMap.put("loggedInUser", null);
+        userHandler.logOut();
+        
         setIsUserLoggedIn(false);
     }
     
