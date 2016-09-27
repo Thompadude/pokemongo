@@ -1,6 +1,7 @@
 package com.pokemongo.services;
 
 import com.pokemongo.models.Post;
+import com.pokemongo.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,11 +35,19 @@ public class PostService {
     }
 
     public List<Post> fetchAllPosts() {
-        return em.createNamedQuery("Post.fetchAll").getResultList();
+        List<Post> allPosts = em.createNamedQuery("Post.fetchAll").getResultList();
+        
+        //logger.debug("Fetched all {} posts", allPosts.size());
+        
+        return allPosts;
     }
 
     public List<Post> fetchPostsWithoutParent() {
-        return em.createNamedQuery("Post.fetchPostsWithoutParent").getResultList();
+        List<Post> postsWithoutParents = em.createNamedQuery("Post.fetchPostsWithoutParent").getResultList();
+        
+        logger.debug("Fetched {} posts (without parents)", postsWithoutParents.size());
+        
+        return postsWithoutParents;
     }
 
     public List<Post> fetchPostsByKeyword(String keyword) {

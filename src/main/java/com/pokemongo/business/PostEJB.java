@@ -36,7 +36,7 @@ public class PostEJB implements PostHandler {
             post.setAuthor(author);
             postService.savePost(post);
         } else {
-            throw new UserNotLoggedInException();
+            throw new UserNotLoggedInException("You must be logged in order to post.");
         }
     }
     
@@ -48,30 +48,12 @@ public class PostEJB implements PostHandler {
     }
     
     @Override
-    public void saveReply(Post reply, long parentId) {
-        // TODO add error handling
-        User author = fetchLoggedInUser();
+    public void saveReply(Post reply, long parentId) throws UserNotLoggedInException {
+        
         Post parentPost = postService.fetchPost(parentId);
-        reply.setAuthor(author);
         reply.setParentPost(parentPost);
-        postService.savePost(reply);
-    }
-
-    @Override
-    public Post fetchPost(long postId) {
-        return postService.fetchPost(postId);
-    }
-
-    @Override
-    public List<Post> fetchAllPosts() {
-        return postService.fetchAllPosts();
-    }
-
-    @Override
-    public void addChildPost(long postId, Post childPost) {
-        Post parentPost = postService.fetchPost(postId);
-        childPost.setParentPost(parentPost);
-        postService.savePost(childPost);
+        
+        savePost(reply);
     }
 
     @Override
@@ -80,7 +62,8 @@ public class PostEJB implements PostHandler {
     }
 
     @Override
-    public List<Post> fetchPostsWithoutParentByKeyword(String keyword) throws FormException {
+    public List<Post> fetchPostsByKeyword(String keyword) throws FormException {
+        
         if (keyword.length() < 3) {
             throw new FormException();
         } else {
