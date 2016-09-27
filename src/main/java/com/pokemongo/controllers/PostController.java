@@ -75,6 +75,7 @@ public class PostController implements Serializable {
             // TODO Create a "real" log
             System.out.println(e.getMessage());
             displayPostFormMessage("Please type more than two characters");
+            // TODO fix this. Page refreshes anyway!
             return "/index.xhtml?faces-redirect=false";
         }
     }
