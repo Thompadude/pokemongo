@@ -16,4 +16,8 @@ public interface UserHandler {
     boolean logIn(User user);
     
     void logOut();
+    
+    User getLoggedInUser();
+    
+    boolean setLoggedInUser(User loggedInUser);
 }

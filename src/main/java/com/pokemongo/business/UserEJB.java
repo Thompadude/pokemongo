@@ -45,6 +45,23 @@ public class UserEJB implements UserHandler {
         logger.info("User logged out.");
     }
     
+    @Override
+    public User getLoggedInUser() {
+        return (User) sessionMap.get("loggedInUser");
+    }
+    
+    @Override
+    public boolean setLoggedInUser(User loggedInUser) {
+        
+        User sessionUser = fetchUserByEmail(loggedInUser.getEmail());
+        
+        sessionMap.put("loggedInUser", sessionUser);
+        
+        logger.info("Logged in user: " + sessionMap.get("loggedInUser"));
+        
+        return true;
+    }
+    
     private List<User> fetchAllUsers() {
         return userService.fetchAllUsers();
     }
@@ -66,16 +83,5 @@ public class UserEJB implements UserHandler {
     
     private User fetchUserByEmail(String email) {
         return userService.fetchUserByEmail(email);
-    }
-    
-    private boolean setLoggedInUser(User loggedInUser) {
-        
-        User sessionUser = fetchUserByEmail(loggedInUser.getEmail());
-        
-        sessionMap.put("loggedInUser", sessionUser);
-        
-        logger.info("Logged in user: " + sessionMap.get("loggedInUser"));
-    
-        return true;
     }
 }

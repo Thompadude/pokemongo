@@ -4,6 +4,7 @@ import com.pokemongo.business.interfaces.UserHandler;
 import com.pokemongo.models.Pokemon;
 import com.pokemongo.models.User;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -19,13 +20,26 @@ public class UserController implements Serializable {
 
     private static final long serialVersionUID = 288653009259087195L;
 
-    private boolean isUserLoggedIn = false;
+    private boolean isUserLoggedIn;
     private String userName;
     private String email;
     private String tokenId;
     private List<Pokemon> pokemons;
     @EJB
     private UserHandler userHandler;
+    
+    @PostConstruct
+    public void init() {
+        isUserLoggedIn = false;
+        User currentUser = userHandler.getLoggedInUser();
+        if (currentUser != null) {
+            isUserLoggedIn = true;
+    
+            this.userName = currentUser.getUserName();
+            this.email = currentUser.getEmail();
+            this.pokemons = currentUser.getPokemons();
+        }
+    }
     
     public void logIn() {
         User user = new User(userName, email, tokenId);
@@ -79,5 +93,4 @@ public class UserController implements Serializable {
     public void setPokemons(List<Pokemon> pokemons) {
         this.pokemons = pokemons;
     }
-
 }
