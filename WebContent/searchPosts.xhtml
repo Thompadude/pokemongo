@@ -4,6 +4,7 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <!--Search Posts-->
     <b:panelGrid colSpans="12">
         <h:form styleClass="postForm">
@@ -12,6 +13,9 @@
                 <f:facet name="append">
                     <b:commandButton styleClass="button--search" look="link" action="#{postController.fetchPostsByKeyword}">
                         <b:iconAwesome name="search"/>
+                    </b:commandButton>
+                    <b:commandButton styleClass="button--reset" look="link">
+                        <b:iconAwesome name="times"/>
                     </b:commandButton>
                 </f:facet>
             </b:inputText>
@@ -65,6 +69,4 @@
             </ul>
         </b:column>
     </b:row>
-    <!--TODO use CSS instead of br-->
-    <br/>
 </ui:composition>
