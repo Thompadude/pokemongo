@@ -126,22 +126,7 @@
 
             <!--Right Section-->
             <b:column mediumScreen="6" styleClass="rightSection">
-
-                <!--For testing-->
-                <!--Broken code!-->
-                <h:form>
-                    <b:selectOneMenu id="pokemonSelectMenu" value="#{pokemonDataController.pokedexNumber}">
-                        <f:selectItems value="#{pokemonDataController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}" itemLabel="# #{pokemon.id} - #{pokemon.name}"></f:selectItems>
-                    </b:selectOneMenu>
-                    <b:commandButton value="Test me!" action="#{pokemonDataController.selectedPokemonTEST}"></b:commandButton>
-                </h:form>
-                <br/>
-                <br/>
-                <br/>
-                <!--End test-->
-
                 <button onclick="addPokemon()">
-
                     Generate pokemon
                 </button>
                 <br/>
