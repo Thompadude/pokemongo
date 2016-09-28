@@ -66,9 +66,10 @@ public class PostController implements Serializable {
         
         logger.debug("Fetching fresh posts...");
         posts = postHandler.fetchPostsWithoutParent();
-        
+        fetchPostsByKeyword();
+
         logger.debug("Resetting input fields.");
-        
+
         title = "";
         content = "";
         replyContent = "";
@@ -76,14 +77,12 @@ public class PostController implements Serializable {
     
     public String fetchPostsByKeyword() {
         logger.debug("Fetching posts by keyword: {}", searchWord);
-        
+
         try {
             postSearchResults = postHandler.fetchPostsByKeyword(searchWord);
-            searchWord = "";
             return "/index.xhtml?faces-redirect=true";
         } catch (FormException e) {
-            // TODO Create a "real" log
-            System.out.println(e.getMessage());
+            logger.error(e);
             displayPostFormMessage("Please type more than two characters");
             // TODO fix this. Page refreshes anyway!
             return "/index.xhtml?faces-redirect=false";

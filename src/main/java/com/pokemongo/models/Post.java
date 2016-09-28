@@ -3,6 +3,7 @@ package com.pokemongo.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 
@@ -77,6 +78,11 @@ public class Post implements Serializable, Comparator<Post> {
 
     public void setPostTime(LocalDateTime postTime) {
         this.postTime = postTime;
+    }
+
+    public String getPostTimeAsString() {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return this.postTime.format(dateTimeFormatter);
     }
 
     public Post getParentPost() {
