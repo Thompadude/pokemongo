@@ -37,7 +37,7 @@ html {
   cursor: pointer; }
 
 .button--search {
-  padding-right: 0; }
+  padding-right: 0 !important; }
 
 .postList__childList {
   padding-left: 4rem;
