@@ -14,7 +14,7 @@
                     <b:commandButton styleClass="button--search" look="link" action="#{postController.fetchPostsByKeyword}">
                         <b:iconAwesome name="search"/>
                     </b:commandButton>
-                    <b:commandButton styleClass="button--reset" look="link">
+                    <b:commandButton styleClass="button--reset" look="link" action="#{postController.resetSearchedPosts}">
                         <b:iconAwesome name="times"/>
                     </b:commandButton>
                 </f:facet>
@@ -69,4 +69,5 @@
             </ul>
         </b:column>
     </b:row>
+
 </ui:composition>
