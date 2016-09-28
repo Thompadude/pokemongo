@@ -11,7 +11,8 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "Post.fetchAll", query = "SELECT p FROM Post p"),
         @NamedQuery(name = "Post.fetchPostsWithoutParent", query = "SELECT p FROM Post p WHERE p.parentPost = NULL ORDER BY p.postTime DESC"),
-        @NamedQuery(name = "Post.fetchPostsWithoutParentByKeyWord", query = "SELECT p FROM Post p WHERE p.parentPost = NULL AND (p.content LIKE :keyword OR p.title LIKE :keyword) ORDER BY p.postTime DESC")
+        @NamedQuery(name = "Post.fetchPostsByKeyWord", query = "SELECT p FROM Post p WHERE p.parentPost = NULL AND (p.content LIKE :keyword OR p.title LIKE :keyword) ORDER BY p.postTime DESC"),
+        @NamedQuery(name = "Post.fetchPostsOrderedByChildPostsLength", query = "SELECT p FROM Post p WHERE p.parentPost = NULL ORDER BY p.childPosts.size DESC")
 })
 public class Post implements Serializable, Comparator<Post> {
 

@@ -63,6 +63,17 @@ public class PostController implements Serializable {
         return "/index.xhtml?faces-redirect=true";
     }
 
+    public String orderPostsInDefaultOrder() {
+        posts = postHandler.fetchPostsWithoutParent();
+        return "/index.xhtml?faces-redirect=true";
+    }
+
+    public String orderPostsByChildPostsLength() {
+        // TODO fix: when the user sort by this and post a comment, the default sort order is loaded. Use enum? Boolean?
+        posts = postHandler.fetchPostsOrderedByChildPostsLength();
+        return "/index.xhtml?faces-redirect=true";
+    }
+
     public String fetchPostsByKeyword() {
         logger.debug("Fetching posts by keyword: {}", searchWord);
 
@@ -93,7 +104,10 @@ public class PostController implements Serializable {
     private void fetchFreshPosts() {
         logger.debug("Fetching fresh posts...");
         posts = postHandler.fetchPostsWithoutParent();
-        fetchPostsByKeyword();
+
+        // Only refresh the searched posts section if the user previously searched for posts
+        if (searchWord != null)
+            fetchPostsByKeyword();
     }
 
     private void displayPostFormMessage(String message) {

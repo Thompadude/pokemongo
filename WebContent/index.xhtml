@@ -8,15 +8,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <meta name="google-signin-scope" content="profile email"></meta>
-    <meta name="google-signin-client_id"
-          content="85390473584-aead42mt4mhtf5d2brevqd0dan46s0d7.apps.googleusercontent.com"></meta>
+    <meta name="google-signin-client_id" content="85390473584-aead42mt4mhtf5d2brevqd0dan46s0d7.apps.googleusercontent.com"></meta>
 
     <title>PokeMongo</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async="async" defer="defer"></script>
-    <h:outputScript library="js" name="posts.js"></h:outputScript>
-
 </h:head>
 <h:body>
 
@@ -25,7 +22,6 @@
         <b:navbarLinks>
             <b:navLink value="PokePortal" href="#"></b:navLink>
             <b:navLink value="My Profile" href="#"></b:navLink>
-
         </b:navbarLinks>
         <b:navbarLinks pull="right">
             <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
@@ -43,20 +39,24 @@
 
                 <b:row>
                     <b:column mediumScreen="12">
-
                         <!-- New Post Form -->
                         <h:form styleClass="postForm" id="searchForm">
                             <c:if test="#{userController.isUserLoggedIn}">
                                 <b:messages/>
                                 <b:inputText placeholder="Post title" id="title" value="#{postController.title}"/>
-                                <b:inputTextarea placeholder="Write new post..." id="content"
-                                                 value="#{postController.content}"/>
-
+                                <b:inputTextarea placeholder="Write new post..." id="content" value="#{postController.content}"/>
                                 <div class="btnWrapper--right">
                                     <b:commandButton value="Post!" look="primary" action="#{postController.savePost}"/>
                                 </div>
                             </c:if>
                         </h:form>
+
+                        <!--TEST-->
+                        <h:form>
+                            <b:commandButton value="Sort by number of comments test button :-)" action="#{postController.orderPostsByChildPostsLength}"></b:commandButton>
+                            <b:commandButton value="Default sort order. Click me!" action="#{postController.orderPostsInDefaultOrder}"></b:commandButton>
+                        </h:form>
+                        <!--END TEST-->
 
                     </b:column>
                 </b:row>
@@ -64,9 +64,7 @@
                 <b:row>
                     <b:column mediumScreen="12">
                         <ul class="postList">
-
                             <c:forEach var="post" items="#{postController.posts}">
-
                                 <li class="postList__item">
                                     <div class="post post--default">
                                         <div class="post__title">
@@ -78,20 +76,17 @@
                                         </div>
                                         <div class="btnWrapper--right">
                                             <a class="button button--comments">
-                                                <span class="btn__label">Comments</span>
+                                                <span class="btn__label">Comments (#{post.childPosts.size()})</span>
                                                 <span class="btn__arrow">&#8681;</span>
                                             </a>
                                         </div>
                                     </div>
-
                                 </li>
-
                                 <ul class="postList__childList hideable">
-
                                     <c:forEach items="#{post.childPosts}" var="child">
                                         <li class="postList__childList__item">
                                             <div class="post post--comment">
-                                                <h:outputText value="#{child.content}"/>
+                                                <h:outputText styleClass="post__content" value="#{child.content}"/>
                                                 <h:outputText styleClass="post__author" value="Posted by: #{child.author.userName} @ #{child.getPostTimeAsString()}"/>
                                             </div>
                                         </li>
@@ -101,7 +96,6 @@
                                     <h:form styleClass="postForm">
                                         <c:if test="#{userController.isUserLoggedIn}">
                                             <b:inputTextarea placeholder="Write reply..." id="replyContent" value="#{postController.replyContent}"></b:inputTextarea>
-
                                             <div class="btnWrapper--right">
                                                 <b:commandButton value="Reply!" look="primary" action="#{postController.saveReply(post.id)}"/>
                                             </div>
@@ -109,7 +103,6 @@
                                     </h:form>
                                 </div>
                             </c:forEach>
-
                         </ul>
                     </b:column>
                 </b:row>
@@ -131,8 +124,7 @@
 
     <h:outputStylesheet library="css" name="normalize.css"></h:outputStylesheet>
     <h:outputStylesheet library="css" name="main.css"></h:outputStylesheet>
+    <h:outputScript library="js" name="posts.js"></h:outputScript>
+    <h:outputScript library="js" name="googleLogin.js"></h:outputScript>
 </h:body>
-
-<h:outputScript library="js" name="googleLogin.js"></h:outputScript>
-
 </html>
