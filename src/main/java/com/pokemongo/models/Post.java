@@ -3,15 +3,17 @@ package com.pokemongo.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Post.fetchAll", query = "SELECT p FROM Post p"),
-        @NamedQuery(name = "Post.fetchPostsWithoutParent", query = "SELECT p FROM Post p WHERE p.parentPost = NULL"),
-        @NamedQuery(name = "Post.fetchPostsWithoutParentByKeyWord", query = "SELECT p FROM Post p WHERE p.parentPost = NULL AND (p.content LIKE :keyword OR p.title LIKE :keyword)")
+        @NamedQuery(name = "Post.fetchPostsWithoutParent", query = "SELECT p FROM Post p WHERE p.parentPost = NULL ORDER BY p.postTime DESC"),
+        @NamedQuery(name = "Post.fetchPostsWithoutParentByKeyWord", query = "SELECT p FROM Post p WHERE p.parentPost = NULL AND (p.content LIKE :keyword OR p.title LIKE :keyword) ORDER BY p.postTime DESC")
 })
-public class Post implements Serializable {
+public class Post implements Serializable, Comparator<Post> {
 
     private static final long serialVersionUID = 6787577451747845441L;
 
@@ -78,6 +80,11 @@ public class Post implements Serializable {
         this.postTime = postTime;
     }
 
+    public String getPostTimeAsString() {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return this.postTime.format(dateTimeFormatter);
+    }
+
     public Post getParentPost() {
         return parentPost;
     }
@@ -87,11 +94,17 @@ public class Post implements Serializable {
     }
 
     public List<Post> getChildPosts() {
+
         return childPosts;
     }
 
     public void setChildPosts(List<Post> childPosts) {
         this.childPosts = childPosts;
+    }
+
+    @Override
+    public int compare(Post o1, Post o2) {
+        return o1.getPostTime().compareTo(o2.getPostTime());
     }
 
 }

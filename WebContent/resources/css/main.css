@@ -2,7 +2,7 @@ html {
   margin-bottom: 10rem; }
 
 .postList {
-  margin: 0;
+  margin: 0 0 2rem 0;
   padding: 0; }
 
 .postList__item {
@@ -35,6 +35,9 @@ html {
 
 .button {
   cursor: pointer; }
+
+.button--search {
+  padding-right: 0 !important; }
 
 .postList__childList {
   padding-left: 4rem;

@@ -61,8 +61,7 @@ public class PostEJB implements PostHandler {
     
     @Override
     public List<Post> fetchPostsByKeyword(String keyword) throws FormException {
-        
-        if (keyword.length() < 3) {
+        if (keyword.length() < 3 || keyword == null) {
             throw new FormException();
         } else {
             return postService.fetchPostsByKeyword(keyword);
