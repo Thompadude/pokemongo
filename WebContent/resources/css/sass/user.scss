@@ -1,3 +1,24 @@
-html {
-    margin-bottom: 10rem;
+.userInfo {
+    border: 1px solid $mediumGrey;
+    padding: 15px;
+}
+
+.userInfo__title {
+    text-align: center;
+    font-style: italic;
+    font-size: 2rem;
+}
+
+.userInfo__picture {
+    margin: 15px;
+}
+
+.userInfo__text {
+    width: 100%;
+
+    background-color: $lightGrey;
+
+    tr td {
+        padding: 10px;
+    }
 }

@@ -5,6 +5,10 @@ $darkGrey: #b0b0b0;
 
 $childListPadding: 4rem;
 
+//imports
+@import "normalize";
+@import "user";
+
 html {
     margin-bottom: 10rem;
 }

@@ -7,23 +7,25 @@
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
+    <meta name="google-signin-scope" content="profile email"></meta>
+    <meta name="google-signin-client_id"
+          content="85390473584-aead42mt4mhtf5d2brevqd0dan46s0d7.apps.googleusercontent.com"></meta>
+
     <title>User Profile</title>
 
-    <h:outputStylesheet library="css" name="normalize.css"></h:outputStylesheet>
-    <h:outputStylesheet library="css" name="user.css"></h:outputStylesheet>
+    <h:outputStylesheet library="css" name="main.css"></h:outputStylesheet>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-
+    <script src="https://apis.google.com/js/platform.js" async="async" defer="defer"></script>
     <h:outputScript library="js" name="posts.js"></h:outputScript>
 
 </h:head>
 <h:body>
 
     <!-- NavBar -->
-    <b:navBar brand="PokeMongo" brandHref="#" position="top" sticky="false">
+    <b:navBar brand="PokeMongo" brandHref="index.xhtml" position="top" sticky="false">
         <b:navbarLinks>
-            <b:navLink value="PokePortal" href="#"></b:navLink>
-            <b:navLink value="My Profile" href="#"></b:navLink>
+            <b:navLink value="My Profile" href="user.xhtml"></b:navLink>
 
         </b:navbarLinks>
         <b:navbarLinks pull="right">
@@ -36,14 +38,45 @@
         <b:row>
 
             <!--Left Section-->
-            <b:column mediumScreen="6" styleClass="leftSection">
-                <div>
-                    Hello, <h:outputText value="#{userController.userName}"/>
+            <b:column mediumScreen="5" styleClass="leftSection">
+                <div class="userInfo">
+                    <div class="userInfo__title">Trainer Card</div>
+                    <div class="userInfo__picture">
+                        <b:image library="img" name="defaultProfile.png"/>
+                    </div>
+
+                    <table class="userInfo__text">
+                        <tr>
+                            <td>
+                                <span class="userInfo__text__label">Trainer name: </span>
+                            </td>
+                            <td>
+                                <span class="userInfo__text_value"><h:outputText value="#{userController.userName}"/></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="userInfo__text__label">Team allegiance: </span>
+                            </td>
+                            <td>
+                                <span class="userInfo__text_value">Mystic</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="userInfo__text__label">Pokémons Registered: </span>
+                            </td>
+                            <td>
+                                <span class="userInfo__text_value">76</span>
+                            </td>
+                        </tr>
+                    </table>
+
                 </div>
             </b:column>
 
             <!--Right Section-->
-            <b:column mediumScreen="6" styleClass="rightSection">
+            <b:column mediumScreen="7" styleClass="rightSection">
 
             </b:column>
         </b:row>
