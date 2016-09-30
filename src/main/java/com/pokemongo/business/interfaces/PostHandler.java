@@ -15,7 +15,9 @@ public interface PostHandler {
     void saveReply(Post reply, long parentId) throws UserNotLoggedInException;
     
     List<Post> fetchPostsWithoutParent();
-    
+
+    List<Post> fetchPostsOrderedByChildPostsLength();
+
     List<Post> fetchPostsByKeyword(String keyword) throws FormException;
     
 }

@@ -12,6 +12,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -63,6 +64,26 @@ public class PostController implements Serializable {
         return "/index.xhtml?faces-redirect=true";
     }
 
+    public void changePostSortOrder(ValueChangeEvent event) {
+        String sortOrder = (String) event.getNewValue();
+        if (sortOrder.equals("default")) {
+            orderPostsInDefaultOrder();
+        } else {
+            orderPostsByChildPostsLength();
+        }
+    }
+
+    public String orderPostsInDefaultOrder() {
+        posts = postHandler.fetchPostsWithoutParent();
+        return "/index.xhtml?faces-redirect=true";
+    }
+
+    public String orderPostsByChildPostsLength() {
+        // TODO fix: when the user sort by this and post a comment, the default sort order is loaded. Use enum? Boolean?
+        posts = postHandler.fetchPostsOrderedByChildPostsLength();
+        return "/index.xhtml?faces-redirect=true";
+    }
+
     public String fetchPostsByKeyword() {
         logger.debug("Fetching posts by keyword: {}", searchWord);
 
@@ -93,7 +114,10 @@ public class PostController implements Serializable {
     private void fetchFreshPosts() {
         logger.debug("Fetching fresh posts...");
         posts = postHandler.fetchPostsWithoutParent();
-        fetchPostsByKeyword();
+
+        // Only refresh the searched posts section if the user previously searched for posts
+        if (searchWord != null)
+            fetchPostsByKeyword();
     }
 
     private void displayPostFormMessage(String message) {

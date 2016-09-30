@@ -9,8 +9,20 @@ html {
     margin-bottom: 10rem;
 }
 
+.label {
+
+}
+
+.label--postOrder {
+    margin-right: 1rem;
+}
+
+.postForm {
+    margin-bottom: 0;
+}
+
 .postList {
-    margin: 0 0 2rem 0;
+    margin: 0;
     padding: 0;
 }
 
@@ -55,6 +67,11 @@ html {
 
 .button--comments {
 
+}
+
+.button--post {
+    display: inline-block;
+    float: right;
 }
 
 .button--search {

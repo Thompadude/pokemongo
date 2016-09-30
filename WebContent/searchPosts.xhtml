@@ -5,7 +5,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <!--Search Posts-->
+    <!--Search Posts Form-->
     <b:panelGrid colSpans="12">
         <h:form styleClass="postForm">
             <b:messages/>
@@ -38,7 +38,7 @@
                             </div>
                             <div class="btnWrapper--right">
                                 <a class="button button--comments">
-                                    <span class="btn__label">Comments</span>
+                                    <span class="btn__label">Comments (#{post.childPosts.size()})</span>
                                     <span class="btn__arrow">&#8681;</span>
                                 </a>
                             </div>
