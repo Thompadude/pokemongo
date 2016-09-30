@@ -12,6 +12,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -61,6 +62,10 @@ public class PostController implements Serializable {
 
         resetPostFields();
         return "/index.xhtml?faces-redirect=true";
+    }
+
+    public void changePostSortOrder(ValueChangeEvent event) {
+        // TODO add code here!
     }
 
     public String orderPostsInDefaultOrder() {
