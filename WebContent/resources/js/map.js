@@ -13,8 +13,9 @@ function initMap() {
   
   // This event listener will call addPokemonLatLong() when the map is clicked.  
   map.addListener('click', function(event) {
-	  
-	var pokeIndex = document.getElementById('indexNumber').value;
+console.log('hej from map.addListener()');
+	var pokeIndex =document.getElementById('pokemonSelectMenu').value;
+console.log(pokeIndex + 'hej då');
 	var imageLink = "";
 	
 	if (pokeIndex.length == 0 || pokeIndex.length > 3 || pokeIndex == null) {
@@ -67,11 +68,18 @@ function addPokemon() {
 
 	var lati = document.getElementById('latitude').value;
 	var longi = document.getElementById('longitude').value;
-	var pokeNumber = document.getElementById('indexNumber').value;
+	var pokeNumber = document.getElementById('pokemonSelectMenu').value.split(' - ')[0];
 	
 	addPokemonLatLong(lati, longi, pokeNumber);
 }
 
 function link(index) {
 	return "http://www.serebii.net/pokearth/sprites/em/" + index + ".png";
+}
+
+function choosingPokemon(){
+    console.log('börjarn');
+    var pokeNumber = document.getElementById('pokemonSelectMenu').value.split(' - ')[0];
+	document.getElementById('indexNumber').value = pokeNumber;
+    console.log('fim');
 }

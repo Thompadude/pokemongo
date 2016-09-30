@@ -3,8 +3,10 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
@@ -126,13 +128,29 @@
 
             <!--Right Section-->
             <b:column mediumScreen="6" styleClass="rightSection">
+                <h:form>
+                    <b:selectOneMenu id="pokemonSelectMenu" label="Select a Pokemon" randerLabel="true" value="#{pokemonDataController.pokedexNumber}">
+                        <f:selectItems value="#{pokemonDataController.pokemonDataList}"
+                                       var="pokemon"
+                                       itemValue="#{pokemon.pokedexNumber}"
+                                       itemLabel="#{pokemon.pokedexNumber} - #{pokemon.name}"
+
+                        onselect="choosingPokemon();">
+
+                        </f:selectItems>
+                    </b:selectOneMenu>
+                </h:form>
+                <br/>
+
+
+
                 <button onclick="addPokemon()">
                     Generate pokemon
                 </button>
                 <br/>
                 <br/>pokemon index number:
                 <input id="indexNumber" type="text" name="firstname" value=""></input>
-                (Note: Leaving this empty or giving it a value of more than 3 digits will result in randomizing)
+                (If empty : randomizing)
 
                 <br/>latitude:
                 <input id="latitude" type="text" name="firstname" value=""></input>

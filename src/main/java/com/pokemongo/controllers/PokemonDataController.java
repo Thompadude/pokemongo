@@ -16,7 +16,7 @@ public class PokemonDataController implements Serializable {
 
     private static final long serialVersionUID = 6380435607133177451L;
 
-    private Integer pokedexNumber;
+    private String pokedexNumber;
     private String name;
     private String imageUrl;
     private String spriteUrl;
@@ -37,11 +37,11 @@ public class PokemonDataController implements Serializable {
 
     /* Getters and Setters */
 
-    public Integer getPokedexNumber() {
+    public String getPokedexNumber() {
         return pokedexNumber;
     }
 
-    public void setPokedexNumber(Integer pokedexNumber) {
+    public void setPokedexNumber(String pokedexNumber) {
         this.pokedexNumber = pokedexNumber;
     }
 
