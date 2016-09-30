@@ -37,30 +37,35 @@
 
                 <ui:include src="searchPosts.xhtml"></ui:include>
 
-                <b:row>
-                    <b:column mediumScreen="12">
                         <!-- New Post Form -->
                         <h:form styleClass="postForm" id="searchForm">
                             <c:if test="#{userController.isUserLoggedIn}">
                                 <b:messages/>
                                 <b:inputText placeholder="Post title" id="title" value="#{postController.title}"/>
                                 <b:inputTextarea placeholder="Write new post..." id="content" value="#{postController.content}"/>
-                                <div class="btnWrapper--right">
+
+                                <div class="button button--post">
                                     <b:commandButton value="Post!" look="primary" action="#{postController.savePost}"/>
                                 </div>
                             </c:if>
                         </h:form>
 
                         <h:form>
-                            <b:selectOneMenu valueChangeListener="#{postController.changePostSortOrder}" onchange="submit()">
-                                <f:selectItem itemLabel="Change Post Sort Order..."></f:selectItem>
-                                <f:selectItem itemLabel="Date" itemValue="default"></f:selectItem>
-                                <f:selectItem itemLabel="Comments" itemValue="comments"></f:selectItem>
-                            </b:selectOneMenu>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <label class="label label--postOrder">Order By:</label>
+                                    </td>
+                                    <td>
+                                        <b:selectOneMenu valueChangeListener="#{postController.changePostSortOrder}" onchange="submit()">
+                                            <f:selectItem itemLabel="Date" itemValue="default"></f:selectItem>
+                                            <f:selectItem itemLabel="Comments" itemValue="comments"></f:selectItem>
+                                        </b:selectOneMenu>
+                                    </td>
+                                </tr>
+                            </table>
                         </h:form>
 
-                    </b:column>
-                </b:row>
 
                 <b:row>
                     <b:column mediumScreen="12">
@@ -97,6 +102,7 @@
                                     <h:form styleClass="postForm">
                                         <c:if test="#{userController.isUserLoggedIn}">
                                             <b:inputTextarea placeholder="Write reply..." id="replyContent" value="#{postController.replyContent}"></b:inputTextarea>
+
                                             <div class="btnWrapper--right">
                                                 <b:commandButton value="Reply!" look="primary" action="#{postController.saveReply(post.id)}"/>
                                             </div>
