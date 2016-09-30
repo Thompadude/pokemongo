@@ -66,6 +66,17 @@ public class PostController implements Serializable {
 
     public void changePostSortOrder(ValueChangeEvent event) {
         // TODO add code here!
+        switch ((String) event.getNewValue()) {
+            case "default":
+                orderPostsInDefaultOrder();
+                break;
+            case "comments":
+                orderPostsByChildPostsLength();
+                break;
+            default:
+                break;
+        }
+
     }
 
     public String orderPostsInDefaultOrder() {

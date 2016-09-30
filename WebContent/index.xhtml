@@ -51,19 +51,13 @@
                             </c:if>
                         </h:form>
 
-                        <!--TEST-->
-                        <h:form>
-                            <b:commandButton value="Sort by number of comments test button :-)" action="#{postController.orderPostsByChildPostsLength}"></b:commandButton>
-                            <b:commandButton value="Default sort order. Click me!" action="#{postController.orderPostsInDefaultOrder}"></b:commandButton>
-                        </h:form>
-
                         <h:form>
                             <b:selectOneMenu valueChangeListener="#{postController.changePostSortOrder}" onchange="submit()">
-                                <f:selectItem itemLabel="Date" itemValue="date"></f:selectItem>
+                                <f:selectItem itemLabel="Change Post Sort Order..."></f:selectItem>
+                                <f:selectItem itemLabel="Date" itemValue="default"></f:selectItem>
                                 <f:selectItem itemLabel="Comments" itemValue="comments"></f:selectItem>
                             </b:selectOneMenu>
                         </h:form>
-                        <!--END TEST-->
 
                     </b:column>
                 </b:row>
