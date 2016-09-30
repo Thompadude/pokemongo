@@ -1,6 +1,9 @@
 html {
   margin-bottom: 10rem; }
 
+a:hover {
+  text-decoration: none; }
+
 .label--postOrder {
   margin-right: 1rem; }
 
@@ -48,6 +51,12 @@ html {
 
 .button--search {
   padding-right: 0 !important; }
+
+.button__arrow {
+  color: #b0b0b0; }
+
+.button__badge {
+  background-color: #d1d1d1; }
 
 .postList__childList {
   padding-left: 4rem;

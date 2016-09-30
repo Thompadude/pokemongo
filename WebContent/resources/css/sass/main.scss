@@ -9,6 +9,10 @@ html {
     margin-bottom: 10rem;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 .label {
 
 }
@@ -80,6 +84,14 @@ html {
 
 .button--reset {
 
+}
+
+.button__arrow {
+    color: $darkGrey;
+}
+
+.button__badge {
+    background-color: $mediumGrey;
 }
 
 .postList__childList {
