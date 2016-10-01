@@ -74,21 +74,21 @@ public class PostController implements Serializable {
     }
 
     public String orderPostsInDefaultOrder() {
-        posts = postHandler.fetchPostsWithoutParent();
-        return "/index.xhtml?faces-redirect=true";
+        setPosts(postHandler.fetchPostsWithoutParent());
+        return "/index?faces-redirect=true";
     }
 
     public String orderPostsByChildPostsLength() {
         // TODO fix: when the user sort by this and post a comment, the default sort order is loaded. Use enum? Boolean?
-        posts = postHandler.fetchPostsOrderedByChildPostsLength();
-        return "/index.xhtml?faces-redirect=true";
+        setPosts(postHandler.fetchPostsOrderedByChildPostsLength());
+        return "/index?faces-redirect=true";
     }
 
     public String fetchPostsByKeyword() {
         logger.debug("Fetching posts by keyword: {}", searchWord);
 
         try {
-            postSearchResults = postHandler.fetchPostsByKeyword(searchWord);
+            setPostSearchResults(postHandler.fetchPostsByKeyword(searchWord));
             return "/index.xhtml?faces-redirect=true";
         } catch (FormException e) {
             logger.error(e);
@@ -99,7 +99,7 @@ public class PostController implements Serializable {
 
     public void resetSearchedPosts() {
         setPostSearchResults(null);
-        searchWord = "";
+        setSearchWord("");
     }
 
     private void resetPostFields() {

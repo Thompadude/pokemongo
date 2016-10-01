@@ -87,14 +87,19 @@
                                     </div>
                                 </li>
                                 <ul class="postList__childList hideable">
-                                    <c:forEach items="#{post.childPosts}" var="child">
-                                        <li class="postList__childList__item">
-                                            <div class="post post--comment">
-                                                <h:outputText styleClass="post__content" value="#{child.content}"/>
-                                                <h:outputText styleClass="post__author" value="Posted by: #{child.author.userName} @ #{child.getPostTimeAsString()}"/>
-                                            </div>
-                                        </li>
-                                    </c:forEach>
+
+                                    <!--TODO: Change all forEach to datatables-->
+                                    <h:dataTable styleClass="postsDataTable" value="#{post.childPosts}" var="child">
+                                        <h:column>
+                                            <li class="postList__childList__item">
+                                                <div class="post post--comment">
+                                                    <h:outputText styleClass="post__content" value="#{child.content}"/>
+                                                    <h:outputText styleClass="post__author" value="Posted by: #{child.author.userName} @ #{child.getPostTimeAsString()}"/>
+                                                </div>
+                                            </li>
+                                        </h:column>
+                                    </h:dataTable>
+
                                 </ul>
                                 <div class="postList__formWrapper hideable">
                                     <h:form styleClass="postForm">
