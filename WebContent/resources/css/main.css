@@ -5,7 +5,8 @@ a:hover {
   text-decoration: none; }
 
 .label--postOrder {
-  margin-right: 1rem; }
+  float: left;
+  margin: .75rem 1rem 0 0; }
 
 .postForm {
   margin-bottom: 0; }
@@ -69,6 +70,10 @@ a:hover {
   margin-top: 1em;
   padding-left: 4rem;
   display: none; }
+
+.selectMenu--postSortOrder {
+  min-width: 10rem;
+  max-width: 20rem; }
 
 #hiddenGoogleLoginForm {
   display: none; }

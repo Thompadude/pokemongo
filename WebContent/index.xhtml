@@ -43,34 +43,26 @@
 
                 <ui:include src="searchPosts.xhtml"></ui:include>
 
-                        <!-- New Post Form -->
-                        <h:form styleClass="postForm" id="searchForm">
-                            <c:if test="#{userController.isUserLoggedIn}">
-                                <b:messages/>
-                                <b:inputText placeholder="Post title" id="title" value="#{postController.title}"/>
-                                <b:inputTextarea placeholder="Write new post..." id="content" value="#{postController.content}"/>
+                <!-- New Post Form -->
+                <h:form styleClass="postForm" id="searchForm">
+                    <c:if test="#{userController.isUserLoggedIn}">
+                        <b:messages/>
+                        <b:inputText placeholder="Post title" id="title" value="#{postController.title}"/>
+                        <b:inputTextarea placeholder="Write new post..." id="content" value="#{postController.content}"/>
 
-                                <div class="button button--post">
-                                    <b:commandButton value="Post!" look="primary" action="#{postController.savePost}"/>
-                                </div>
-                            </c:if>
-                        </h:form>
+                        <div class="button button--post">
+                            <b:commandButton value="Post!" look="primary" action="#{postController.savePost}"/>
+                        </div>
+                    </c:if>
+                </h:form>
 
-                        <h:form>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <label class="label label--postOrder">Order By:</label>
-                                    </td>
-                                    <td>
-                                        <b:selectOneMenu valueChangeListener="#{postController.changePostSortOrder}" onchange="submit()">
-                                            <f:selectItem itemLabel="Date" itemValue="default"></f:selectItem>
-                                            <f:selectItem itemLabel="Comments" itemValue="comments"></f:selectItem>
-                                        </b:selectOneMenu>
-                                    </td>
-                                </tr>
-                            </table>
-                        </h:form>
+                <h:form>
+                    <label class="label label--postOrder">Order By:</label>
+                    <b:selectOneMenu styleClass="selectMenu selectMenu--postSortOrder" valueChangeListener="#{postController.changePostSortOrder}" onchange="submit()">
+                        <f:selectItem itemLabel="Date" itemValue="default"></f:selectItem>
+                        <f:selectItem itemLabel="Comments" itemValue="comments"></f:selectItem>
+                    </b:selectOneMenu>
+                </h:form>
 
 
                 <b:row>

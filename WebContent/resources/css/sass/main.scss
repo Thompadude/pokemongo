@@ -18,7 +18,8 @@ a:hover {
 }
 
 .label--postOrder {
-    margin-right: 1rem;
+    float: left;
+    margin: .75rem 1rem 0 0;
 }
 
 .postForm {
@@ -107,6 +108,15 @@ a:hover {
     margin-top: 1em;
     padding-left: $childListPadding;
     display: none;
+}
+
+.selectMenu {
+
+}
+
+.selectMenu--postSortOrder {
+    min-width: 10rem;
+    max-width: 20rem;
 }
 
 #hiddenGoogleLoginForm {
