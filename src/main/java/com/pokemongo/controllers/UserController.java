@@ -6,6 +6,7 @@ import com.pokemongo.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Named(value = "userController")
+@ManagedBean
 @SessionScoped
 public class UserController implements Serializable {
 
