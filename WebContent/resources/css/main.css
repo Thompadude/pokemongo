@@ -41,7 +41,8 @@ a:hover {
   float: right; }
 
 .postsDataTable {
-  width: 100%; }
+  width: 100%;
+  margin-bottom: 2rem; }
 
 .btnWrapper--right {
   text-align: right; }

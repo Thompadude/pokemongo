@@ -68,51 +68,51 @@
                 <b:row>
                     <b:column mediumScreen="12">
                         <ul class="postList">
-                            <c:forEach var="post" items="#{postController.posts}">
-                                <li class="postList__item">
-                                    <div class="post post--default">
-                                        <div class="post__title">
-                                            <h:outputText value="#{post.title}"/>
-                                            <h:outputText styleClass="post__author" value="Posted by: #{post.author.userName} @ #{post.getPostTimeAsString()}"/>
-                                        </div>
-                                        <div class="post__content">
-                                            <h:outputText value="#{post.content}"/>
-                                        </div>
-                                        <div class="btnWrapper--right">
-                                            <a class="button button--comments">
-                                                <b:badge styleClass="button__badge" value="#{post.childPosts.size()}"></b:badge>
-                                                <span class="button__arrow">&#8681;</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <ul class="postList__childList hideable">
-
-                                    <!--TODO: Change all forEach to datatables-->
-                                    <h:dataTable styleClass="postsDataTable" value="#{post.childPosts}" var="child">
-                                        <h:column>
-                                            <li class="postList__childList__item">
-                                                <div class="post post--comment">
-                                                    <h:outputText styleClass="post__content" value="#{child.content}"/>
-                                                    <h:outputText styleClass="post__author" value="Posted by: #{child.author.userName} @ #{child.getPostTimeAsString()}"/>
-                                                </div>
-                                            </li>
-                                        </h:column>
-                                    </h:dataTable>
-
-                                </ul>
-                                <div class="postList__formWrapper hideable">
-                                    <h:form styleClass="postForm">
-                                        <c:if test="#{userController.isUserLoggedIn}">
-                                            <b:inputTextarea placeholder="Write reply..." id="replyContent" value="#{postController.replyContent}"></b:inputTextarea>
-
-                                            <div class="btnWrapper--right">
-                                                <b:commandButton value="Reply!" look="primary" action="#{postController.saveReply(post.id)}"/>
+                            <h:dataTable styleClass="postsDataTable" value="#{postController.posts}" var="post">
+                                <h:column>
+                                    <li class="postList__item">
+                                        <div class="post post--default">
+                                            <div class="post__title">
+                                                <h:outputText value="#{post.title}"/>
+                                                <h:outputText styleClass="post__author" value="Posted by: #{post.author.userName} @ #{post.getPostTimeAsString()}"/>
                                             </div>
-                                        </c:if>
-                                    </h:form>
-                                </div>
-                            </c:forEach>
+                                            <div class="post__content">
+                                                <h:outputText value="#{post.content}"/>
+                                            </div>
+                                            <div class="btnWrapper--right">
+                                                <a class="button button--comments">
+                                                    <b:badge styleClass="button__badge" value="#{post.childPosts.size()}"></b:badge>
+                                                    <span class="button__arrow">&#8681;</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <ul class="postList__childList hideable">
+                                        <h:dataTable styleClass="postsDataTable" value="#{post.childPosts}" var="child">
+                                            <h:column>
+                                                <li class="postList__childList__item">
+                                                    <div class="post post--comment">
+                                                        <h:outputText styleClass="post__content" value="#{child.content}"/>
+                                                        <h:outputText styleClass="post__author" value="Posted by: #{child.author.userName} @ #{child.getPostTimeAsString()}"/>
+                                                    </div>
+                                                </li>
+                                            </h:column>
+                                        </h:dataTable>
+
+                                    </ul>
+                                    <div class="postList__formWrapper hideable">
+                                        <h:form styleClass="postForm">
+                                            <c:if test="#{userController.isUserLoggedIn}">
+                                                <b:inputTextarea placeholder="Write reply..." id="replyContent" value="#{postController.replyContent}"></b:inputTextarea>
+
+                                                <div class="btnWrapper--right">
+                                                    <b:commandButton value="Reply!" look="primary" action="#{postController.saveReply(post.id)}"/>
+                                                </div>
+                                            </c:if>
+                                        </h:form>
+                                    </div>
+                                </h:column>
+                            </h:dataTable>
                         </ul>
                     </b:column>
                 </b:row>
