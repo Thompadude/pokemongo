@@ -74,6 +74,6 @@ public class User implements Serializable {
     
     @Override
     public String toString() {
-        return userName + " (" + email + "), ID: " + id;
+        return userName + " (" + email + "), ID: " + id + " Pokemons: " + pokemons.size();
     }
 }

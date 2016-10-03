@@ -3,6 +3,8 @@ package com.pokemongo.controllers;
 import com.pokemongo.business.interfaces.UserHandler;
 import com.pokemongo.models.Pokemon;
 import com.pokemongo.models.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -27,6 +29,7 @@ public class UserController implements Serializable {
     private List<Pokemon> pokemons;
     @EJB
     private UserHandler userHandler;
+    private static Logger logger = LogManager.getLogger(UserController.class);
     
     @PostConstruct
     public void init() {
@@ -34,7 +37,7 @@ public class UserController implements Serializable {
         User currentUser = userHandler.getLoggedInUser();
         if (currentUser != null) {
             isUserLoggedIn = true;
-    
+            
             this.userName = currentUser.getUserName();
             this.email = currentUser.getEmail();
             this.pokemons = currentUser.getPokemons();
@@ -87,6 +90,7 @@ public class UserController implements Serializable {
     }
 
     public List<Pokemon> getPokemons() {
+        this.pokemons = userHandler.getLoggedInUser().getPokemons();
         return pokemons;
     }
 

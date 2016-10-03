@@ -67,7 +67,7 @@
                                 <span class="userInfo__text__label">Pokémons Registered: </span>
                             </td>
                             <td>
-                                <span class="userInfo__text_value">76</span>
+                                <span class="userInfo__text_value"><h:outputText value="#{userController.pokemons.size()}"/> </span>
                             </td>
                         </tr>
                     </table>
@@ -77,6 +77,14 @@
 
             <!--Right Section-->
             <b:column mediumScreen="7" styleClass="rightSection">
+                Pokemons
+                <h:dataTable styleClass="pokemonList" value="#{userController.pokemons}" var="pokemon">
+                    <h:column>
+                        <li class="pokemonList__item">
+                            <h:outputText value="#{pokemon.name}" />
+                        </li>
+                    </h:column>
+                </h:dataTable>
 
             </b:column>
         </b:row>
