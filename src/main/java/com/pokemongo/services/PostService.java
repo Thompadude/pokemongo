@@ -19,11 +19,8 @@ public class PostService {
     private static final Logger logger = LogManager.getLogger(PostService.class);
 
     public void savePost(Post post) {
-
-        logger.info("Saving post...");
-
         if (em.merge(post) != null) {
-            logger.info("Post saved. Title: {}, author id: {}", post.getTitle(), post.getAuthor().getId());
+            logger.debug("Post saved. Title: {}, author id: {}", post.getTitle(), post.getAuthor().getId());
         } else {
             logger.error("Error saving post!");
         }
@@ -50,6 +47,8 @@ public class PostService {
     }
 
     public List<Post> fetchPostsByKeyword(String keyword) {
+        logger.debug("Fetching posts by keyword: {}", keyword);
+
         return em.createNamedQuery("Post.fetchPostsByKeyWord")
                 .setParameter("keyword", "%" + keyword + "%")
                 .getResultList();

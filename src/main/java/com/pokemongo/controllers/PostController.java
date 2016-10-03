@@ -36,6 +36,7 @@ public class PostController implements Serializable {
     @PostConstruct
     public void init() {
         posts = postHandler.fetchPostsWithoutParent();
+        logger.debug("@PostConstruct executed - posts loaded");
     }
 
     public void savePost() {
@@ -44,7 +45,7 @@ public class PostController implements Serializable {
         try {
             postHandler.savePost(post);
         } catch (UserNotLoggedInException e) {
-            // TODO add logger
+            logger.error(e.getMessage());
             displayPostFormMessage(e.getMessage());
         }
 
@@ -57,7 +58,7 @@ public class PostController implements Serializable {
         try {
             postHandler.saveReply(reply, postId);
         } catch (UserNotLoggedInException e) {
-            // TODO add logger
+            logger.error(e.getMessage());
         }
 
         resetPostFields();
@@ -85,19 +86,18 @@ public class PostController implements Serializable {
     }
 
     public String fetchPostsByKeyword() {
-        logger.debug("Fetching posts by keyword: {}", searchWord);
-
         try {
             setPostSearchResults(postHandler.fetchPostsByKeyword(searchWord));
             return "/index.xhtml?faces-redirect=true";
         } catch (FormException e) {
-            logger.error(e);
+            logger.error(e.getMessage());
             displayPostFormMessage("Please type more than two characters");
             return "/index.xhtml?faces-redirect=false";
         }
     }
 
     public void resetSearchedPosts() {
+        logger.debug("Resetting searched posts section");
         setPostSearchResults(null);
         setSearchWord("");
     }
@@ -112,7 +112,7 @@ public class PostController implements Serializable {
     }
 
     private void fetchFreshPosts() {
-        logger.debug("Fetching fresh posts...");
+        logger.debug("Fetching fresh posts");
         posts = postHandler.fetchPostsWithoutParent();
 
         // Only refresh the searched posts section if the user previously searched for posts
@@ -121,6 +121,7 @@ public class PostController implements Serializable {
     }
 
     private void displayPostFormMessage(String message) {
+        logger.debug("Displaying post form error message");
         FacesMessage facesMessage = new FacesMessage(message);
         FacesContext.getCurrentInstance().addMessage("formId:postForm", facesMessage);
     }

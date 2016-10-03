@@ -1,6 +1,8 @@
 package com.pokemongo.services;
 
 import com.pokemongo.models.Pokemon;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -12,9 +14,11 @@ public class PokemonService {
     @PersistenceContext
     private EntityManager em;
 
+    private static final Logger logger = LogManager.getLogger(PokemonService.class);
+
     public void savePokemon(Pokemon pokemon) {
         if (em.merge(pokemon) != null) {
-            System.out.println("*LOG* " + pokemon.getName() + " saved to database.");
+            logger.debug("Pokemon saved. Name: {}", pokemon.getName());
         }
     }
 
