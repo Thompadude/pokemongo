@@ -1,5 +1,6 @@
 package com.pokemongo.services;
 
+import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.models.Pokemon;
 
 import javax.ejb.Stateful;
@@ -12,10 +13,12 @@ public class PokemonService {
     @PersistenceContext
     private EntityManager em;
 
-    public void savePokemon(Pokemon pokemon) {
+    public Pokemon savePokemon(Pokemon pokemon) throws DatabaseException {
         if (em.merge(pokemon) != null) {
             System.out.println("*LOG* " + pokemon.getName() + " saved to database.");
+            return pokemon;
         }
+        throw new DatabaseException("Error saving pokemon");
     }
 
 }
