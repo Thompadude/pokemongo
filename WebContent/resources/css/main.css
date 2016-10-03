@@ -385,6 +385,16 @@ textarea {
 html {
   margin-bottom: 10rem; }
 
+a:hover {
+  text-decoration: none; }
+
+.label--postOrder {
+  float: left;
+  margin: .75rem 1rem 0 0; }
+
+.postForm {
+  margin-bottom: 0; }
+
 .postList {
   margin: 0;
   padding: 0; }
@@ -414,11 +424,28 @@ html {
   font-size: 1rem;
   float: right; }
 
+.postsDataTable {
+  width: 100%;
+  margin-bottom: 2rem; }
+
 .btnWrapper--right {
   text-align: right; }
 
 .button {
   cursor: pointer; }
+
+.button--post {
+  display: inline-block;
+  float: right; }
+
+.button--search {
+  padding-right: 0 !important; }
+
+.button__arrow {
+  color: #b0b0b0; }
+
+.button__badge {
+  background-color: #d1d1d1; }
 
 .postList__childList {
   padding-left: 4rem;
@@ -431,6 +458,10 @@ html {
   margin-top: 1em;
   padding-left: 4rem;
   display: none; }
+
+.selectMenu--postSortOrder {
+  min-width: 10rem;
+  max-width: 20rem; }
 
 #hiddenGoogleLoginForm {
   display: none; }
