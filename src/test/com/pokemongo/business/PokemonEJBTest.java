@@ -25,7 +25,6 @@ public class PokemonEJBTest {
     public void setUp() throws Exception {
         testPokemonEJB = new PokemonEJB();
         testPokemon = new Pokemon();
-        testPokemon.setName("Test");
 
         MockitoAnnotations.initMocks(this);
 
@@ -40,8 +39,10 @@ public class PokemonEJBTest {
 
     @Test
     public void testSavePokemon() throws Exception {
-        assertEquals(testPokemon, testPokemonEJB.savePokemon(testPokemon));
+        Pokemon actualPokemon = testPokemonEJB.savePokemon(testPokemon);
+
         assertNotNull(testPokemon);
+        assertEquals(testPokemon, actualPokemon);
     }
 
 }
