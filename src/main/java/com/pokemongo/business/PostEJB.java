@@ -42,12 +42,12 @@ public class PostEJB implements PostHandler {
     }
 
     @Override
-    public void saveReply(Post reply, long parentId) throws UserNotLoggedInException, DatabaseException {
-
+    public Post saveReply(Post reply, long parentId) throws UserNotLoggedInException, DatabaseException {
         Post parentPost = postService.fetchPost(parentId);
         reply.setParentPost(parentPost);
+        reply = savePost(reply);
 
-        savePost(reply);
+        return reply;
     }
 
     @Override

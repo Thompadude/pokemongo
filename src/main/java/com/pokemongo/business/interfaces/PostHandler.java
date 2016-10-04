@@ -13,7 +13,7 @@ public interface PostHandler {
     
     Post savePost(Post post) throws UserNotLoggedInException, DatabaseException;
     
-    void saveReply(Post reply, long parentId) throws UserNotLoggedInException, DatabaseException;
+    Post saveReply(Post reply, long parentId) throws UserNotLoggedInException, DatabaseException;
     
     List<Post> fetchPostsWithoutParent();
 
