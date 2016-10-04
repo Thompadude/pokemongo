@@ -6,12 +6,9 @@ import com.pokemongo.models.User;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 @Named(value = "userController")
 @SessionScoped
@@ -26,16 +23,17 @@ public class UserController implements Serializable {
     private List<Pokemon> pokemons;
     @EJB
     private UserHandler userHandler;
-    
-    public void logIn() {
+
+    public boolean logIn() {
         User user = new User(userName, email, tokenId);
         isUserLoggedIn = userHandler.logIn(user);
+        return isUserLoggedIn;
     }
 
-    public void logOut() {
+    public boolean logOut() {
         userHandler.logOut();
-        
         setIsUserLoggedIn(false);
+        return isUserLoggedIn;
     }
     
     /* Getters and Setters */
