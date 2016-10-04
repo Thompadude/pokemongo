@@ -31,78 +31,85 @@
 
             <!--Left Section-->
             <b:column mediumScreen="5" styleClass="leftSection">
-                <div class="userInfo">
-                    <div class="userInfo__title">Trainer Card</div>
-                    <div class="userInfo__picture">
-                        <b:image library="img" name="defaultProfile.png"/>
+                <div class="mainPanel">
+                    <div class="userInfo">
+                        <div class="userInfo__name"><h:outputText value="#{userController.userName}"/></div>
+                        <div class="userInfo__title">Pokémon Trainer</div>
+                        <div class="userInfo__picture">
+                            <b:image library="img" name="defaultProfile.png"/>
+                        </div>
+                        <div class="userInfo__text">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <span class="userInfo__text__label">Trainer name: </span>
+                                    </td>
+                                    <td>
+                                        <span class="userInfo__text__value"><h:outputText value="#{userController.userName}"/></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="userInfo__text__label">Team allegiance: </span>
+                                    </td>
+                                    <td>
+                                        <span class="userInfo__text__value">Mystic</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="userInfo__text__label">Pokémons Registered: </span>
+                                    </td>
+                                    <td>
+                                        <span class="userInfo__text__value"><h:outputText value="#{userController.pokemons.size()}"/> </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-
-                    <table class="userInfo__text">
-                        <tr>
-                            <td>
-                                <span class="userInfo__text__label">Trainer name: </span>
-                            </td>
-                            <td>
-                                <span class="userInfo__text_value"><h:outputText value="#{userController.userName}"/></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="userInfo__text__label">Team allegiance: </span>
-                            </td>
-                            <td>
-                                <span class="userInfo__text_value">Mystic</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="userInfo__text__label">Pokémons Registered: </span>
-                            </td>
-                            <td>
-                                <span class="userInfo__text_value"><h:outputText value="#{userController.pokemons.size()}"/> </span>
-                            </td>
-                        </tr>
-                    </table>
-
                 </div>
             </b:column>
 
             <!--Right Section-->
             <b:column colMd="7" styleClass="rightSection">
+                <div class="mainPanel">
+                    <div class="pokemonTitle">Collected Pokémon</div>
 
-                <div class="pokemonTitle">Collected Pokémon</div>
+                    <h:dataTable value="#{userController.pokemons}" var="pokemon" styleClass="fillWidth">
+                        <h:column>
+                            <li class="pokemonInfoList">
 
-                <h:dataTable value="#{userController.pokemons}" var="pokemon" styleClass="fillWidth">
-                    <h:column>
-                        <li class="pokemonInfoList">
+                                <div class="pokemonInfobox">
 
-                            <div class="pokemonInfobox">
+                                    <b:row>
 
-                                <b:row>
+                                        <b:column colMd="2">
+                                            <div class="pokemonInfoBox__image">
+                                                <b:image library="img" name="pokemonImages/#{pokemon.pokedexNumber}.png" styleClass="fillWidth"/>
+                                            </div>
+                                        </b:column>
 
-                                    <b:column colMd="2">
-                                        <div class="pokemonInfoBox__image">
-                                            <b:image library="img" name="pokemonImages/#{pokemon.pokedexNumber}.png" styleClass="fillWidth"/>
-                                        </div>
-                                    </b:column>
+                                        <b:column colMd="10">
+                                            <div class="pokemonInfoBox__name">
+                                                <h:outputText value="#{pokemon.name}"/>
+                                            </div>
+                                            <div class="pokemonInfoBox__stats">
+                                                Pokedex #:
+                                                <span class="pokemonInfoBox__stats__number"><h:outputText value="#{pokemon.pokedexNumber}"/></span>
+                                                CP:
+                                                <span class="pokemonInfoBox__stats__number"><h:outputText value="#{pokemon.combatPower}"/></span>
+                                                HP:
+                                                <span class="pokemonInfoBox__stats__number"><h:outputText value="#{pokemon.healthPoints}"/></span>
+                                            </div>
+                                        </b:column>
 
-                                    <b:column colMd="10">
-                                        <div class="pokemonInfoBox__name">
-                                            <h:outputText value="#{pokemon.name}" />
-                                        </div>
-                                        <div class="pokemonInfoBox__stats">
-                                            CP: <span class="pokemonInfoBox__stats__number"><h:outputText value="#{pokemon.combatPower}" /></span>
-                                            HP: <span class="pokemonInfoBox__stats__number"><h:outputText value="#{pokemon.healthPoints}" /></span>
-                                        </div>
-                                    </b:column>
+                                    </b:row>
 
-                                </b:row>
-
-                            </div>
-                        </li>
-                    </h:column>
-                </h:dataTable>
-
+                                </div>
+                            </li>
+                        </h:column>
+                    </h:dataTable>
+                </div>
             </b:column>
         </b:row>
     </b:container>

@@ -14,9 +14,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Named(value = "userController")
 @ManagedBean
@@ -92,9 +90,19 @@ public class UserController implements Serializable {
         this.tokenId = tokenId;
     }
 
-    public Set<Pokemon> getPokemons() {
-        this.pokemons = userHandler.getLoggedInUser().getPokemons();
-        return pokemons;
+    public List<Pokemon> getPokemons() {
+        List<Pokemon> sortedPokemons = new ArrayList<Pokemon>();
+        
+        sortedPokemons.addAll(userHandler.getLoggedInUser().getPokemons());
+        
+        sortedPokemons.sort(new Comparator<Pokemon>() {
+            @Override
+            public int compare(Pokemon p1, Pokemon p2) {
+                return p1.getPokedexNumber() - p2.getPokedexNumber();
+            }
+        });
+        
+        return sortedPokemons;
     }
 
     public void setPokemons(Set<Pokemon> pokemons) {

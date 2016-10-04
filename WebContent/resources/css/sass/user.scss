@@ -1,7 +1,12 @@
-.userInfo {
+.mainPanel {
     border: 1px solid $mediumGrey;
     border-radius: $cornerRounding;
     padding: 15px;
+}
+
+.userInfo__name {
+    text-align: center;
+    font-size: 3rem;
 }
 
 .userInfo__title {
@@ -11,17 +16,30 @@
 }
 
 .userInfo__picture {
-    margin: 15px;
+    border-radius: $cornerRounding;
+    border: 1px solid $mediumGrey;
+    margin-bottom: 15px;
+    padding: 15px;
+
+    box-shadow: 0 10px 15px -10px rgba(0,0,0,0.5);
 }
 
 .userInfo__text {
     width: 100%;
 
     background-color: $lightGrey;
+    border-radius: $cornerRounding;
+    border: 1px solid $mediumGrey;
 
     tr td {
         padding: 10px;
     }
+}
+
+.pokemonTitle {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 15px;
 }
 
 .pokemonInfoList {
@@ -50,10 +68,15 @@
 .pokemonInfoBox__stats {
     font-size: 1.5rem;
 
+    margin-top: 0.5rem;
+    border-top: 1px solid $darkGrey;
 }
 
 .pokemonInfoBox__stats__number {
     font-size: 1.5rem;
     font-weight: bold;
+
+
+    margin-right: 2rem;
 }
 

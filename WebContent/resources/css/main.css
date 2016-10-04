@@ -364,10 +364,14 @@ textarea {
   font: inherit;
   /* 2 */ }
 
-.userInfo {
+.mainPanel {
   border: 1px solid #d1d1d1;
   border-radius: 5px;
   padding: 15px; }
+
+.userInfo__name {
+  text-align: center;
+  font-size: 3rem; }
 
 .userInfo__title {
   text-align: center;
@@ -375,13 +379,24 @@ textarea {
   font-size: 2rem; }
 
 .userInfo__picture {
-  margin: 15px; }
+  border-radius: 5px;
+  border: 1px solid #d1d1d1;
+  margin-bottom: 15px;
+  padding: 15px;
+  box-shadow: 0 10px 15px -10px rgba(0, 0, 0, 0.5); }
 
 .userInfo__text {
   width: 100%;
-  background-color: #eeeeee; }
+  background-color: #eeeeee;
+  border-radius: 5px;
+  border: 1px solid #d1d1d1; }
   .userInfo__text tr td {
     padding: 10px; }
+
+.pokemonTitle {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 15px; }
 
 .pokemonInfoList {
   list-style: none; }
@@ -402,11 +417,14 @@ textarea {
   font-style: italic; }
 
 .pokemonInfoBox__stats {
-  font-size: 1.5rem; }
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid #b0b0b0; }
 
 .pokemonInfoBox__stats__number {
   font-size: 1.5rem;
-  font-weight: bold; }
+  font-weight: bold;
+  margin-right: 2rem; }
 
 html {
   margin-bottom: 10rem; }
