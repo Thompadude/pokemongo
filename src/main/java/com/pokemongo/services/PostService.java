@@ -1,5 +1,6 @@
 package com.pokemongo.services;
 
+import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.models.Post;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,15 +19,16 @@ public class PostService {
 
     private static final Logger logger = LogManager.getLogger(PostService.class);
 
-    public void savePost(Post post) {
-
+    public Post savePost(Post post) throws DatabaseException {
         logger.info("Saving post...");
 
         if (em.merge(post) != null) {
             logger.info("Post saved. Title: {}, author id: {}", post.getTitle(), post.getAuthor().getId());
+            return post;
         } else {
             logger.error("Error saving post!");
         }
+        throw new DatabaseException("Error saving post");
     }
 
     public Post fetchPost(long postId) {

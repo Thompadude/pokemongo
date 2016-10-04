@@ -1,13 +1,12 @@
 package com.pokemongo.business;
 
 import com.pokemongo.business.interfaces.PostHandler;
+import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.exceptions.FormException;
 import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Post;
 import com.pokemongo.models.User;
 import com.pokemongo.services.PostService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -21,19 +20,18 @@ public class PostEJB implements PostHandler {
 
     @EJB
     private PostService postService;
-    private static final Logger logger = LogManager.getLogger(PostEJB.class);
 
     @Override
-    public void savePost(Post post) throws UserNotLoggedInException {
+    public Post savePost(Post post) throws UserNotLoggedInException, DatabaseException {
 
         User author = fetchLoggedInUser();
 
         if (author != null) {
             post.setAuthor(author);
-            postService.savePost(post);
-        } else {
-            throw new UserNotLoggedInException("You must be logged in order to post.");
+            post = postService.savePost(post);
+            return post;
         }
+        throw new UserNotLoggedInException("You must be logged in order to post.");
     }
 
     private User fetchLoggedInUser() {
@@ -44,7 +42,7 @@ public class PostEJB implements PostHandler {
     }
 
     @Override
-    public void saveReply(Post reply, long parentId) throws UserNotLoggedInException {
+    public void saveReply(Post reply, long parentId) throws UserNotLoggedInException, DatabaseException {
 
         Post parentPost = postService.fetchPost(parentId);
         reply.setParentPost(parentPost);
