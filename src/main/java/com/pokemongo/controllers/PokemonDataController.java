@@ -35,6 +35,10 @@ public class PokemonDataController implements Serializable {
         System.out.println(pokemonData);
     }
 
+    public void changeListener(){
+
+    }
+
     /* Getters and Setters */
 
     public String getPokedexNumber() {

@@ -129,34 +129,36 @@
             <!--Right Section-->
             <b:column mediumScreen="6" styleClass="rightSection">
                 <h:form>
-                    <b:selectOneMenu id="pokemonSelectMenu" label="Select a Pokemon" randerLabel="true" value="#{pokemonDataController.pokedexNumber}">
+                    <b:selectOneMenu id="pokemonSelectMenu"
+                                     label="Select a Pokemon"
+                                     randerLabel="true"
+                                     value="#{pokemonDataController.pokedexNumber}"
+                                     valueChangeListener="#{pokemonDataController.selectedPokemonTEST}">
                         <f:selectItems value="#{pokemonDataController.pokemonDataList}"
                                        var="pokemon"
                                        itemValue="#{pokemon.pokedexNumber}"
                                        itemLabel="#{pokemon.pokedexNumber} - #{pokemon.name}"
-
-                        onselect="choosingPokemon();">
+                                       onselect="choosingPokemon();">
 
                         </f:selectItems>
                     </b:selectOneMenu>
                 </h:form>
                 <br/>
 
+                <h:form styleClass="postForm" id="savingPokemon">
+                        <b:inputText placeholder="pokedexNumber" id="pokedexNumber" value="#{pokemonController.pokedexNumber}"/>
+                        <b:inputText placeholder="name" id="name" value="#{pokemonController.name}"/>
+                        <b:inputText placeholder="cp" id="cp" value="#{pokemonController.cp}"/>
+                        <b:inputText placeholder="hp" id="hp" value="#{pokemonController.hp}"/>
+                        <b:inputText placeholder="owner" id="owner" value="#{userController.tokenId}"/>
+                        <div class="btnWrapper--right">
+                            <b:commandButton value="Create Pokemon" look="primary" action="#{pokemonController.savePokemon}"/>
+                        </div>
+
+                </h:form>
 
 
-                <button onclick="addPokemon()">
-                    Generate pokemon
-                </button>
-                <br/>
-                <br/>pokemon index number:
-                <input id="indexNumber" type="text" name="firstname" value=""></input>
-                (If empty : randomizing)
 
-                <br/>latitude:
-                <input id="latitude" type="text" name="firstname" value=""></input>
-
-                <br/>longitude:
-                <input id="longitude" type="text" name="firstname" value=""></input>
 
                 <div id="map"></div>
 

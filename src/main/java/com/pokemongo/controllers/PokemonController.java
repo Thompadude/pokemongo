@@ -15,7 +15,7 @@ public class PokemonController implements Serializable {
 
     private static final long serialVersionUID = -4300941170573356047L;
 
-    private Integer pokedexNumber;
+    private String pokedexNumber;
     private String name;
     private Integer cp;
     private Integer hp;
@@ -23,29 +23,26 @@ public class PokemonController implements Serializable {
     @EJB
     private PokemonHandler pokemonHandler;
 
+
     public void savePokemon() {
-        //TODO Replace with production code
         Pokemon pokemon = new Pokemon();
-        pokemon.setName("Pokemongo");
-        pokemon.setCombatPower(12);
-        pokemon.setHealthPoints(234);
-        pokemon.setPokedexNumber(134124);
+        pokemon.setPokedexNumber(pokedexNumber);
+        pokemon.setName(name);
+        pokemon.setCombatPower(cp);
+        pokemon.setHealthPoints(hp);
+        pokemon.setOwner(owner);
 
-        User user = new User();
-        user.setId(1L);
-
-        pokemon.setOwner(user);
 
         pokemonHandler.savePokemon(pokemon);
     }
    
     /* Getters and Setters */
     
-    public Integer getPokedexNumber() {
+    public String getPokedexNumber() {
         return pokedexNumber;
     }
     
-    public void setPokedexNumber(Integer pokedexNumber) {
+    public void setPokedexNumber(String pokedexNumber) {
         this.pokedexNumber = pokedexNumber;
     }
     

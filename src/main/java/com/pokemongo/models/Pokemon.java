@@ -11,7 +11,7 @@ public class Pokemon implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer pokedexNumber;
+    private String pokedexNumber;
     private String name;
     private Integer combatPower;
     private Integer healthPoints;
@@ -23,11 +23,11 @@ public class Pokemon implements Serializable {
         return id;
     }
 
-    public Integer getPokedexNumber() {
+    public String getPokedexNumber() {
         return pokedexNumber;
     }
 
-    public void setPokedexNumber(Integer pokedexNumber) {
+    public void setPokedexNumber(String pokedexNumber) {
         this.pokedexNumber = pokedexNumber;
     }
 
