@@ -366,6 +366,7 @@ textarea {
 
 .userInfo {
   border: 1px solid #d1d1d1;
+  border-radius: 5px;
   padding: 15px; }
 
 .userInfo__title {
@@ -382,8 +383,36 @@ textarea {
   .userInfo__text tr td {
     padding: 10px; }
 
+.pokemonInfoList {
+  list-style: none; }
+
+.pokemonInfobox {
+  background-color: #eeeeee;
+  margin-bottom: 1rem;
+  padding: 15px;
+  border: 1px solid #d1d1d1;
+  border-radius: 5px; }
+
+.pokemonInfoBox__image {
+  border-radius: 100px;
+  background-color: #d1d1d1; }
+
+.pokemonInfoBox__name {
+  font-size: 3rem;
+  font-style: italic; }
+
+.pokemonInfoBox__stats {
+  font-size: 1.5rem; }
+
+.pokemonInfoBox__stats__number {
+  font-size: 1.5rem;
+  font-weight: bold; }
+
 html {
   margin-bottom: 10rem; }
+
+.fillWidth {
+  width: 100%; }
 
 a:hover {
   text-decoration: none; }
@@ -403,7 +432,7 @@ a:hover {
   list-style-type: none; }
 
 .post {
-  border-radius: 3px;
+  border-radius: 5px;
   padding: 1rem;
   margin-top: 2rem; }
 

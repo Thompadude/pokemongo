@@ -68,12 +68,37 @@
             </b:column>
 
             <!--Right Section-->
-            <b:column mediumScreen="7" styleClass="rightSection">
-                Pokemons
-                <h:dataTable styleClass="pokemonList" value="#{userController.pokemons}" var="pokemon">
+            <b:column colMd="7" styleClass="rightSection">
+
+                <div class="pokemonTitle">Collected Pokémon</div>
+
+                <h:dataTable value="#{userController.pokemons}" var="pokemon" styleClass="fillWidth">
                     <h:column>
-                        <li class="pokemonList__item">
-                            <h:outputText value="#{pokemon.name}" />
+                        <li class="pokemonInfoList">
+
+                            <div class="pokemonInfobox">
+
+                                <b:row>
+
+                                    <b:column colMd="2">
+                                        <div class="pokemonInfoBox__image">
+                                            <b:image library="img" name="pokemonImages/#{pokemon.pokedexNumber}.png" styleClass="fillWidth"/>
+                                        </div>
+                                    </b:column>
+
+                                    <b:column colMd="10">
+                                        <div class="pokemonInfoBox__name">
+                                            <h:outputText value="#{pokemon.name}" />
+                                        </div>
+                                        <div class="pokemonInfoBox__stats">
+                                            CP: <span class="pokemonInfoBox__stats__number"><h:outputText value="#{pokemon.combatPower}" /></span>
+                                            HP: <span class="pokemonInfoBox__stats__number"><h:outputText value="#{pokemon.healthPoints}" /></span>
+                                        </div>
+                                    </b:column>
+
+                                </b:row>
+
+                            </div>
                         </li>
                     </h:column>
                 </h:dataTable>

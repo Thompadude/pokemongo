@@ -3,6 +3,8 @@ $lightGrey: #eeeeee;
 $mediumGrey: #d1d1d1;
 $darkGrey: #b0b0b0;
 
+$cornerRounding: 5px;
+
 $childListPadding: 4rem;
 
 //imports
@@ -11,6 +13,10 @@ $childListPadding: 4rem;
 
 html {
     margin-bottom: 10rem;
+}
+
+.fillWidth {
+    width:100%;
 }
 
 a:hover {
@@ -40,7 +46,7 @@ a:hover {
 }
 
 .post {
-    border-radius: 3px;
+    border-radius: $cornerRounding;
     padding: 1rem;
     margin-top: 2rem;
 }
