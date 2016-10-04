@@ -1,5 +1,6 @@
 package com.pokemongo.controllers;
 
+import com.pokemongo.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,14 +19,19 @@ public class LoginFilter implements Filter {
         
         HttpServletRequest req = (HttpServletRequest) request;
         HttpSession session = req.getSession();
-    
+        
+        logger.debug("Filtering user: " + session.getAttribute("loggedInUser") + " with path " + req.getRequestURI());
+        
         if (session.getAttribute("loggedInUser") == null && req.getRequestURI().endsWith("/user/")) {
             
-            logger.debug("User is not logged in, redirecting...");
+            logger.debug("User is not logged in, redirecting to home page.");
             
             HttpServletResponse res = (HttpServletResponse) response;
             res.sendRedirect(req.getContextPath() + "/");
         } else {
+            
+            logger.debug("User is logged in, proceeding to requested page.");
+            
             chain.doFilter(request, response);
         }
     }

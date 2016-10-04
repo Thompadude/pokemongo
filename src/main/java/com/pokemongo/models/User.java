@@ -3,6 +3,7 @@ package com.pokemongo.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NamedQueries({
@@ -19,8 +20,8 @@ public class User implements Serializable {
     private String userName;
     private String email;
     private String tokenId;
-    @OneToMany(mappedBy = "owner")
-    private List<Pokemon> pokemons;
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private Set<Pokemon> pokemons;
 
     public User(String userName, String email, String tokenId) {
         this.userName = userName;
@@ -36,11 +37,11 @@ public class User implements Serializable {
     public User() {
     }
 
-    public List<Pokemon> getPokemons() {
+    public Set<Pokemon> getPokemons() {
         return pokemons;
     }
 
-    public void setPokemons(List<Pokemon> pokemons) {
+    public void setPokemons(Set<Pokemon> pokemons) {
         this.pokemons = pokemons;
     }
 
@@ -74,6 +75,6 @@ public class User implements Serializable {
     
     @Override
     public String toString() {
-        return userName + " (" + email + "), ID: " + id + " Pokemons: " + pokemons.size();
+        return "[" + id + "] " + userName;
     }
 }

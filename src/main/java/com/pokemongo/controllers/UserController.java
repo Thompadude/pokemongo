@@ -16,6 +16,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Named(value = "userController")
 @ManagedBean
@@ -28,7 +29,7 @@ public class UserController implements Serializable {
     private String userName;
     private String email;
     private String tokenId;
-    private List<Pokemon> pokemons;
+    private Set<Pokemon> pokemons;
     @EJB
     private UserHandler userHandler;
     private static Logger logger = LogManager.getLogger(UserController.class);
@@ -91,12 +92,12 @@ public class UserController implements Serializable {
         this.tokenId = tokenId;
     }
 
-    public List<Pokemon> getPokemons() {
+    public Set<Pokemon> getPokemons() {
         this.pokemons = userHandler.getLoggedInUser().getPokemons();
         return pokemons;
     }
 
-    public void setPokemons(List<Pokemon> pokemons) {
+    public void setPokemons(Set<Pokemon> pokemons) {
         this.pokemons = pokemons;
     }
 }

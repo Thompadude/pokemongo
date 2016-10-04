@@ -20,7 +20,7 @@ public class PostService {
 
     public void savePost(Post post) {
 
-        logger.info("Saving post...");
+        logger.debug("Saving post...");
 
         if (em.merge(post) != null) {
             logger.info("Post saved. Title: {}, author id: {}", post.getTitle(), post.getAuthor().getId());
