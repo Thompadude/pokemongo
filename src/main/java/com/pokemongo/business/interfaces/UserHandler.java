@@ -9,12 +9,11 @@ import java.util.List;
 public interface UserHandler {
 
     void saveUser(User user);
-
-    User fetchUser(long userId);
-
-    List<User> fetchAllUsers();
     
-    boolean isDuplicate(User user);
+    /**
+     * Returns true when the user is logged in
+     */
+    boolean logIn(User user);
     
-    User fetchUserByEmail(String tokenId);
+    void logOut();
 }

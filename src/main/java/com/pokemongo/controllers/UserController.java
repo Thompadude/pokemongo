@@ -26,49 +26,16 @@ public class UserController implements Serializable {
     private List<Pokemon> pokemons;
     @EJB
     private UserHandler userHandler;
-
-    public User fetchUserByToken(String tokenId) {
-        return userHandler.fetchUserByEmail(tokenId);
-    }
-
-    public void saveUser() {
+    
+    public void logIn() {
         User user = new User(userName, email, tokenId);
-        if (!userHandler.isDuplicate(user)) {
-            userHandler.saveUser(user);
-        }
-        setLoggedInUser(user);
+        isUserLoggedIn = userHandler.logIn(user);
     }
 
-    public void logOutUser() {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, Object> sessionMap = externalContext.getSessionMap();
-        sessionMap.put("loggedInUser", null);
+    public void logOut() {
+        userHandler.logOut();
+        
         setIsUserLoggedIn(false);
-    }
-
-    private void setLoggedInUser(User loggedInUser) {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, Object> sessionMap = externalContext.getSessionMap();
-
-        User sessionUser = userHandler.fetchUserByEmail(loggedInUser.getEmail());
-
-        sessionMap.put("loggedInUser", sessionUser);
-        setIsUserLoggedIn(true);
-
-        System.out.println("Logged in user is: " + sessionMap.get("loggedInUser"));
-    }
-
-    public User fetchLoggedInUser() {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, Object> sessionMap = externalContext.getSessionMap();
-
-        User returnUser = (User) sessionMap.get("loggedInUser");
-
-        if (returnUser != null) {
-            System.out.println("FETCHED: " + returnUser.getId() + ", " + returnUser.getUserName());
-        }
-
-        return returnUser;
     }
     
     /* Getters and Setters */

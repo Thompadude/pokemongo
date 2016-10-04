@@ -4,11 +4,15 @@ import com.pokemongo.business.interfaces.PostHandler;
 import com.pokemongo.exceptions.FormException;
 import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Post;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -25,59 +29,95 @@ public class PostController implements Serializable {
     private String searchWord;
     private List<Post> postSearchResults;
     private List<Post> posts;
-    private List<Post> postsWithoutParent;
-    private List<Post> childPosts;
     @EJB
     private PostHandler postHandler;
+    private static final Logger logger = LogManager.getLogger(PostController.class);
+
+    @PostConstruct
+    public void init() {
+        posts = postHandler.fetchPostsWithoutParent();
+    }
 
     public void savePost() {
         Post post = new Post(title, content);
+
         try {
             postHandler.savePost(post);
         } catch (UserNotLoggedInException e) {
-            // TODO Create a "real" log
-            System.out.println(e.getMessage());
-            displayPostFormMessage("You must be logged in");
+            // TODO add logger
+            displayPostFormMessage(e.getMessage());
         }
+
+        resetPostFields();
     }
 
     public String saveReply(long postId) {
-        System.out.println("replyContent");
         Post reply = new Post(replyContent);
-        postHandler.saveReply(reply, postId);
 
-        // If the user search for a post and comment on it this will update the search result list.
-        fetchPostsWithoutParentByKeyword();
+        try {
+            postHandler.saveReply(reply, postId);
+        } catch (UserNotLoggedInException e) {
+            // TODO add logger
+        }
 
-        replyContent = "";
+        resetPostFields();
         return "/index.xhtml?faces-redirect=true";
     }
 
-    public void fetchPost(long postId) {
-        //TODO Replace with production code
-        Post post = postHandler.fetchPost(postId);
-        System.out.println(post.getChildPosts().get(2).getTitle());
-        System.out.println("*LOG* post.getTitle(): " + post.getTitle());
-        System.out.println("*LOG* post.getContent(): " + post.getContent());
-        System.out.println("*LOG* post.getPostTime(): " + post.getPostTime());
-        System.out.println("*LOG* post.getChildPosts().size(): " + post.getChildPosts().size());
+    public void changePostSortOrder(ValueChangeEvent event) {
+        String sortOrder = (String) event.getNewValue();
+        if (sortOrder.equals("default")) {
+            orderPostsInDefaultOrder();
+        } else {
+            orderPostsByChildPostsLength();
+        }
     }
 
-    public void print(long id) {
-        System.out.println("*LOG* ID of ROW: " + id);
+    public String orderPostsInDefaultOrder() {
+        setPosts(postHandler.fetchPostsWithoutParent());
+        return "/index?faces-redirect=true";
     }
 
-    public String fetchPostsWithoutParentByKeyword() {
+    public String orderPostsByChildPostsLength() {
+        // TODO fix: when the user sort by this and post a comment, the default sort order is loaded. Use enum? Boolean?
+        setPosts(postHandler.fetchPostsOrderedByChildPostsLength());
+        return "/index?faces-redirect=true";
+    }
+
+    public String fetchPostsByKeyword() {
+        logger.debug("Fetching posts by keyword: {}", searchWord);
+
         try {
-            postSearchResults = postHandler.fetchPostsWithoutParentByKeyword(searchWord);
-            searchWord = "";
+            setPostSearchResults(postHandler.fetchPostsByKeyword(searchWord));
             return "/index.xhtml?faces-redirect=true";
         } catch (FormException e) {
-            // TODO Create a "real" log
-            System.out.println(e.getMessage());
+            logger.error(e);
             displayPostFormMessage("Please type more than two characters");
             return "/index.xhtml?faces-redirect=false";
         }
+    }
+
+    public void resetSearchedPosts() {
+        setPostSearchResults(null);
+        setSearchWord("");
+    }
+
+    private void resetPostFields() {
+        fetchFreshPosts();
+
+        logger.debug("Resetting input fields.");
+        title = "";
+        content = "";
+        replyContent = "";
+    }
+
+    private void fetchFreshPosts() {
+        logger.debug("Fetching fresh posts...");
+        posts = postHandler.fetchPostsWithoutParent();
+
+        // Only refresh the searched posts section if the user previously searched for posts
+        if (searchWord != null)
+            fetchPostsByKeyword();
     }
 
     private void displayPostFormMessage(String message) {
@@ -128,29 +168,11 @@ public class PostController implements Serializable {
     }
 
     public List<Post> getPosts() {
-        posts = postHandler.fetchAllPosts();
         return posts;
     }
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
-    }
-
-    public List<Post> getPostsWithoutParent() {
-        postsWithoutParent = postHandler.fetchPostsWithoutParent();
-        return postsWithoutParent;
-    }
-
-    public void setPostsWithoutParent(List<Post> postsWithoutParent) {
-        this.postsWithoutParent = postsWithoutParent;
-    }
-
-    public List<Post> getChildPosts() {
-        return childPosts;
-    }
-
-    public void setChildPosts(List<Post> childPosts) {
-        this.childPosts = childPosts;
     }
 
 }

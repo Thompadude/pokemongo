@@ -9,6 +9,23 @@ html {
     margin-bottom: 10rem;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
+.label {
+
+}
+
+.label--postOrder {
+    float: left;
+    margin: .75rem 1rem 0 0;
+}
+
+.postForm {
+    margin-bottom: 0;
+}
+
 .postList {
     margin: 0;
     padding: 0;
@@ -45,6 +62,11 @@ html {
     float: right;
 }
 
+.postsDataTable {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
 .btnWrapper--right {
     text-align: right;
 }
@@ -57,8 +79,25 @@ html {
 
 }
 
-.button--search {
+.button--post {
+    display: inline-block;
+    float: right;
+}
 
+.button--search {
+    padding-right: 0 !important;
+}
+
+.button--reset {
+
+}
+
+.button__arrow {
+    color: $darkGrey;
+}
+
+.button__badge {
+    background-color: $mediumGrey;
 }
 
 .postList__childList {
@@ -74,6 +113,15 @@ html {
     margin-top: 1em;
     padding-left: $childListPadding;
     display: none;
+}
+
+.selectMenu {
+
+}
+
+.selectMenu--postSortOrder {
+    min-width: 10rem;
+    max-width: 20rem;
 }
 
 #hiddenGoogleLoginForm {
