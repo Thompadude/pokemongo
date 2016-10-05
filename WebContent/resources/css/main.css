@@ -513,4 +513,8 @@ a:hover {
 #hiddenGoogleLoginForm {
   display: none; }
 
+#map {
+  height: 500px;
+  width: 500px; }
+
 /*# sourceMappingURL=main.css.map */
