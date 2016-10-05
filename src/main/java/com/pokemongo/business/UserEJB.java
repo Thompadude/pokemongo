@@ -1,8 +1,8 @@
 package com.pokemongo.business;
 
-import com.pokemongo.services.UserService;
 import com.pokemongo.business.interfaces.UserHandler;
 import com.pokemongo.models.User;
+import com.pokemongo.services.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,29 +26,31 @@ public class UserEJB implements UserHandler {
     public void saveUser(User user) {
         userService.saveUser(user);
     }
-    
+
     @Override
     public boolean logIn(User user) {
         if (!isDuplicate(user)) {
             saveUser(user);
         }
-        
+
         return setLoggedInUser(user);
     }
-    
+
     @Override
-    public void logOut() {
+    public boolean logOut() {
         logger.debug("Logging out user {}", sessionMap.get("loggedInUser"));
-        
+
         sessionMap.put("loggedInUser", null);
-        
+
         logger.info("User logged out.");
+
+        return false;
     }
-    
+
     private List<User> fetchAllUsers() {
         return userService.fetchAllUsers();
     }
-    
+
     /**
      * Returns true if the user is already in the database
      */
@@ -63,19 +65,19 @@ public class UserEJB implements UserHandler {
         }
         return isDuplicatedUser;
     }
-    
+
     private User fetchUserByEmail(String email) {
         return userService.fetchUserByEmail(email);
     }
-    
+
     private boolean setLoggedInUser(User loggedInUser) {
-        
         User sessionUser = fetchUserByEmail(loggedInUser.getEmail());
-        
+
         sessionMap.put("loggedInUser", sessionUser);
-        
+
         logger.info("Logged in user: " + sessionMap.get("loggedInUser"));
-    
+
         return true;
     }
+
 }

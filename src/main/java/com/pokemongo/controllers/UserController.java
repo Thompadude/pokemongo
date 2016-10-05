@@ -26,13 +26,12 @@ public class UserController implements Serializable {
 
     public boolean logIn() {
         User user = new User(userName, email, tokenId);
-        isUserLoggedIn = userHandler.logIn(user);
+        setIsUserLoggedIn(userHandler.logIn(user));
         return isUserLoggedIn;
     }
 
     public boolean logOut() {
-        userHandler.logOut();
-        setIsUserLoggedIn(false);
+        setIsUserLoggedIn(userHandler.logOut());
         return isUserLoggedIn;
     }
     
