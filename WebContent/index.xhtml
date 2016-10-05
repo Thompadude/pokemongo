@@ -13,16 +13,24 @@
 
     <title>PokeMongo</title>
 
+
     <h:outputStylesheet library="css" name="normalize.css"></h:outputStylesheet>
-    <h:outputStylesheet library="css" name="main.css" position="last"></h:outputStylesheet>
+    <h:outputStylesheet library="css" name="main.css" ></h:outputStylesheet>
+
+        <h:outputStylesheet library="css" name="#{userController.team}" rendered="#{not empty userController.team}" ></h:outputStylesheet>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async="async" defer="defer"></script>
     <h:outputScript library="js" name="posts.js"></h:outputScript>
-    <h:outputScript library="js" name="theme.js"></h:outputScript>
 
 </h:head>
 <h:body>
+
+    <!-- Ta bort sen -->
+    <h:form>
+        <b:inputText value="#{userController.team}" ></b:inputText>
+        <h:commandButton value="Välj tema"></h:commandButton>
+    </h:form>
 
     <!-- NavBar -->
     <b:navBar brand="PokeMongo" brandHref="#" position="top" sticky="false">

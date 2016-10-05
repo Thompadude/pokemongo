@@ -19,6 +19,9 @@ public class User implements Serializable {
     private String userName;
     private String email;
     private String tokenId;
+    private String team;
+
+
     @OneToMany(mappedBy = "owner")
     private List<Pokemon> pokemons;
 
@@ -26,6 +29,7 @@ public class User implements Serializable {
         this.userName = userName;
         this.email = email;
         this.tokenId = tokenId;
+        team = "none";
     }
 
     public User(String userName, String email) {
@@ -71,7 +75,15 @@ public class User implements Serializable {
     public void setTokenId(String tokenId) {
         this.tokenId = tokenId;
     }
-    
+
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
+    }
+
     @Override
     public String toString() {
         return userName + " (" + email + "), ID: " + id;

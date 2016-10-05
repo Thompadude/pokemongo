@@ -24,9 +24,13 @@ public class UserController implements Serializable {
     private String email;
     private String tokenId;
     private List<Pokemon> pokemons;
+
+    private String team;
+
     @EJB
     private UserHandler userHandler;
-    
+
+
     public void logIn() {
         User user = new User(userName, email, tokenId);
         isUserLoggedIn = userHandler.logIn(user);
@@ -80,4 +84,11 @@ public class UserController implements Serializable {
         this.pokemons = pokemons;
     }
 
+    public String getTeam() {
+        return team + ".css";
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
+    }
 }

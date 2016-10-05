@@ -6,8 +6,9 @@ import com.pokemongo.models.Pokemon;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.jws.WebService;
 
-@Stateless
+@WebService
 public class PokemonEJB implements PokemonHandler {
 
     @EJB
