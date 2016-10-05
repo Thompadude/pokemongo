@@ -19,8 +19,6 @@ public class PokemonData {
     private Long id;
     private Integer pokedexNumber;
     private String name;
-    private String imageUrl;
-    private String spriteUrl;
 
     public Long getId() {
         return id;
@@ -34,22 +32,12 @@ public class PokemonData {
         return name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public String getSpriteUrl() {
-        return spriteUrl;
-    }
-
     @Override
     public String toString() {
         return "PokemonData"
                 + "\nID: " + id
                 + "\nPokedex Number: " + pokedexNumber
-                + "\nName: " + name
-                + "\nImage URL: " + imageUrl
-                + "\nSprite URL: " + spriteUrl;
+                + "\nName: " + name;
     }
 
 }

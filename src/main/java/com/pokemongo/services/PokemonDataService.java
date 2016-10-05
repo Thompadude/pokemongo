@@ -26,5 +26,4 @@ public class PokemonDataService {
     public List<PokemonData> fetchAllPokemonData() {
         return em.createNamedQuery("PokemonData.fetchAll").getResultList();
     }
-
 }
