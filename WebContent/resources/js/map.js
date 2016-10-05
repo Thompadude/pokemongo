@@ -12,44 +12,24 @@ function initMap() {
   });  
   
   // This event listener will call addPokemonLatLong() when the map is clicked.  
-  map.addListener('click', function(event) {
-console.log('hej from map.addListener()');
-	var pokeIndex =document.getElementById('pokemonSelectMenu').value;
-console.log(pokeIndex + 'hej då');
-	var imageLink = "";
-	
-	if (pokeIndex.length == 0 || pokeIndex.length > 3 || pokeIndex == null) {
-		imageLink = '0' + Math.floor((Math.random() * 89) + 10);
-	} else {
-		imageLink = fixPokedexNumber(pokeIndex);
-	}
-	  
+  	map.addListener('click', function(event) {
+	console.log('hej from map.addListener()');
+	var pokeIndex =document.getElementById(('psm').itemValue);
+	console.log(pokeIndex + 'hej då');
+	console.log(pokeIndex);
+
 	addPokemonLatLong(parseFloat(event.latLng.lat()),
-				      parseFloat(event.latLng.lng()), imageLink);
+				      parseFloat(event.latLng.lng()), pokeIndex);
   });      
 }
 
-function fixPokedexNumber(pokedexNumber) {
-
-	while (pokedexNumber.length < 3) {
-		pokedexNumber = '0' + pokedexNumber;
-	}
-
-	return pokedexNumber;
-}
 
 // Adds a marker to the map and push to the array.  
 function addPokemonLatLong(lati, longi, pokeIndex) {
-	
-	var imageLink = "";
-	
-	if (pokeIndex.length == 0 || pokeIndex.length > 3 || pokeIndex == null) {
-		imageLink = link('0' + Math.floor((Math.random() * 89) + 10));
-	} else {
-		imageLink = link(fixPokedexNumber(pokeIndex));
-	}
-	
-  var marker = new google.maps.Marker({  
+
+    var imageLink = link(pokeIndex);
+
+    var marker = new google.maps.Marker({
     position: {
 		lat: parseFloat(lati),
 		lng: parseFloat(longi)
@@ -63,23 +43,7 @@ function addPokemonLatLong(lati, longi, pokeIndex) {
   markers.push(marker);  
 }
 
-// Adds a marker to the map and push to the array.
-function addPokemon() {
-
-	var lati = document.getElementById('latitude').value;
-	var longi = document.getElementById('longitude').value;
-	var pokeNumber = document.getElementById('pokemonSelectMenu').value.split(' - ')[0];
-	
-	addPokemonLatLong(lati, longi, pokeNumber);
-}
 
 function link(index) {
-	return "http://www.serebii.net/pokearth/sprites/em/" + index + ".png";
-}
-
-function choosingPokemon(){
-    console.log('börjarn');
-    var pokeNumber = document.getElementById('pokemonSelectMenu').value.split(' - ')[0];
-	document.getElementById('indexNumber').value = pokeNumber;
-    console.log('fim');
+	return "http://www.serebii.net/pokearth/sprites/em/" + "025" + ".png";
 }

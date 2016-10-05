@@ -20,6 +20,10 @@ public class PokemonController implements Serializable {
     private Integer cp;
     private Integer hp;
     private User owner;
+    private String lng;
+    private String lat;
+
+
     @EJB
     private PokemonHandler pokemonHandler;
 
@@ -31,8 +35,6 @@ public class PokemonController implements Serializable {
         pokemon.setCombatPower(cp);
         pokemon.setHealthPoints(hp);
         pokemon.setOwner(owner);
-
-
         pokemonHandler.savePokemon(pokemon);
     }
    
@@ -76,6 +78,22 @@ public class PokemonController implements Serializable {
     
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
     }
 
 }

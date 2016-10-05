@@ -31,4 +31,8 @@ public class PokemonEJB implements PokemonHandler {
         pokemonService.savePokemon(pokemon);
     }
 
+    public void selectPokemontoMap(Pokemon pokemon){
+
+    }
+
 }

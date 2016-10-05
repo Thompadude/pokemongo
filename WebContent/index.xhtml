@@ -3,6 +3,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
@@ -126,22 +127,18 @@
 
             <!--Right Section-->
             <b:column mediumScreen="6" styleClass="rightSection">
-                <h:form>
-                    <b:selectOneMenu id="pokemonSelectMenu"
-                                     label="Select a Pokemon"
-                                     randerLabel="true"
-                                     value="#{pokemonDataController.pokedexNumber}"
-                                     valueChangeListener="#{pokemonDataController.selectedPokemonTEST}">
-                        <f:selectItems value="#{pokemonDataController.pokemonDataList}"
-                                       var="pokemon"
-                                       itemValue="#{pokemon.pokedexNumber}"
-                                       itemLabel="#{pokemon.pokedexNumber} - #{pokemon.name}"
-                                       onselect="choosingPokemon();">
 
+
+
+                <h:form>
+                    <b:selectOneMenu id="pokemonSelectMenu" label="Select a Pokemon" randerLabel="true" value="#{pokemonDataController.pokedexNumber}"
+                                     >
+                        <f:selectItems id="psm" value="#{pokemonDataController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}"
+                                       itemLabel="#{pokemon.pokedexNumber} - #{pokemon.name}"
+                                       >
                         </f:selectItems>
                     </b:selectOneMenu>
                 </h:form>
-                <br/>
 
                 <h:form styleClass="postForm" id="savingPokemon">
                         <b:inputText placeholder="pokedexNumber" id="pokedexNumber" value="#{pokemonController.pokedexNumber}"/>
@@ -149,6 +146,9 @@
                         <b:inputText placeholder="cp" id="cp" value="#{pokemonController.cp}"/>
                         <b:inputText placeholder="hp" id="hp" value="#{pokemonController.hp}"/>
                         <b:inputText placeholder="owner" id="owner" value="#{userController.tokenId}"/>
+                        <b:inputText placeholder="lng" id="lng" value="#{pokemonController.lng}" />
+                        <b:inputText placeholder="lat" id="lat" value="#{pokemonController.lat}" />
+
                         <div class="btnWrapper--right">
                             <b:commandButton value="Create Pokemon" look="primary" action="#{pokemonController.savePokemon}"/>
                         </div>

@@ -9,13 +9,18 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 @Named(value = "pokemonDataController")
 @SessionScoped
+@ManagedBean
+@ViewScoped
 public class PokemonDataController implements Serializable {
 
     private static final long serialVersionUID = 6380435607133177451L;
-
     private String pokedexNumber;
     private String name;
     private String imageUrl;
@@ -35,8 +40,13 @@ public class PokemonDataController implements Serializable {
         System.out.println(pokemonData);
     }
 
-    public void changeListener(){
+    public void selectPokemonFromDropDown(){
+        setPokedexNumber(pokedexNumber);
+    }
 
+    public void displayPokemon(){
+        FacesMessage msg = new FacesMessage("Selected", pokedexNumber );
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     /* Getters and Setters */
