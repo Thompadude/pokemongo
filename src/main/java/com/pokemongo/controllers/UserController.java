@@ -27,7 +27,7 @@ public class UserController implements Serializable {
     private String userName;
     private String email;
     private String tokenId;
-    private Set<Pokemon> pokemons;
+    private List<Pokemon> pokemons;
     @EJB
     private UserHandler userHandler;
     private static Logger logger = LogManager.getLogger(UserController.class);
@@ -91,21 +91,10 @@ public class UserController implements Serializable {
     }
 
     public List<Pokemon> getPokemons() {
-        List<Pokemon> sortedPokemons = new ArrayList<Pokemon>();
-        
-        sortedPokemons.addAll(userHandler.getLoggedInUser().getPokemons());
-        
-        sortedPokemons.sort(new Comparator<Pokemon>() {
-            @Override
-            public int compare(Pokemon p1, Pokemon p2) {
-                return p1.getPokedexNumber() - p2.getPokedexNumber();
-            }
-        });
-        
-        return sortedPokemons;
+        return pokemons;
     }
 
-    public void setPokemons(Set<Pokemon> pokemons) {
+    public void setPokemons(List<Pokemon> pokemons) {
         this.pokemons = pokemons;
     }
 }

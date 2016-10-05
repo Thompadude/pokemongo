@@ -2,6 +2,9 @@ package com.pokemongo.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,8 +39,19 @@ public class User implements Serializable {
     public User() {
     }
 
-    public Set<Pokemon> getPokemons() {
-        return pokemons;
+    public List<Pokemon> getPokemons() {
+        // TODO maybe replace this sort with a query?
+        List<Pokemon> pokemon = new ArrayList<Pokemon>();
+        pokemon.addAll(pokemons);
+
+        pokemon.sort(new Comparator<Pokemon>() {
+            @Override
+            public int compare(Pokemon p1, Pokemon p2) {
+                return p1.getPokedexNumber() - p2.getPokedexNumber();
+            }
+        });
+
+        return pokemon;
     }
 
     public void setPokemons(Set<Pokemon> pokemons) {
@@ -71,7 +85,7 @@ public class User implements Serializable {
     public void setTokenId(String tokenId) {
         this.tokenId = tokenId;
     }
-    
+
     @Override
     public String toString() {
         return "[" + id + "] " + userName;
