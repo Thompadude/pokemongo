@@ -1,0 +1,18 @@
+REST endpoints
+
+User owned pokemon
+
+-----
+
+Users
+
+GET /rest/user/{id}/pokemon
+GET /rest/user/{id/pokemon/{id}
+
+-----
+
+Static pokemon
+
+GET /rest/pokemon
+GET /rest/pokemon/{pokdexNr}
+GET /rest/pokemon/{name}

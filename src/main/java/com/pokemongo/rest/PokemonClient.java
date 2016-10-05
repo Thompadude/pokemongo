@@ -1,5 +1,6 @@
 package com.pokemongo.rest;
 
+import com.pokemongo.business.PokemonEJB;
 import com.pokemongo.models.Pokemon;
 import com.pokemongo.services.PokemonService;
 

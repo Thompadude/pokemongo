@@ -22,10 +22,11 @@ public class Pokemon implements Serializable {
     private Integer healthPoints;
     @ManyToOne
     @JoinColumn(name = "ownerId")
-    @JsonIgnore
+    @JsonIgnore // Do not serialize this - it will cause infinite recursion
     private User owner;
     
-    @Transient
+    
+    @Transient // This is for json serialization, not for database
     private Long ownerId;
     
     public Long getId() {
