@@ -1,8 +1,8 @@
 package com.pokemongo.business;
 
-import com.pokemongo.services.UserService;
 import com.pokemongo.business.interfaces.UserHandler;
 import com.pokemongo.models.User;
+import com.pokemongo.services.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,31 +37,33 @@ public class UserEJB implements UserHandler {
     }
     
     @Override
-    public void logOut() {
+    public boolean logOut() {
         logger.debug("Logging out user {}", sessionMap.get("loggedInUser"));
         
         sessionMap.put("loggedInUser", null);
         
         logger.info("User logged out.");
+
+        return false;
     }
-    
+
     @Override
     public User getLoggedInUser() {
         return (User) sessionMap.get("loggedInUser");
     }
-    
+
     @Override
     public boolean setLoggedInUser(User loggedInUser) {
-        
+
         User sessionUser = fetchUserByEmail(loggedInUser.getEmail());
-        
+
         sessionMap.put("loggedInUser", sessionUser);
-        
+
         logger.info("Logged in user: " + sessionMap.get("loggedInUser"));
-        
+
         return true;
     }
-    
+
     private List<User> fetchAllUsers() {
         return userService.fetchAllUsers();
     }

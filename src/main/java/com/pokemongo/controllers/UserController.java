@@ -6,18 +6,14 @@ import com.pokemongo.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.*;
 
 @Named(value = "userController")
-@ManagedBean
 @SessionScoped
 public class UserController implements Serializable {
 
@@ -30,30 +26,31 @@ public class UserController implements Serializable {
     private Set<Pokemon> pokemons;
     @EJB
     private UserHandler userHandler;
+
     private static Logger logger = LogManager.getLogger(UserController.class);
-    
+
     @PostConstruct
     public void init() {
         isUserLoggedIn = false;
         User currentUser = userHandler.getLoggedInUser();
         if (currentUser != null) {
             isUserLoggedIn = true;
-            
+
             this.userName = currentUser.getUserName();
             this.email = currentUser.getEmail();
             this.pokemons = currentUser.getPokemons();
         }
     }
-    
-    public void logIn() {
+
+    public boolean logIn() {
         User user = new User(userName, email, tokenId);
-        isUserLoggedIn = userHandler.logIn(user);
+        setIsUserLoggedIn(userHandler.logIn(user));
+        return isUserLoggedIn;
     }
 
-    public void logOut() {
-        userHandler.logOut();
-        
-        setIsUserLoggedIn(false);
+    public boolean logOut() {
+        setIsUserLoggedIn(userHandler.logOut());
+        return isUserLoggedIn;
     }
     
     /* Getters and Setters */
@@ -92,20 +89,21 @@ public class UserController implements Serializable {
 
     public List<Pokemon> getPokemons() {
         List<Pokemon> sortedPokemons = new ArrayList<Pokemon>();
-        
+
         sortedPokemons.addAll(userHandler.getLoggedInUser().getPokemons());
-        
+
         sortedPokemons.sort(new Comparator<Pokemon>() {
             @Override
             public int compare(Pokemon p1, Pokemon p2) {
                 return p1.getPokedexNumber() - p2.getPokedexNumber();
             }
         });
-        
+
         return sortedPokemons;
     }
 
     public void setPokemons(Set<Pokemon> pokemons) {
         this.pokemons = pokemons;
     }
+
 }

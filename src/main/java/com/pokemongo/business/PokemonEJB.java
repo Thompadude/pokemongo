@@ -1,8 +1,9 @@
 package com.pokemongo.business;
 
-import com.pokemongo.services.PokemonService;
 import com.pokemongo.business.interfaces.PokemonHandler;
+import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.models.Pokemon;
+import com.pokemongo.services.PokemonService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -14,8 +15,8 @@ public class PokemonEJB implements PokemonHandler {
     private PokemonService pokemonService;
 
     @Override
-    public void savePokemon(Pokemon pokemon) {
-        pokemonService.savePokemon(pokemon);
+    public Pokemon savePokemon(Pokemon pokemon) throws DatabaseException {
+        return pokemonService.savePokemon(pokemon);
     }
 
 }

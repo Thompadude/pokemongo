@@ -1,6 +1,7 @@
 package com.pokemongo.controllers;
 
 import com.pokemongo.business.interfaces.PostHandler;
+import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.exceptions.FormException;
 import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Post;
@@ -43,7 +44,7 @@ public class PostController implements Serializable {
 
         try {
             postHandler.savePost(post);
-        } catch (UserNotLoggedInException e) {
+        } catch (UserNotLoggedInException | DatabaseException e) {
             // TODO add logger
             displayPostFormMessage(e.getMessage());
         }
@@ -51,7 +52,7 @@ public class PostController implements Serializable {
         resetPostFields();
     }
 
-    public String saveReply(long postId) {
+    public String saveReply(long postId) throws DatabaseException {
         Post reply = new Post(replyContent);
 
         try {
