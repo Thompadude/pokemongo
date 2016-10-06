@@ -23,7 +23,7 @@ public class UserController implements Serializable {
     private String userName;
     private String email;
     private String tokenId;
-    private Set<Pokemon> pokemons;
+    private List<Pokemon> pokemons;
     @EJB
     private UserHandler userHandler;
 
@@ -43,12 +43,16 @@ public class UserController implements Serializable {
     }
 
     public boolean logIn() {
-        User user = new User(userName, email, tokenId);
-        setIsUserLoggedIn(userHandler.logIn(user));
+        if (!isUserLoggedIn) {
+            logger.debug("User is logging in");
+            User user = new User(userName, email, tokenId);
+            isUserLoggedIn = userHandler.logIn(user);
+        }
         return isUserLoggedIn;
     }
 
     public boolean logOut() {
+        logger.debug("User is logging out");
         setIsUserLoggedIn(userHandler.logOut());
         return isUserLoggedIn;
     }
@@ -88,21 +92,10 @@ public class UserController implements Serializable {
     }
 
     public List<Pokemon> getPokemons() {
-        List<Pokemon> sortedPokemons = new ArrayList<Pokemon>();
-
-        sortedPokemons.addAll(userHandler.getLoggedInUser().getPokemons());
-
-        sortedPokemons.sort(new Comparator<Pokemon>() {
-            @Override
-            public int compare(Pokemon p1, Pokemon p2) {
-                return p1.getPokedexNumber() - p2.getPokedexNumber();
-            }
-        });
-
-        return sortedPokemons;
+        return pokemons;
     }
 
-    public void setPokemons(Set<Pokemon> pokemons) {
+    public void setPokemons(List<Pokemon> pokemons) {
         this.pokemons = pokemons;
     }
 

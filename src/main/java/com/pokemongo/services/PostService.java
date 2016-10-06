@@ -52,6 +52,8 @@ public class PostService {
     }
 
     public List<Post> fetchPostsByKeyword(String keyword) {
+        logger.debug("Fetching posts by keyword: {}", keyword);
+
         return em.createNamedQuery("Post.fetchPostsByKeyWord")
                 .setParameter("keyword", "%" + keyword + "%")
                 .getResultList();

@@ -63,7 +63,7 @@ public class UserEJB implements UserHandler {
 
         return true;
     }
-
+    
     private List<User> fetchAllUsers() {
         return userService.fetchAllUsers();
     }

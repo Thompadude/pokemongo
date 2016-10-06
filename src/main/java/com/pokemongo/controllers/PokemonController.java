@@ -1,7 +1,6 @@
 package com.pokemongo.controllers;
 
 import com.pokemongo.business.interfaces.PokemonHandler;
-import com.pokemongo.models.Pokemon;
 import com.pokemongo.models.User;
 
 import javax.ejb.EJB;
@@ -24,43 +23,43 @@ public class PokemonController implements Serializable {
     private PokemonHandler pokemonHandler;
 
     /* Getters and Setters */
-    
+
     public Integer getPokedexNumber() {
         return pokedexNumber;
     }
-    
+
     public void setPokedexNumber(Integer pokedexNumber) {
         this.pokedexNumber = pokedexNumber;
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public Integer getCp() {
         return cp;
     }
-    
+
     public void setCp(Integer cp) {
         this.cp = cp;
     }
-    
+
     public Integer getHp() {
         return hp;
     }
-    
+
     public void setHp(Integer hp) {
         this.hp = hp;
     }
-    
+
     public User getOwner() {
         return owner;
     }
-    
+
     public void setOwner(User owner) {
         this.owner = owner;
     }
