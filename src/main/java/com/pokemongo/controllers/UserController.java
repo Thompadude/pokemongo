@@ -92,6 +92,8 @@ public class UserController implements Serializable {
     }
 
     public List<Pokemon> getPokemons() {
+        // TODO ugly hack?
+        this.pokemons = userHandler.getLoggedInUser().getPokemons();
         return pokemons;
     }
 

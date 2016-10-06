@@ -100,7 +100,7 @@ public class PostController implements Serializable {
     public void resetSearchedPosts() {
         logger.debug("Resetting searched posts section");
         setPostSearchResults(null);
-        setSearchWord("");
+        setSearchWord(null);
     }
 
     private void resetPostFields() {
@@ -122,9 +122,9 @@ public class PostController implements Serializable {
     }
 
     private void displayPostFormMessage(String message) {
-        logger.debug("Displaying post form error message");
-        FacesMessage facesMessage = new FacesMessage(message);
-        FacesContext.getCurrentInstance().addMessage("formId:postForm", facesMessage);
+            logger.error("Displaying post form error message: {}", message);
+            FacesMessage facesMessage = new FacesMessage(message);
+            FacesContext.getCurrentInstance().addMessage("formId:postForm", facesMessage);
     }
 
     /* Getters and Setters */
