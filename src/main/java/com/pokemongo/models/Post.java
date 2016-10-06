@@ -1,5 +1,7 @@
 package com.pokemongo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -25,13 +27,18 @@ public class Post implements Serializable, Comparator<Post> {
     private String content;
     @ManyToOne
     @JoinColumn(name = "authorId")
+    @JsonIgnore
     private User author;
     private LocalDateTime postTime;
     @ManyToOne
     @JoinColumn(name = "parentPostId")
+    @JsonIgnore
     private Post parentPost;
     @OneToMany(mappedBy = "parentPost", fetch = FetchType.EAGER)
     private List<Post> childPosts;
+
+    @Transient
+    private Long authorId;
 
     public Post(String title, String content) {
         this.title = title;
@@ -101,6 +108,11 @@ public class Post implements Serializable, Comparator<Post> {
 
     public void setChildPosts(List<Post> childPosts) {
         this.childPosts = childPosts;
+    }
+
+    public Long getAuthorId() {
+        authorId = author.getId();
+        return authorId;
     }
 
     @Override

@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateful
 public class PokemonService {
@@ -22,6 +23,10 @@ public class PokemonService {
             return pokemon;
         }
         throw new DatabaseException("Error saving pokemon");
+    }
+    
+    public List<Pokemon> fetchAllPokemons() {
+        return em.createNamedQuery("Pokemon.fetchAll").getResultList();
     }
 
 }

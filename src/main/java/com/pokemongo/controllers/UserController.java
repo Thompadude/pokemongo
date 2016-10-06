@@ -28,14 +28,14 @@ public class UserController implements Serializable {
     private UserHandler userHandler;
 
     private static Logger logger = LogManager.getLogger(UserController.class);
-
+    
     @PostConstruct
     public void init() {
         isUserLoggedIn = false;
         User currentUser = userHandler.getLoggedInUser();
         if (currentUser != null) {
             isUserLoggedIn = true;
-
+            
             this.userName = currentUser.getUserName();
             this.email = currentUser.getEmail();
             this.pokemons = currentUser.getPokemons();
