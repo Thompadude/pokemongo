@@ -3,7 +3,7 @@ var map;
 var markers = [];  
   
 function initMap() {
-  var lat_lng = {lat: 57.70887000, lng: 11.97456000};  
+	var lat_lng = {lat: 57.70887000, lng: 11.97456000};
   
   map = new google.maps.Map(document.getElementById('map'), {  
     zoom: 18,  
@@ -12,23 +12,18 @@ function initMap() {
   });  
   
   // This event listener will call addPokemonLatLong() when the map is clicked.  
-  	map.addListener('click', function(event) {
-	console.log('hej from map.addListener()');
-	var pokeIndex =document.getElementById(('psm').itemValue);
-	console.log(pokeIndex + 'hej då');
-	console.log(pokeIndex);
 
+	map.addListener('click', function(event) {
+        var pok_id = document.getElementById('pokemonForm:pokemonSelectMenu').value;
 	addPokemonLatLong(parseFloat(event.latLng.lat()),
-				      parseFloat(event.latLng.lng()), pokeIndex);
+				      parseFloat(event.latLng.lng()), pok_id);
   });      
 }
 
 
 // Adds a marker to the map and push to the array.  
 function addPokemonLatLong(lati, longi, pokeIndex) {
-
     var imageLink = link(pokeIndex);
-
     var marker = new google.maps.Marker({
     position: {
 		lat: parseFloat(lati),
@@ -45,5 +40,5 @@ function addPokemonLatLong(lati, longi, pokeIndex) {
 
 
 function link(index) {
-	return "http://www.serebii.net/pokearth/sprites/em/" + "025" + ".png";
+	return "http://www.serebii.net/pokearth/sprites/em/" + index + ".png";
 }
