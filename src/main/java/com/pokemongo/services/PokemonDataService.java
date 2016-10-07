@@ -39,12 +39,7 @@ public class PokemonDataService {
     }
 
     public List<PokemonData> fetchAllPokemonData() {
-        try {
-            return em.createNamedQuery("PokemonData.fetchAll").getResultList();
-        } catch (NoResultException e) {
-            logger.error(e.getMessage());
-            return null;
-        }
+        return em.createNamedQuery("PokemonData.fetchAll").getResultList();
     }
 
 }

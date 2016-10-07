@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -32,7 +33,12 @@ public class PostService {
     }
 
     public Post fetchPost(long postId) {
-        return em.find(Post.class, postId);
+        try {
+            return em.find(Post.class, postId);
+        } catch (NoResultException e) {
+            logger.error("No post found with that ID");
+            return null;
+        }
     }
 
     public List<Post> fetchPostsWithoutParent() {
