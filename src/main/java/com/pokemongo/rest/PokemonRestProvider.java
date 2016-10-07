@@ -9,6 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/pokemon")
 public class PokemonRestProvider {
@@ -19,9 +20,12 @@ public class PokemonRestProvider {
     @GET
     @Produces("application/json")
     public Response getAllPokemon() {
-        return Response.status(Response.Status.OK)
-                .entity(pokemonDataService.fetchAllPokemonData())
-                .build();
+        List<PokemonData> pokemonDataList = pokemonDataService.fetchAllPokemonData();
+
+        if (pokemonDataList.isEmpty())
+            return Response.status(Response.Status.NO_CONTENT).build();
+
+        return Response.status(Response.Status.OK).entity(pokemonDataList).build();
     }
 
     @GET

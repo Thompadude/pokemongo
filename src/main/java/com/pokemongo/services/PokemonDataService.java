@@ -24,17 +24,27 @@ public class PokemonDataService {
                     .setParameter("pokedexNumber", pokedexNumber)
                     .getSingleResult();
         } catch (NoResultException e) {
-            logger.error("No pokemon found with that pokedex number");
+            logger.error("No pokemon found with that pokedex number\n" + e.getMessage());
             return null;
         }
     }
 
     public PokemonData fetchPokemonData(long id) {
-        return em.find(PokemonData.class, id);
+        try {
+            return em.find(PokemonData.class, id);
+        } catch (NoResultException e) {
+            logger.error("No pokemon found with that ID\n" + e.getMessage());
+            return null;
+        }
     }
 
     public List<PokemonData> fetchAllPokemonData() {
-        return em.createNamedQuery("PokemonData.fetchAll").getResultList();
+        try {
+            return em.createNamedQuery("PokemonData.fetchAll").getResultList();
+        } catch (NoResultException e) {
+            logger.error(e.getMessage());
+            return null;
+        }
     }
 
 }
