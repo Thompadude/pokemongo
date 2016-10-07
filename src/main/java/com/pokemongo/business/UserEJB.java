@@ -1,6 +1,7 @@
 package com.pokemongo.business;
 
 import com.pokemongo.business.interfaces.UserHandler;
+import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.models.User;
 import com.pokemongo.services.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -27,12 +28,12 @@ public class UserEJB implements UserHandler {
     }
 
     @Override
-    public void saveUser(User user) {
+    public void saveUser(User user) throws DatabaseException {
         userService.saveUser(user);
     }
 
     @Override
-    public boolean logIn(User user) {
+    public boolean logIn(User user) throws DatabaseException {
         if (!isDuplicate(user)) {
             saveUser(user);
         }

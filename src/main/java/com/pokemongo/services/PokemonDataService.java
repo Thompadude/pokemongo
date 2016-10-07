@@ -24,7 +24,7 @@ public class PokemonDataService {
                     .setParameter("pokedexNumber", pokedexNumber)
                     .getSingleResult();
         } catch (NoResultException e) {
-            logger.error("No pokemon found with that pokedex number\n" + e.getMessage());
+            logger.error(e.getMessage());
             return null;
         }
     }
@@ -33,7 +33,7 @@ public class PokemonDataService {
         try {
             return em.find(PokemonData.class, id);
         } catch (NoResultException e) {
-            logger.error("No pokemon found with that ID\n" + e.getMessage());
+            logger.error(e.getMessage());
             return null;
         }
     }

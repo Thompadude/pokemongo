@@ -1,6 +1,7 @@
 package com.pokemongo.controllers;
 
 import com.pokemongo.business.interfaces.UserHandler;
+import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.models.Pokemon;
 import com.pokemongo.models.User;
 import org.apache.logging.log4j.LogManager;
@@ -11,7 +12,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.*;
+import java.util.List;
 
 @Named(value = "userController")
 @SessionScoped
@@ -28,21 +29,21 @@ public class UserController implements Serializable {
     private UserHandler userHandler;
 
     private static Logger logger = LogManager.getLogger(UserController.class);
-    
+
     @PostConstruct
     public void init() {
         isUserLoggedIn = false;
         User currentUser = userHandler.getLoggedInUser();
         if (currentUser != null) {
             isUserLoggedIn = true;
-            
+
             this.userName = currentUser.getUserName();
             this.email = currentUser.getEmail();
             this.pokemons = currentUser.getPokemons();
         }
     }
 
-    public boolean logIn() {
+    public boolean logIn() throws DatabaseException {
         if (!isUserLoggedIn) {
             logger.debug("User is logging in");
             User user = new User(userName, email, tokenId);

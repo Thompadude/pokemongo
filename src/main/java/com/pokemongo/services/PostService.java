@@ -21,22 +21,21 @@ public class PostService {
     private static final Logger logger = LogManager.getLogger(PostService.class);
 
     public Post savePost(Post post) throws DatabaseException {
-        logger.info("Saving post...");
-
         if (em.merge(post) != null) {
             logger.info("Post saved. Title: {}, author id: {}", post.getTitle(), post.getAuthor().getId());
             return post;
         } else {
-            logger.error("Error saving post!");
+            logger.error("Error saving post");
         }
         throw new DatabaseException("Error saving post");
     }
 
     public Post fetchPost(long postId) {
         try {
+            logger.debug("Fetching post by id");
             return em.find(Post.class, postId);
         } catch (NoResultException e) {
-            logger.error("No post found with that ID");
+            logger.error(e.getMessage());
             return null;
         }
     }
