@@ -24,6 +24,7 @@ public class User implements Serializable {
     private String tokenId;
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private Set<Pokemon> pokemons;
+    private String userImageName;
 
     public User(String userName, String email, String tokenId) {
         this.userName = userName;
@@ -89,5 +90,13 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "[" + id + "] " + userName;
+    }
+    
+    public String getUserImageName() {
+        return userImageName;
+    }
+    
+    public void setUserImageName(String userImageName) {
+        this.userImageName = userImageName;
     }
 }
