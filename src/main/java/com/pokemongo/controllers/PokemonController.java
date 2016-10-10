@@ -37,14 +37,11 @@ public class PokemonController implements Serializable {
     }
 
     public void savePokemon() {
+        // TODO add loggers and error handlers
         PokemonData pokemonData = pokemonDataHandler.fetchPokemonDataByPokedexNumber(pokedexNumber);
-
-        Pokemon pokemon = new Pokemon(pokedexNumber, pokemonData.getName());
-
-        pokemon.setCombatPower(cp);
-        pokemon.setHealthPoints(hp);
-
+        Pokemon pokemon = new Pokemon(pokedexNumber, pokemonData.getName(), lng, lat, cp, hp);
         pokemonHandler.savePokemon(pokemon);
+        // TODO clear fields after adding pokemon
     }
    
     /* Getters and Setters */
