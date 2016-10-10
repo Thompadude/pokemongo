@@ -19,6 +19,14 @@ public class Pokemon implements Serializable {
     @JoinColumn(name = "ownerId")
     private User owner;
 
+    public Pokemon() {
+    }
+
+    public Pokemon(String pokedexNumber, String name) {
+        this.pokedexNumber = pokedexNumber;
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
