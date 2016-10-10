@@ -12,19 +12,20 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
         @NamedQuery(name = "PokemonData.fetchAll", query = "SELECT p FROM PokemonData p"),
         @NamedQuery(name = "PokemonData.fetchPokemonDataByPokedexNumber", query = "SELECT p FROM PokemonData p WHERE p.pokedexNumber=:pokedexNumber")
+
 })
 public class PokemonData {
 
     @Id
     private Long id;
-    private Integer pokedexNumber;
+    private String pokedexNumber;
     private String name;
 
     public Long getId() {
         return id;
     }
 
-    public Integer getPokedexNumber() {
+    public String getPokedexNumber() {
         return pokedexNumber;
     }
 

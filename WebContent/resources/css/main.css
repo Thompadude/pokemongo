@@ -467,7 +467,7 @@ a:hover {
   margin-top: 0; }
 
 .post__author {
-  color: grey;
+  color: #d1d1d1;
   font-size: 1rem;
   float: right; }
 
@@ -480,6 +480,9 @@ a:hover {
 
 .button {
   cursor: pointer; }
+
+.button--addPokemon {
+  margin-bottom: 1rem !important; }
 
 .button--post {
   display: inline-block;
@@ -509,6 +512,9 @@ a:hover {
 .selectMenu--postSortOrder {
   min-width: 10rem;
   max-width: 20rem; }
+
+.input--hidden {
+  display: none !important; }
 
 #hiddenGoogleLoginForm {
   display: none; }

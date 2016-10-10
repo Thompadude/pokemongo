@@ -10,7 +10,7 @@ public interface PokemonDataHandler {
 
     PokemonData fetchPokemonData(long id);
 
-    PokemonData fetchPokemonDataByPokedexNumber(int pokedexNumber);
+    PokemonData fetchPokemonDataByPokedexNumber(String pokedexNumber);
 
     List<PokemonData> fetchAllPokemonData();
 

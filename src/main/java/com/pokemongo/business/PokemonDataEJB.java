@@ -20,7 +20,7 @@ public class PokemonDataEJB implements PokemonDataHandler {
     }
 
     @Override
-    public PokemonData fetchPokemonDataByPokedexNumber(int pokedexNumber) {
+    public PokemonData fetchPokemonDataByPokedexNumber(String pokedexNumber) {
         return pokemonDataService.fetchPokemonDataByPokedexNumber(pokedexNumber);
     }
 

@@ -18,7 +18,7 @@ public class PokemonDataService {
 
     private static final Logger logger = LogManager.getLogger(PokemonDataService.class);
 
-    public PokemonData fetchPokemonDataByPokedexNumber(int pokedexNumber) {
+    public PokemonData fetchPokemonDataByPokedexNumber(String pokedexNumber) {
         try {
             return em.createNamedQuery("PokemonData.fetchPokemonDataByPokedexNumber", PokemonData.class)
                     .setParameter("pokedexNumber", pokedexNumber)

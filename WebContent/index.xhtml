@@ -17,8 +17,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async="async" defer="defer"></script>
-    <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?signed_in=true&amp;callback=initMap&amp;key=AIzaSyCgXXGotMPSlX-ZFpAGWt51_4cMQPWADuI
-"></script>
+    <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?signed_in=true&amp;callback=initMap&amp;key=AIzaSyCgXXGotMPSlX-ZFpAGWt51_4cMQPWADuI"></script>
 
     <h:outputScript library="js" name="map.js"></h:outputScript>
     <h:outputScript library="js" name="posts.js"></h:outputScript>
@@ -30,7 +29,6 @@
     <b:navBar brand="PokeMongo" brandHref="/PokeMongo" position="top" sticky="false">
         <b:navbarLinks>
             <b:navLink value="My Profile" href="/PokeMongo/user"></b:navLink>
-
         </b:navbarLinks>
         <b:navbarLinks pull="right">
             <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
@@ -124,19 +122,18 @@
 
             <!--Right Section-->
             <b:column mediumScreen="6" styleClass="rightSection">
-                <button onclick="addPokemon()">
-                    Generate pokemon
-                </button>
-                <br/>
-                <br/>pokemon index number:
-                <input id="indexNumber" type="text" name="firstname" value=""></input>
-                (Note: Leaving this empty or giving it a value of more than 3 digits will result in randomizing)
 
-                <br/>latitude:
-                <input id="latitude" type="text" name="firstname" value=""></input>
+                <h:form styleClass="postForm" id="savingPokemon">
+                    <b:selectOneMenu id="pokemonSelectMenu" value="#{pokemonController.pokedexNumber}">
+                        <f:selectItems value="#{pokemonController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}" itemLabel="# #{pokemon.id} - #{pokemon.name}"></f:selectItems>
+                    </b:selectOneMenu>
+                    <b:commandButton styleClass="button button--addPokemon" value="Add Pokemon" action="#{pokemonController.savePokemon}"></b:commandButton>
 
-                <br/>longitude:
-                <input id="longitude" type="text" name="firstname" value=""></input>
+                    <b:inputText placeholder="cp" id="cp" value="#{pokemonController.cp}"/>
+                    <b:inputText placeholder="hp" id="hp" value="#{pokemonController.hp}"/>
+                    <b:inputText styleClass="input--hidden" placeholder="lng" id="lng" value="#{pokemonController.lng}"/>
+                    <b:inputText styleClass="input--hidden" placeholder="lat" id="lat" value="#{pokemonController.lat}"/>
+                </h:form>
 
                 <div id="map"></div>
 

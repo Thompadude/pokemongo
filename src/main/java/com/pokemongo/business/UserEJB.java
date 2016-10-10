@@ -20,6 +20,7 @@ public class UserEJB implements UserHandler {
     @EJB
     private UserService userService;
     private Map<String, Object> sessionMap;
+
     private static final Logger logger = LogManager.getLogger(UserEJB.class);
 
     public UserEJB() {

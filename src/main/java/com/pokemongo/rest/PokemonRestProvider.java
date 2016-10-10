@@ -31,7 +31,7 @@ public class PokemonRestProvider {
     @GET
     @Path("/{pokedexNr}")
     @Produces("application/json")
-    public Response getPokemon(@PathParam("pokedexNr") int pokedexNr) {
+    public Response getPokemon(@PathParam("pokedexNr") String pokedexNr) {
         PokemonData pokemon = pokemonDataService.fetchPokemonDataByPokedexNumber(pokedexNr);
 
         if (pokemon == null)

@@ -19,10 +19,10 @@ public class PokemonEJB implements PokemonHandler {
     public Pokemon savePokemon(Pokemon pokemon) throws DatabaseException {
         return pokemonService.savePokemon(pokemon);
     }
-    
+
     @Override
     public List<Pokemon> fetchAllPokemons() {
         return pokemonService.fetchAllPokemons();
     }
-    
+
 }

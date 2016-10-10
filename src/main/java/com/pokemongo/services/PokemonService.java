@@ -17,6 +17,7 @@ public class PokemonService {
     private EntityManager em;
 
     private static final Logger logger = LogManager.getLogger(PokemonService.class);
+
     public Pokemon savePokemon(Pokemon pokemon) throws DatabaseException {
         if (em.merge(pokemon) != null) {
             logger.debug("Pokemon saved. Name: {}", pokemon.getName());

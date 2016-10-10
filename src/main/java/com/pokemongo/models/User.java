@@ -47,7 +47,7 @@ public class User implements Serializable {
         pokemon.sort(new Comparator<Pokemon>() {
             @Override
             public int compare(Pokemon p1, Pokemon p2) {
-                return p1.getPokedexNumber() - p2.getPokedexNumber();
+                return Integer.parseInt(p1.getPokedexNumber()) - Integer.parseInt(p2.getPokedexNumber());
             }
         });
 
