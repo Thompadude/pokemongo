@@ -1,5 +1,9 @@
 package com.pokemongo.controllers;
 
+import com.pokemongo.business.interfaces.UserHandler;
+import com.pokemongo.models.User;
+
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.servlet.http.Part;
@@ -8,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 @Named(value = "fileController")
 @SessionScoped
@@ -15,23 +21,53 @@ public class FileController implements Serializable{
     
     private static final long serialVersionUID = 876788777370374852L;
     
-    private Part file;
+    @EJB
+    private UserHandler userHandler;
+    private Part upload;
     
     public void uploadImage() {
     
+        User currentUser = userHandler.getLoggedInUser();
+    
         try {
-            InputStream input = file.getInputStream();
-            Files.copy(input, new File("/Users/Tobias/test.png").toPath());
+            InputStream inputStream = upload.getInputStream();
+            
+            String extension = determineExtension(upload);
+
+            File filePath = new File("/Users/Tobias/");
+
+            File fileName = new File(filePath, currentUser.getId().toString() + extension);
+
+            Files.copy(inputStream, fileName.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
-    public Part getFile() {
-        return file;
+    private String determineExtension(Part upload) {
+        switch (upload.getContentType()) {
+            case "image/png":
+                return ".png";
+            case "image/jpeg":
+                return ".jpg";
+            case "image/gif":
+                return ".gif";
+            default:
+                return null;
+        }
     }
     
-    public void setFile(Part file) {
-        this.file = file;
+    private Path autoGeneratePath(Part file) {
+        
+        return null;
+    }
+    
+    public Part getUpload() {
+        return upload;
+    }
+    
+    public void setUpload(Part upload) {
+        this.upload = upload;
     }
 }
