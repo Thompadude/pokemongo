@@ -99,7 +99,7 @@ public class UserController implements Serializable {
     }
     
     public String getProfileImageUrl() {
-        profileImageUrl = "/images/" + userHandler.getLoggedInUser().getId() + ".png";
+        profileImageUrl = "/images/" + userHandler.getLoggedInUser().getUserImageName();
         return profileImageUrl;
     }
     
