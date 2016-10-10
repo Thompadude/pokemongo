@@ -25,6 +25,7 @@ public class UserController implements Serializable {
     private String email;
     private String tokenId;
     private List<Pokemon> pokemons;
+    private String profileImageUrl;
     @EJB
     private UserHandler userHandler;
 
@@ -32,15 +33,10 @@ public class UserController implements Serializable {
 
     @PostConstruct
     public void init() {
-        isUserLoggedIn = false;
-        User currentUser = userHandler.getLoggedInUser();
-        if (currentUser != null) {
-            isUserLoggedIn = true;
 
-            this.userName = currentUser.getUserName();
-            this.email = currentUser.getEmail();
-            this.pokemons = currentUser.getPokemons();
-        }
+        logger.debug("@PostConstruct executed");
+
+        isUserLoggedIn = false;
     }
 
     public boolean logIn() throws DatabaseException {
@@ -101,5 +97,13 @@ public class UserController implements Serializable {
     public void setPokemons(List<Pokemon> pokemons) {
         this.pokemons = pokemons;
     }
-
+    
+    public String getProfileImageUrl() {
+        profileImageUrl = "/images/" + userHandler.getLoggedInUser().getId() + ".png";
+        return profileImageUrl;
+    }
+    
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
 }

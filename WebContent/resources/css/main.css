@@ -384,6 +384,8 @@ textarea {
   margin-bottom: 15px;
   padding: 15px;
   box-shadow: 0 10px 15px -10px rgba(0, 0, 0, 0.5); }
+  .userInfo__picture img {
+    width: 100%; }
 
 .userInfo__text {
   width: 100%;

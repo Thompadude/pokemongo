@@ -34,7 +34,7 @@ public class FileController implements Serializable{
             
             String extension = determineExtension(upload);
 
-            File filePath = new File("/Users/Tobias/");
+            File filePath = new File(System.getProperty("jboss.server.data.dir") + "/images");
 
             File fileName = new File(filePath, currentUser.getId().toString() + extension);
 

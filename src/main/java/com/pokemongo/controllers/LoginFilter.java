@@ -30,7 +30,7 @@ public class LoginFilter implements Filter {
             res.sendRedirect(req.getContextPath() + "/");
         } else {
             
-            logger.debug("User is logged in, proceeding to requested page.");
+            logger.debug("User is authenticated, proceeding...");
             
             chain.doFilter(request, response);
         }

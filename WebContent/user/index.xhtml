@@ -32,11 +32,12 @@
             <!--Left Section-->
             <b:column mediumScreen="5" styleClass="leftSection">
                 <div class="mainPanel">
+                    <h:outputText value="URL: #{userController.profileImageUrl}"/>
                     <div class="userInfo">
                         <div class="userInfo__name"><h:outputText value="#{userController.userName}"/></div>
                         <div class="userInfo__title">Pokémon Trainer</div>
                         <div class="userInfo__picture">
-                            <b:image library="img" name="defaultProfile.png"/>
+                            <b:image value="#{userController.profileImageUrl}"/>
                         </div>
 
                         <h:form id="imageForm" enctype="multipart/form-data">
