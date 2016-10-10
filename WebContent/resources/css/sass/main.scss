@@ -6,11 +6,11 @@ $darkGrey: #b0b0b0;
 $childListPadding: 4rem;
 
 html {
-    margin-bottom: 10rem;
+  margin-bottom: 10rem;
 }
 
 a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .label {
@@ -18,65 +18,65 @@ a:hover {
 }
 
 .label--postOrder {
-    float: left;
-    margin: .75rem 1rem 0 0;
+  float: left;
+  margin: .75rem 1rem 0 0;
 }
 
 .postForm {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .postList {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .postList__item {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .post {
-    border-radius: 3px;
-    padding: 1rem;
-    margin-top: 2rem;
+  border-radius: 3px;
+  padding: 1rem;
+  margin-top: 2rem;
 }
 
 .post--default {
-    background-color: $lightGrey;
-    border: 1px solid $mediumGrey;
+  background-color: $lightGrey;
+  border: 1px solid $mediumGrey;
 }
 
 .post--comment {
-    background-color: $mediumGrey;
-    border: 1px solid $darkGrey;
+  background-color: $mediumGrey;
+  border: 1px solid $darkGrey;
 }
 
 .post__title {
-    font-size: 2rem;
-    margin-top: 0;
+  font-size: 2rem;
+  margin-top: 0;
 }
 
 .post__author {
-    color: grey;
-    font-size: 1rem;
-    float: right;
+  color: grey;
+  font-size: 1rem;
+  float: right;
 }
 
 .postsDataTable {
-    width: 100%;
-    margin-bottom: 2rem;
+  width: 100%;
+  margin-bottom: 2rem;
 }
 
 .btnWrapper--right {
-    text-align: right;
+  text-align: right;
 }
 
 .button {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .button--addPokemon {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .button--comments {
@@ -84,12 +84,12 @@ a:hover {
 }
 
 .button--post {
-    display: inline-block;
-    float: right;
+  display: inline-block;
+  float: right;
 }
 
 .button--search {
-    padding-right: 0 !important;
+  padding-right: 0 !important;
 }
 
 .button--reset {
@@ -97,26 +97,26 @@ a:hover {
 }
 
 .button__arrow {
-    color: $darkGrey;
+  color: $darkGrey;
 }
 
 .button__badge {
-    background-color: $mediumGrey;
+  background-color: $mediumGrey;
 }
 
 .postList__childList {
-    padding-left: $childListPadding;
-    display: none;
+  padding-left: $childListPadding;
+  display: none;
 }
 
 .postList__childList__item {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .postList__formWrapper {
-    margin-top: 1em;
-    padding-left: $childListPadding;
-    display: none;
+  margin-top: 1em;
+  padding-left: $childListPadding;
+  display: none;
 }
 
 .selectMenu {
@@ -124,15 +124,23 @@ a:hover {
 }
 
 .selectMenu--postSortOrder {
-    min-width: 10rem;
-    max-width: 20rem;
+  min-width: 10rem;
+  max-width: 20rem;
+}
+
+.input {
+
+}
+
+.input--hidden {
+  display: none;
 }
 
 #hiddenGoogleLoginForm {
-    display: none;
+  display: none;
 }
 
 #map {
-    height: 500px;
-    width: 500px;
+  height: 500px;
+  width: 500px;
 }

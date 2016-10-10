@@ -82,6 +82,9 @@ a:hover {
   min-width: 10rem;
   max-width: 20rem; }
 
+.input--hidden {
+  display: none; }
+
 #hiddenGoogleLoginForm {
   display: none; }
 
