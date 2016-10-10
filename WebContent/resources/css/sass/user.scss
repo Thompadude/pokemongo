@@ -28,8 +28,31 @@
     }
 }
 
+.userInfo__uploadShower {
+    text-align: right;
+    cursor: pointer;
+}
+
+.userInfo__upload {
+    width: 100%;
+
+    background-color: $lightGrey;
+    border-radius: $cornerRounding;
+    border: 1px solid $mediumGrey;
+
+    padding: 10px;
+
+    display: none;
+}
+
+.userInfo__upload__file, .userInfo__upload__button {
+    display: inline-block;
+}
+
 .userInfo__text {
     width: 100%;
+
+    margin-top: 15px;
 
     background-color: $lightGrey;
     border-radius: $cornerRounding;

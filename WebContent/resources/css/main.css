@@ -387,8 +387,24 @@ textarea {
   .userInfo__picture img {
     width: 100%; }
 
+.userInfo__uploadShower {
+  text-align: right;
+  cursor: pointer; }
+
+.userInfo__upload {
+  width: 100%;
+  background-color: #eeeeee;
+  border-radius: 5px;
+  border: 1px solid #d1d1d1;
+  padding: 10px;
+  display: none; }
+
+.userInfo__upload__file, .userInfo__upload__button {
+  display: inline-block; }
+
 .userInfo__text {
   width: 100%;
+  margin-top: 15px;
   background-color: #eeeeee;
   border-radius: 5px;
   border: 1px solid #d1d1d1; }

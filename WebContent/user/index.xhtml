@@ -13,7 +13,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
-    <h:outputScript library="js" name="posts.js"></h:outputScript>
+    <h:outputScript library="js" name="user.js"></h:outputScript>
 
 </h:head>
 <h:body>
@@ -32,7 +32,6 @@
             <!--Left Section-->
             <b:column mediumScreen="5" styleClass="leftSection">
                 <div class="mainPanel">
-                    <h:outputText value="URL: #{userController.profileImageUrl}"/>
                     <div class="userInfo">
                         <div class="userInfo__name"><h:outputText value="#{userController.userName}"/></div>
                         <div class="userInfo__title">Pokémon Trainer</div>
@@ -40,11 +39,21 @@
                             <b:image value="#{userController.profileImageUrl}"/>
                         </div>
 
-                        <h:form id="imageForm" enctype="multipart/form-data">
-                            <h:inputFile id="upload" value="#{fileController.upload}"/>
-                            <h:commandButton value="Upload"
-                                             action="#{fileController.uploadImage}"/>
-                        </h:form>
+                        <div class="userInfo__uploadShower">
+                            <span>Change picture </span><span class="button__arrow">&#8681;</span>
+                        </div>
+
+                        <div class="userInfo__upload">
+                            <h:form id="imageForm" enctype="multipart/form-data">
+                                <div class="userInfo__upload__file">
+                                    <h:inputFile id="upload" value="#{fileController.upload}"/>
+                                </div>
+                                <div class="userInfo__upload__button">
+                                    <b:commandButton value="Upload" action="#{fileController.uploadImage}"/>
+                                </div>
+                            </h:form>
+                        </div>
+
 
                         <div class="userInfo__text">
                             <table>
