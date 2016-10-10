@@ -12,15 +12,19 @@ $childListPadding: 4rem;
 @import "user";
 
 html {
-    margin-bottom: 10rem;
+  margin-bottom: 10rem;
 }
 
 .fillWidth {
-    width:100%;
+  width: 100%;
+}
+
+.inline {
+  display: inline-block;
 }
 
 a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .label {
@@ -28,65 +32,66 @@ a:hover {
 }
 
 .label--postOrder {
-    float: left;
-    margin: .75rem 1rem 0 0;
+  float: left;
+  margin: .75rem 1rem 0 0;
 }
 
 .postForm {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .postList {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .postList__item {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .post {
-    border-radius: $cornerRounding;
-    padding: 1rem;
-    margin-top: 2rem;
+  border-radius: $cornerRounding;
+  padding: 1rem;
+  margin-top: 2rem;
 }
 
 .post--default {
-    background-color: $lightGrey;
-    border: 1px solid $mediumGrey;
+  background-color: $lightGrey;
+  border: 1px solid $mediumGrey;
 }
 
 .post--comment {
-    background-color: $mediumGrey;
-    border: 1px solid $darkGrey;
+  background-color: $mediumGrey;
+  border: 1px solid $darkGrey;
 }
 
 .post__title {
-    font-size: 2rem;
-    margin-top: 0;
+  font-size: 2rem;
+  margin-top: 0;
 }
 
 .post__author {
-    color: $mediumGrey;
-    font-size: 1rem;
-    float: right;
+  color: $mediumGrey;
+  font-size: 1rem;
+  float: right;
 }
 
 .postsDataTable {
-    width: 100%;
-    margin-bottom: 2rem;
+  width: 100%;
+  margin-bottom: 2rem;
 }
 
 .btnWrapper--right {
-    text-align: right;
+  text-align: right;
 }
 
 .button {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .button--addPokemon {
-  margin-bottom: 1rem !important;
+  display: inline;
+  float: right;
 }
 
 .button--comments {
@@ -94,12 +99,12 @@ a:hover {
 }
 
 .button--post {
-    display: inline-block;
-    float: right;
+  display: inline-block;
+  float: right;
 }
 
 .button--search {
-    padding-right: 0 !important;
+  padding-right: 0 !important;
 }
 
 .button--reset {
@@ -107,35 +112,39 @@ a:hover {
 }
 
 .button__arrow {
-    color: $darkGrey;
+  color: $darkGrey;
 }
 
 .button__badge {
-    background-color: $mediumGrey;
+  background-color: $mediumGrey;
 }
 
 .postList__childList {
-    padding-left: $childListPadding;
-    display: none;
+  padding-left: $childListPadding;
+  display: none;
 }
 
 .postList__childList__item {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .postList__formWrapper {
-    margin-top: 1em;
-    padding-left: $childListPadding;
-    display: none;
+  margin-top: 1em;
+  padding-left: $childListPadding;
+  display: none;
 }
 
 .selectMenu {
-
 }
 
-.selectMenu--postSortOrder {
-    min-width: 10rem;
-    max-width: 20rem;
+.selectMenu--small {
+  min-width: 10rem;
+  max-width: 20rem;
+}
+
+.selectMenu--full {
+  min-width: 30rem;
+  max-width: 100%;
 }
 
 .input {
@@ -147,10 +156,10 @@ a:hover {
 }
 
 #hiddenGoogleLoginForm {
-    display: none;
+  display: none;
 }
 
 #map {
-    height: 500px;
-    width: 500px;
+  height: 500px;
+  width: 500px;
 }

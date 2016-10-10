@@ -432,6 +432,9 @@ html {
 .fillWidth {
   width: 100%; }
 
+.inline {
+  display: inline-block; }
+
 a:hover {
   text-decoration: none; }
 
@@ -482,7 +485,8 @@ a:hover {
   cursor: pointer; }
 
 .button--addPokemon {
-  margin-bottom: 1rem !important; }
+  display: inline;
+  float: right; }
 
 .button--post {
   display: inline-block;
@@ -509,9 +513,13 @@ a:hover {
   padding-left: 4rem;
   display: none; }
 
-.selectMenu--postSortOrder {
+.selectMenu--small {
   min-width: 10rem;
   max-width: 20rem; }
+
+.selectMenu--full {
+  min-width: 30rem;
+  max-width: 100%; }
 
 .input--hidden {
   display: none !important; }
