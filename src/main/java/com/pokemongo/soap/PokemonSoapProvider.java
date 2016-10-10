@@ -4,6 +4,7 @@ import com.pokemongo.models.PokemonData;
 import com.pokemongo.services.PokemonDataService;
 
 import javax.ejb.EJB;
+import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import java.util.List;
@@ -16,9 +17,12 @@ public class PokemonSoapProvider {
 
     @WebResult(name = "Pokemon")
     public List<PokemonData> getAllPokemon() {
-        System.out.println("SOAP method called: getAllPokemon()");
-        List<PokemonData> pokemonDataList = pokemonDataService.fetchAllPokemonData();
         return pokemonDataService.fetchAllPokemonData();
+    }
+
+    @WebResult(name = "Pokemon")
+    public PokemonData getPokemon(@WebParam(name = "pokedex") int pokedexNr) {
+        return pokemonDataService.fetchPokemonData(pokedexNr);
     }
 
 }
