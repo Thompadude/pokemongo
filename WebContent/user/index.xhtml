@@ -38,6 +38,13 @@
                         <div class="userInfo__picture">
                             <b:image library="img" name="defaultProfile.png"/>
                         </div>
+
+                        <h:form id="imageForm" enctype="multipart/form-data">
+                            <h:inputFile id="file" value="#{fileController.file}"/>
+                            <h:commandButton value="Upload"
+                                             action="#{fileController.uploadImage}"/>
+                        </h:form>
+
                         <div class="userInfo__text">
                             <table>
                                 <tr>
