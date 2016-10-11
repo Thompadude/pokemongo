@@ -12,6 +12,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named(value = "userController")
@@ -91,6 +92,7 @@ public class UserController implements Serializable {
     public List<Pokemon> getPokemons() {
         // TODO ugly hack?
         this.pokemons = userHandler.getLoggedInUser().getPokemons();
+        if(pokemons == null) pokemons = new ArrayList<>();
         return pokemons;
     }
 

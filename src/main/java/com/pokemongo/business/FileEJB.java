@@ -29,6 +29,8 @@ public class FileEJB implements FileHandler {
         
         User currentUser = userHandler.getLoggedInUser();
         
+        logger.debug("Uploading image to user " + currentUser);
+        
         try {
             //Make the uploaded file into a stream
             InputStream inputStream = upload.getInputStream();

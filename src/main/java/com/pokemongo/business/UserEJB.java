@@ -32,16 +32,22 @@ public class UserEJB implements UserHandler {
     public void saveUser(User user) throws DatabaseException {
         userService.saveUser(user);
     }
-
+    
+    private void setDefaultValues(User user) {
+        //Default profile picture
+        user.setUserImageName("default.png");
+    }
+    
     @Override
     public boolean logIn(User user) throws DatabaseException {
         if (!isDuplicate(user)) {
+            setDefaultValues(user);
             saveUser(user);
         }
 
         return setLoggedInUser(user);
     }
-
+    
     @Override
     public boolean logOut() {
         logger.debug("Logging out user {}", sessionMap.get("loggedInUser"));

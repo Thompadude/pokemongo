@@ -15,7 +15,6 @@ public interface UserHandler {
      * @return true when the user log in
      */
     boolean logIn(User user) throws DatabaseException;
-
     /**
      * @return false when the user log out
      */
