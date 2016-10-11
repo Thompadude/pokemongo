@@ -58,7 +58,7 @@
 
                 <h:form>
                     <label class="label label--postOrder">Order By:</label>
-                    <b:selectOneMenu styleClass="selectMenu selectMenu--postSortOrder" valueChangeListener="#{postController.changePostSortOrder}" onchange="submit()">
+                    <b:selectOneMenu styleClass="selectMenu selectMenu--small" valueChangeListener="#{postController.changePostSortOrder}" onchange="submit()">
                         <f:selectItem itemLabel="Date" itemValue="default"></f:selectItem>
                         <f:selectItem itemLabel="Comments" itemValue="comments"></f:selectItem>
                     </b:selectOneMenu>
@@ -123,11 +123,16 @@
             <b:column mediumScreen="6" styleClass="rightSection">
 
                 <h:form styleClass="postForm" id="savingPokemon">
-                    <b:selectOneMenu id="pokemonSelectMenu" value="#{pokemonController.pokedexNumber}">
-                        <f:selectItems value="#{pokemonController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}" itemLabel="# #{pokemon.id} - #{pokemon.name}"></f:selectItems>
-                    </b:selectOneMenu>
-                    <b:commandButton styleClass="button button--addPokemon" value="Add Pokemon" action="#{pokemonController.savePokemon}"></b:commandButton>
 
+                    <div class="inline">
+                        <b:selectOneMenu styleClass="selectMenu selectMenu--full" id="pokemonSelectMenu" value="#{pokemonController.pokedexNumber}">
+                            <f:selectItems value="#{pokemonController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}" itemLabel="# #{pokemon.id} - #{pokemon.name}"></f:selectItems>
+                        </b:selectOneMenu>
+                    </div>
+
+                    <div class="button button--addPokemon">
+                        <b:commandButton look="primary" value="Add Pokemon" action="#{pokemonController.savePokemon}"/>
+                    </div>
                     <b:inputText placeholder="cp" id="cp" value="#{pokemonController.cp}"/>
                     <b:inputText placeholder="hp" id="hp" value="#{pokemonController.hp}"/>
                     <b:inputText styleClass="input--hidden" placeholder="lng" id="lng" value="#{pokemonController.lng}"/>
