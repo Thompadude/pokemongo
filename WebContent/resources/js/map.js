@@ -14,7 +14,8 @@ function initMap() {
   // This event listener will call addPokemonLatLong() when the map is clicked.  
 
 	map.addListener('click', function(event) {
-        var pok_id = document.getElementById('pokemonForm:pokemonSelectMenu').value;
+        var pok_id = document.getElementById('pokemonForm:pokemonSelectMenuInner').value;
+        console.log(pok_id);
 	addPokemonLatLong(parseFloat(event.latLng.lat()),
 				      parseFloat(event.latLng.lng()), pok_id);
   });      

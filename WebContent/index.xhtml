@@ -3,6 +3,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
@@ -128,13 +129,13 @@
             <b:column mediumScreen="6" styleClass="rightSection">
 
 
-
-                <h:form id="pokemonForm">
-                    <h:selectOneMenu id="pokemonSelectMenu" label="Select a Pokemon" randerLabel="true" value="#{pokemonDataController.pokedexNumber}" onchange="pickpok()">
+                <!--styla h-->
+                <h:form styleClass="postForm" id="pokemonForm">
+                    <b:selectOneMenu id="pokemonSelectMenu" label="Select a Pokemon" randerLabel="true" value="#{pokemonDataController.pokedexNumber}" onchange="pickpok()">
                         <f:selectItems value="#{pokemonDataController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}"
                                        itemLabel="#{pokemon.pokedexNumber} - #{pokemon.name}">
                         </f:selectItems>
-                    </h:selectOneMenu>
+                    </b:selectOneMenu>
                 </h:form>
 
                 <h:form styleClass="postForm" id="savingPokemon">
