@@ -4,13 +4,17 @@ import com.pokemongo.business.interfaces.PokemonDataHandler;
 import com.pokemongo.business.interfaces.PokemonHandler;
 import com.pokemongo.business.interfaces.UserHandler;
 import com.pokemongo.exceptions.DatabaseException;
+import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Pokemon;
 import com.pokemongo.models.PokemonData;
-import com.pokemongo.models.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -35,25 +39,29 @@ public class PokemonController implements Serializable {
     @EJB
     private UserHandler userHandler;
 
+    private static final Logger logger = LogManager.getLogger(PokemonController.class);
+
     @PostConstruct
     public void init() {
         pokemonDataList = pokemonDataHandler.fetchAllPokemonData();
     }
 
-    public void savePokemon() throws DatabaseException {
+    public void savePokemon() {
         // TODO add loggers and error handlers
         PokemonData pokemonData = pokemonDataHandler.fetchPokemonDataByPokedexNumber(pokedexNumber);
         Pokemon pokemon = new Pokemon(pokedexNumber, pokemonData.getName(), lng, lat, cp, hp);
 
-        // TODO maybe move this logic?
-        User user = userHandler.getLoggedInUser();
-        pokemon.setOwner(user);
+        try {
+            pokemonHandler.savePokemon(pokemon);
+        } catch (UserNotLoggedInException | DatabaseException e) {
+            logger.error(e.getMessage());
+            FacesMessageController.displayErrorMessage("Error adding pokemon. Contact web master.");
+        }
 
-        pokemonHandler.savePokemon(pokemon);
-        clearFields();
+        resetAddPokemonFields();
     }
 
-    private void clearFields() {
+    private void resetAddPokemonFields() {
         setPokedexNumber(null);
         setCp(null);
         setHp(null);

@@ -460,7 +460,7 @@ a:hover {
   float: left;
   margin: .75rem 1rem 0 0; }
 
-.postForm {
+.postForm, .addPokemonForm {
   margin-bottom: 0; }
 
 .postList {

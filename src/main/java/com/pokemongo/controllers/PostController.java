@@ -47,7 +47,7 @@ public class PostController implements Serializable {
             postHandler.savePost(post);
         } catch (UserNotLoggedInException | DatabaseException e) {
             logger.error(e.getMessage());
-            displayPostFormMessage(e.getMessage());
+            FacesMessageController.displayErrorMessage("Error saving post. Contact web master.");
         }
 
         resetPostFields();
@@ -92,7 +92,7 @@ public class PostController implements Serializable {
             return "/index.xhtml?faces-redirect=true";
         } catch (FormException e) {
             logger.error(e.getMessage());
-            displayPostFormMessage("Please type more than two characters");
+            FacesMessageController.displayErrorMessage("Please type more than two characters.");
             return "/index.xhtml?faces-redirect=false";
         }
     }
@@ -119,12 +119,6 @@ public class PostController implements Serializable {
         // Only refresh the searched posts section if the user previously searched for posts
         if (searchWord != null)
             fetchPostsByKeyword();
-    }
-
-    private void displayPostFormMessage(String message) {
-            logger.error("Displaying post form error message: {}", message);
-            FacesMessage facesMessage = new FacesMessage(message);
-            FacesContext.getCurrentInstance().addMessage("formId:postForm", facesMessage);
     }
 
     /* Getters and Setters */

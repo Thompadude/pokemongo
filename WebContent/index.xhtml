@@ -46,7 +46,6 @@
                 <!-- New Post Form -->
                 <h:form styleClass="postForm" id="searchForm">
                     <c:if test="#{userController.isUserLoggedIn}">
-                        <b:messages/>
                         <b:inputText placeholder="Post title" id="title" value="#{postController.title}"/>
                         <b:inputTextarea placeholder="Write new post..." id="content" value="#{postController.content}"/>
 
@@ -122,8 +121,7 @@
             <!--Right Section-->
             <b:column mediumScreen="6" styleClass="rightSection">
 
-                <h:form styleClass="postForm" id="savingPokemon">
-
+                <h:form styleClass="addPokemonForm" id="savingPokemon">
                     <div class="inline">
                         <b:selectOneMenu styleClass="selectMenu selectMenu--full" id="pokemonSelectMenu" value="#{pokemonController.pokedexNumber}">
                             <f:selectItems value="#{pokemonController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}" itemLabel="# #{pokemon.id} - #{pokemon.name}"></f:selectItems>

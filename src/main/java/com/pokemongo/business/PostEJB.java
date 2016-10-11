@@ -1,6 +1,7 @@
 package com.pokemongo.business;
 
 import com.pokemongo.business.interfaces.PostHandler;
+import com.pokemongo.business.interfaces.UserHandler;
 import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.exceptions.FormException;
 import com.pokemongo.exceptions.UserNotLoggedInException;
@@ -10,35 +11,26 @@ import com.pokemongo.services.PostService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import java.util.List;
-import java.util.Map;
 
 @Stateless
 public class PostEJB implements PostHandler {
 
     @EJB
     private PostService postService;
+    @EJB
+    private UserHandler userHandler;
 
     @Override
     public Post savePost(Post post) throws UserNotLoggedInException, DatabaseException {
-
-        User author = fetchLoggedInUser();
+        User author = userHandler.getLoggedInUser();
 
         if (author != null) {
             post.setAuthor(author);
             post = postService.savePost(post);
             return post;
         }
-        throw new UserNotLoggedInException("You must be logged in order to post.");
-    }
-
-    private User fetchLoggedInUser() {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, Object> sessionMap = externalContext.getSessionMap();
-
-        return (User) sessionMap.get("loggedInUser");
+        throw new UserNotLoggedInException("You must be logged in to post.");
     }
 
     @Override
