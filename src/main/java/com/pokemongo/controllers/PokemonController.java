@@ -50,7 +50,15 @@ public class PokemonController implements Serializable {
         pokemon.setOwner(user);
 
         pokemonHandler.savePokemon(pokemon);
-        // TODO clear fields after adding pokemon
+        clearFields();
+    }
+
+    private void clearFields() {
+        setPokedexNumber(null);
+        setCp(null);
+        setHp(null);
+        setLng(null);
+        setLat(null);
     }
 
     /* Getters and Setters */
