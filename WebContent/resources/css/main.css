@@ -456,6 +456,14 @@ html {
 a:hover {
   text-decoration: none; }
 
+.messageBox {
+  z-index: 99;
+  position: fixed;
+  bottom: 30px;
+  right: 30px; }
+  .messageBox .alert {
+    margin-bottom: 0; }
+
 .label--postOrder {
   float: left;
   margin: .75rem 1rem 0 0; }

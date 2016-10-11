@@ -8,4 +8,8 @@ public class FormException extends Exception {
         super("Form not properly filled out.");
     }
 
+    public FormException(String message) {
+        super(message);
+    }
+
 }

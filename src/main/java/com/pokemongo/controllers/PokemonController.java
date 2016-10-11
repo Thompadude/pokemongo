@@ -4,6 +4,7 @@ import com.pokemongo.business.interfaces.PokemonDataHandler;
 import com.pokemongo.business.interfaces.PokemonHandler;
 import com.pokemongo.business.interfaces.UserHandler;
 import com.pokemongo.exceptions.DatabaseException;
+import com.pokemongo.exceptions.FormException;
 import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Pokemon;
 import com.pokemongo.models.PokemonData;
@@ -13,8 +14,6 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -46,19 +45,18 @@ public class PokemonController implements Serializable {
         pokemonDataList = pokemonDataHandler.fetchAllPokemonData();
     }
 
-    public void savePokemon() {
-        // TODO add loggers and error handlers
-        PokemonData pokemonData = pokemonDataHandler.fetchPokemonDataByPokedexNumber(pokedexNumber);
-        Pokemon pokemon = new Pokemon(pokedexNumber, pokemonData.getName(), lng, lat, cp, hp);
-
+    public String savePokemon() {
         try {
+            PokemonData pokemonData = pokemonDataHandler.fetchPokemonDataByPokedexNumber(pokedexNumber);
+            Pokemon pokemon = new Pokemon(pokedexNumber, pokemonData.getName(), lng, lat, cp, hp);
             pokemonHandler.savePokemon(pokemon);
-        } catch (UserNotLoggedInException | DatabaseException e) {
+            resetAddPokemonFields();
+            return "/index.xhtml?faces-redirect=true";
+        } catch (UserNotLoggedInException | DatabaseException | FormException e) {
             logger.error(e.getMessage());
-            FacesMessageController.displayErrorMessage("Error adding pokemon. Contact web master.");
+            FacesMessageController.displayErrorMessage(e.getMessage());
+            return "/index.xhtml?faces-redirect=false";
         }
-
-        resetAddPokemonFields();
     }
 
     private void resetAddPokemonFields() {

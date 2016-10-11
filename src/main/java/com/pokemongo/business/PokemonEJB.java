@@ -3,6 +3,7 @@ package com.pokemongo.business;
 import com.pokemongo.business.interfaces.PokemonHandler;
 import com.pokemongo.business.interfaces.UserHandler;
 import com.pokemongo.exceptions.DatabaseException;
+import com.pokemongo.exceptions.FormException;
 import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Pokemon;
 import com.pokemongo.models.User;
@@ -21,14 +22,18 @@ public class PokemonEJB implements PokemonHandler {
     private UserHandler userHandler;
 
     @Override
-    public Pokemon savePokemon(Pokemon pokemon) throws DatabaseException, UserNotLoggedInException {
-        User owner = userHandler.getLoggedInUser();
+    public Pokemon savePokemon(Pokemon pokemon) throws DatabaseException, UserNotLoggedInException, FormException {
+        if (pokemon.getLat().equals("") || pokemon.getLng().equals("")) {
+            throw new FormException("No pokemon position picked on map");
+        }
 
+        User owner = userHandler.getLoggedInUser();
         if (owner != null) {
             pokemon.setOwner(owner);
             pokemon = pokemonService.savePokemon(pokemon);
             return pokemon;
         }
+
         throw new UserNotLoggedInException("You must be logged in to add pokemon");
     }
 
