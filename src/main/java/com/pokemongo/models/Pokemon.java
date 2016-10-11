@@ -7,7 +7,8 @@ import java.io.Serializable;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Pokemon.fetchAll", query = "SELECT p FROM Pokemon p")
+        @NamedQuery(name = "Pokemon.fetchAll", query = "SELECT p FROM Pokemon p"),
+        @NamedQuery(name = "Pokemon.fetchPokemonByOwnerId", query = "SELECT p FROM Pokemon p WHERE p.owner.id=:id ORDER BY p.pokedexNumber")
 })
 public class Pokemon implements Serializable {
 

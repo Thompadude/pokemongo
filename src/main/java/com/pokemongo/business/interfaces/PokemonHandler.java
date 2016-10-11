@@ -15,4 +15,6 @@ public interface PokemonHandler {
 
     List<Pokemon> fetchAllPokemons();
 
+    List<Pokemon> fetchPokemonByOwnerId(Long id);
+
 }

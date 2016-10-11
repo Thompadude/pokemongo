@@ -56,7 +56,7 @@ function setCoords(longi, lati) {
 }
 
 function setImageLink(index) {
-    return "http://www.serebii.net/pokearth/sprites/em/" + index + ".png";
+    return '/PokeMongo/javax.faces.resource/pokemonImages/' + index + '.png.xhtml?ln=img';
 }
 
 // Sets the map on all markers in the array

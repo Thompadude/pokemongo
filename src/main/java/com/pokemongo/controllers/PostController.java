@@ -62,6 +62,7 @@ public class PostController implements Serializable {
     }
 
     public void changePostSortOrder(ValueChangeEvent event) {
+        logger.debug("Changing post sort order");
         String sortOrder = (String) event.getNewValue();
         if (sortOrder.equals("default")) {
             orderPostsInDefaultOrder();
@@ -159,7 +160,6 @@ public class PostController implements Serializable {
     }
 
     public List<Post> getPosts() {
-        fetchFreshPosts();
         return posts;
     }
 

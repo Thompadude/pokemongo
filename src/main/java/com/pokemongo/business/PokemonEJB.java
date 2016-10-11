@@ -42,4 +42,9 @@ public class PokemonEJB implements PokemonHandler {
         return pokemonService.fetchAllPokemons();
     }
 
+    @Override
+    public List<Pokemon> fetchPokemonByOwnerId(Long id) {
+        return pokemonService.fetchPokemonByOwnerId(id);
+    }
+
 }

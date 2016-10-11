@@ -30,4 +30,8 @@ public class PokemonService {
         return em.createNamedQuery("Pokemon.fetchAll").getResultList();
     }
 
+    public List<Pokemon> fetchPokemonByOwnerId(Long id) {
+        return em.createNamedQuery("Pokemon.fetchPokemonByOwnerId").setParameter("id", id).getResultList();
+    }
+
 }

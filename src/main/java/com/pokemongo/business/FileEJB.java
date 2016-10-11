@@ -51,6 +51,7 @@ public class FileEJB implements FileHandler {
             userHandler.saveUser(currentUser);
             
         } catch (IOException | DatabaseException e) {
+            // TODO if no image folder exists - CRASH!
             logger.error(e.getMessage());
         }
         
