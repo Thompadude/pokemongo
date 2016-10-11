@@ -50,6 +50,9 @@ a:hover {
 .button {
   cursor: pointer; }
 
+.button--addPokemon {
+  margin-bottom: 1rem; }
+
 .button--post {
   display: inline-block;
   float: right; }
@@ -78,6 +81,9 @@ a:hover {
 .selectMenu--postSortOrder {
   min-width: 10rem;
   max-width: 20rem; }
+
+.input--hidden {
+  display: none; }
 
 #hiddenGoogleLoginForm {
   display: none; }

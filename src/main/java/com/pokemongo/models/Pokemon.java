@@ -15,9 +15,23 @@ public class Pokemon implements Serializable {
     private String name;
     private Integer combatPower;
     private Integer healthPoints;
+    private String lng;
+    private String lat;
     @ManyToOne
     @JoinColumn(name = "ownerId")
     private User owner;
+
+    public Pokemon() {
+    }
+
+    public Pokemon(String pokedexNumber, String name, String lng, String lat, Integer combatPower, Integer healthPoints) {
+        this.pokedexNumber = pokedexNumber;
+        this.name = name;
+        this.lng = lng;
+        this.lat = lat;
+        this.combatPower = combatPower;
+        this.healthPoints = healthPoints;
+    }
 
     public Long getId() {
         return id;
@@ -53,6 +67,22 @@ public class Pokemon implements Serializable {
 
     public void setHealthPoints(Integer healthPoints) {
         this.healthPoints = healthPoints;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
     }
 
     public User getOwner() {
