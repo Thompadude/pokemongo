@@ -1,7 +1,7 @@
 .mainPanel {
     border: 1px solid $mediumGrey;
     border-radius: $cornerRounding;
-    padding: 15px;
+    padding: $defaultMargin;
 }
 
 .userInfo__name {
@@ -18,10 +18,10 @@
 .userInfo__picture {
     border-radius: $cornerRounding;
     border: 1px solid $mediumGrey;
-    margin-bottom: 15px;
+    margin-bottom: $defaultMargin;
     padding: 15px;
 
-    box-shadow: 0 10px 15px -10px rgba(0,0,0,0.5);
+    box-shadow: 0 10px $defaultMargin -10px rgba(0,0,0,0.5);
 
     img {
         width: 100%;
@@ -52,7 +52,7 @@
 .userInfo__text {
     width: 100%;
 
-    margin-top: 15px;
+    margin-top: $defaultMargin;
 
     background-color: $lightGrey;
     border-radius: $cornerRounding;
@@ -66,7 +66,7 @@
 .pokemonTitle {
     text-align: center;
     font-size: 3rem;
-    margin-bottom: 15px;
+    margin-bottom: $defaultMargin;
 }
 
 .pokemonInfoList {
@@ -76,7 +76,7 @@
 .pokemonInfobox {
     background-color: $lightGrey;
     margin-bottom: 1rem;
-    padding: 15px;
+    padding: $defaultMargin;
 
     border: 1px solid $mediumGrey;
     border-radius: $cornerRounding;

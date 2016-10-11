@@ -170,6 +170,7 @@ public class PostController implements Serializable {
     }
 
     public List<Post> getPosts() {
+        fetchFreshPosts();
         return posts;
     }
 

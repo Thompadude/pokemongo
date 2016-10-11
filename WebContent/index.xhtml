@@ -72,19 +72,27 @@
                                 <h:column>
                                     <li class="postList__item">
                                         <div class="post post--default">
+
+                                            <div class="post__image">
+                                                <b:image value="#{post.authorImageURL}"/>
+                                            </div>
+
                                             <div class="post__title">
                                                 <h:outputText value="#{post.title}"/>
                                                 <h:outputText styleClass="post__author" value="Posted by: #{post.author.userName} @ #{post.getPostTimeAsString()}"/>
                                             </div>
+
                                             <div class="post__content">
                                                 <h:outputText value="#{post.content}"/>
                                             </div>
+
                                             <div class="btnWrapper--right">
                                                 <a class="button button--comments">
                                                     <b:badge styleClass="button__badge" value="#{post.childPosts.size()}"></b:badge>
                                                     <span class="button__arrow">&#8681;</span>
                                                 </a>
                                             </div>
+
                                         </div>
                                     </li>
                                     <ul class="postList__childList hideable">

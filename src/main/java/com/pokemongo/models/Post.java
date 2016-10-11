@@ -39,6 +39,8 @@ public class Post implements Serializable, Comparator<Post> {
 
     @Transient
     private Long authorId;
+    @Transient
+    private String authorImageURL;
 
     public Post(String title, String content) {
         this.title = title;
@@ -119,5 +121,13 @@ public class Post implements Serializable, Comparator<Post> {
     public int compare(Post o1, Post o2) {
         return o1.getPostTime().compareTo(o2.getPostTime());
     }
-
+    
+    public String getAuthorImageURL() {
+        authorImageURL = "/images/" + author.getUserImageName();
+        return authorImageURL;
+    }
+    
+    public void setAuthorImageURL(String authorImageURL) {
+        this.authorImageURL = authorImageURL;
+    }
 }
