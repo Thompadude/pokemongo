@@ -122,19 +122,21 @@
             <b:column mediumScreen="6" styleClass="rightSection">
 
                 <h:form styleClass="addPokemonForm" id="savingPokemon">
-                    <div class="inline">
-                        <b:selectOneMenu styleClass="selectMenu selectMenu--full" id="pokemonSelectMenu" value="#{pokemonController.pokedexNumber}">
-                            <f:selectItems value="#{pokemonController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}" itemLabel="# #{pokemon.id} - #{pokemon.name}"></f:selectItems>
-                        </b:selectOneMenu>
-                    </div>
+                    <c:if test="#{userController.isUserLoggedIn}">
+                        <div class="inline">
+                            <b:selectOneMenu styleClass="selectMenu selectMenu--full" id="pokemonSelectMenu" value="#{pokemonController.pokedexNumber}">
+                                <f:selectItems value="#{pokemonController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}" itemLabel="# #{pokemon.id} - #{pokemon.name}"></f:selectItems>
+                            </b:selectOneMenu>
+                        </div>
 
-                    <div class="button button--addPokemon">
-                        <b:commandButton look="primary" value="Add Pokemon" action="#{pokemonController.savePokemon}"/>
-                    </div>
-                    <b:inputText placeholder="cp" id="cp" value="#{pokemonController.cp}"/>
-                    <b:inputText placeholder="hp" id="hp" value="#{pokemonController.hp}"/>
-                    <b:inputText styleClass="input--hidden" placeholder="lng" id="lng" value="#{pokemonController.lng}"/>
-                    <b:inputText styleClass="input--hidden" placeholder="lat" id="lat" value="#{pokemonController.lat}"/>
+                        <div class="button button--addPokemon">
+                            <b:commandButton look="primary" value="Add Pokemon" action="#{pokemonController.savePokemon}"/>
+                        </div>
+                        <b:inputText placeholder="cp" id="cp" value="#{pokemonController.cp}"/>
+                        <b:inputText placeholder="hp" id="hp" value="#{pokemonController.hp}"/>
+                        <b:inputText styleClass="input--hidden" placeholder="lng" id="lng" value="#{pokemonController.lng}"/>
+                        <b:inputText styleClass="input--hidden" placeholder="lat" id="lat" value="#{pokemonController.lat}"/>
+                    </c:if>
                 </h:form>
 
                 <div id="map"></div>
@@ -147,8 +149,8 @@
         <h:inputText id="userName" value="#{userController.userName}"></h:inputText>
         <h:inputText id="email" value="#{userController.email}"></h:inputText>
         <h:inputText id="tokenId" value="#{userController.tokenId}"></h:inputText>
-        <b:commandButton styleClass="logInButton" ajax="true" update="@(.postForm)" action="#{userController.logIn}"></b:commandButton>
-        <b:commandButton styleClass="logOutButton" ajax="true" update="@(.postForm)" action="#{userController.logOut}"></b:commandButton>
+        <b:commandButton styleClass="logInButton" ajax="true" update="@(.postForm) @(.addPokemonForm)" action="#{userController.logIn}"></b:commandButton>
+        <b:commandButton styleClass="logOutButton" ajax="true" update="@(.postForm) @(.addPokemonForm)" action="#{userController.logOut}"></b:commandButton>
     </h:form>
 
 </h:body>
