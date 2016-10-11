@@ -11,8 +11,6 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -41,29 +39,26 @@ public class PostController implements Serializable {
     }
 
     public void savePost() {
-        Post post = new Post(title, content);
-
         try {
+            Post post = new Post(title, content);
             postHandler.savePost(post);
+            resetPostFields();
         } catch (UserNotLoggedInException | DatabaseException e) {
             logger.error(e.getMessage());
-            displayPostFormMessage(e.getMessage());
+            FacesMessageController.displayErrorMessage("Error saving post. Contact web master.");
         }
-
-        resetPostFields();
     }
 
     public String saveReply(long postId) throws DatabaseException {
-        Post reply = new Post(replyContent);
-
         try {
+            Post reply = new Post(replyContent);
             postHandler.saveReply(reply, postId);
+            resetPostFields();
+            return "/index.xhtml?faces-redirect=true";
         } catch (UserNotLoggedInException e) {
             logger.error(e.getMessage());
+            return "/index.xhtml?faces-redirect=false";
         }
-
-        resetPostFields();
-        return "/index.xhtml?faces-redirect=true";
     }
 
     public void changePostSortOrder(ValueChangeEvent event) {
@@ -92,7 +87,7 @@ public class PostController implements Serializable {
             return "/index.xhtml?faces-redirect=true";
         } catch (FormException e) {
             logger.error(e.getMessage());
-            displayPostFormMessage("Please type more than two characters");
+            FacesMessageController.displayErrorMessage("Please type more than two characters.");
             return "/index.xhtml?faces-redirect=false";
         }
     }
@@ -119,12 +114,6 @@ public class PostController implements Serializable {
         // Only refresh the searched posts section if the user previously searched for posts
         if (searchWord != null)
             fetchPostsByKeyword();
-    }
-
-    private void displayPostFormMessage(String message) {
-            logger.error("Displaying post form error message: {}", message);
-            FacesMessage facesMessage = new FacesMessage(message);
-            FacesContext.getCurrentInstance().addMessage("formId:postForm", facesMessage);
     }
 
     /* Getters and Setters */

@@ -20,12 +20,12 @@ public class PokemonService {
 
     public Pokemon savePokemon(Pokemon pokemon) throws DatabaseException {
         if (em.merge(pokemon) != null) {
-            logger.debug("Pokemon saved. Name: {}", pokemon.getName());
+            logger.debug("Pokemon saved. Name: {} Owner: {}", pokemon.getName(), pokemon.getOwner().getUserName());
             return pokemon;
         }
         throw new DatabaseException("Error saving pokemon");
     }
-    
+
     public List<Pokemon> fetchAllPokemons() {
         return em.createNamedQuery("Pokemon.fetchAll").getResultList();
     }
