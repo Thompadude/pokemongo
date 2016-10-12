@@ -413,22 +413,25 @@ textarea {
 
 .pokemonTitle {
   text-align: center;
-  font-size: 3rem;
-  margin-bottom: 15px; }
+  font-size: 3rem; }
 
 .pokemonInfoList {
   list-style: none; }
 
 .pokemonInfobox {
   background-color: #eeeeee;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
   padding: 15px;
   border: 1px solid #d1d1d1;
   border-radius: 5px; }
 
 .pokemonInfoBox__image {
   border-radius: 100px;
-  background-color: #d1d1d1; }
+  background-color: #d1d1d1;
+  max-width: 7rem;
+  max-height: 7rem; }
+  .pokemonInfoBox__image img {
+    height: 100%; }
 
 .pokemonInfoBox__name {
   font-size: 3rem;
@@ -452,6 +455,9 @@ html {
 
 .inline {
   display: inline-block; }
+
+a.close {
+  margin-left: 2rem; }
 
 a:hover {
   text-decoration: none; }
