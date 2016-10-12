@@ -87,8 +87,8 @@ public class PostController implements Serializable {
             setPostSearchResults(postHandler.fetchPostsByKeyword(searchWord));
             return "/index.xhtml?faces-redirect=true";
         } catch (FormException e) {
-            logger.error(e.getMessage());
-            FacesMessageController.displayErrorMessage("Please type more than two characters.");
+            logger.warn(e.getMessage());
+            FacesMessageController.displayErrorMessage(e.getMessage());
             return "/index.xhtml?faces-redirect=false";
         }
     }

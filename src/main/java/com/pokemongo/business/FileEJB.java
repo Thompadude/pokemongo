@@ -28,48 +28,51 @@ public class FileEJB implements FileHandler {
     private static Logger logger = LogManager.getLogger(FileEJB.class);
     
     @Override
-    public void uploadImage(Part upload) {
+    public void uploadImage(Part upload) throws FileTypeException {
         
-        User currentUser = userHandler.getLoggedInUser();
+        if(upload != null) {
+    
+            User currentUser = userHandler.getLoggedInUser();
+    
+            logger.debug("Uploading image to user " + currentUser);
+    
+            try {
         
-        logger.debug("Uploading image to user " + currentUser);
+                //Make the uploaded file into a stream
+                InputStream inputStream = upload.getInputStream();
         
-        try {
-            
-            //Make the uploaded file into a stream
-            InputStream inputStream = upload.getInputStream();
-            
-            //Make sure it's an image
-            if (!verifyImage(inputStream)) {
-                throw new FileTypeException();
+                //Make sure it's an image
+                if (!verifyImage(inputStream)) {
+                    throw new FileTypeException("Uploaded file is not an image!");
+                }
+        
+                inputStream = upload.getInputStream();
+        
+                // Get info to build the file name
+                String id = currentUser.getId().toString();
+                String extension = determineExtension(upload);
+        
+                // Create a file with the correct, calculated path
+                // NOTE: This makes the application WildFly only!
+                File file = new File(System.getProperty("jboss.server.data.dir") + "/images");
+                File finalFile = new File(file, id + extension);
+        
+                // Write the stream to disk
+                Files.copy(inputStream, finalFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        
+                //Save the filename with the user for later use
+                currentUser.setUserImageName(id + extension);
+                userHandler.saveUser(currentUser);
+        
+                logger.debug("Image uploaded successfully");
+        
+            } catch (IOException e) {
+                logger.error("File write error! Check existence of data directory");
+            } catch (DatabaseException e) {
+                logger.error("Error saving picture to user!");
             }
-            
-            inputStream = upload.getInputStream();
-            
-            // Get info to build the file name
-            String id = currentUser.getId().toString();
-            String extension = determineExtension(upload);
-            
-            // Create a file with the correct, calculated path
-            // NOTE: This makes the application WildFly only!
-            File file = new File(System.getProperty("jboss.server.data.dir") + "/images");
-            File finalFile = new File(file, id + extension);
-            
-            // Write the stream to disk
-            Files.copy(inputStream, finalFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            
-            //Save the filename with the user for later use
-            currentUser.setUserImageName(id + extension);
-            userHandler.saveUser(currentUser);
-            
-            logger.debug("Image uploaded successfully");
-            
-        } catch (IOException e) {
-            logger.error("File write error! Check existence of data directory");
-        } catch (DatabaseException e) {
-            logger.error("Error saving picture to user!");
-        } catch (FileTypeException e) {
-            logger.warn("Uploaded file is not an image");
+        } else {
+            throw new FileTypeException("No file has been selected");
         }
         
     }

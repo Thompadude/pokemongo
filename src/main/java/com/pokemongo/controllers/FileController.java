@@ -1,6 +1,7 @@
 package com.pokemongo.controllers;
 
 import com.pokemongo.business.interfaces.FileHandler;
+import com.pokemongo.exceptions.FileTypeException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,7 +13,7 @@ import java.io.Serializable;
 
 @Named(value = "fileController")
 @SessionScoped
-public class FileController implements Serializable{
+public class FileController implements Serializable {
     
     private static final long serialVersionUID = 876788777370374852L;
     
@@ -27,10 +28,11 @@ public class FileController implements Serializable{
         
         logger.debug("Uploading image");
         
-        if (upload != null) {
+        try {
             fileHandler.uploadImage(upload);
-        } else {
-            logger.warn("No image for upload");
+            FacesMessageController.displaySuccessMessage("Image uploaded!");
+        } catch (FileTypeException e) {
+            FacesMessageController.displayErrorMessage(e.getMessage());
         }
     }
     

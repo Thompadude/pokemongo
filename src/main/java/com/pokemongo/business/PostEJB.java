@@ -55,7 +55,7 @@ public class PostEJB implements PostHandler {
     @Override
     public List<Post> fetchPostsByKeyword(String keyword) throws FormException {
         if (keyword.length() < 3) {
-            throw new FormException();
+            throw new FormException("Please type more than two characters.");
         } else {
             return postService.fetchPostsByKeyword(keyword);
         }
