@@ -36,6 +36,11 @@ public class FileController implements Serializable {
         }
     }
     
+    public void fileIsTooBig() {
+        logger.debug("Displaying large file message");
+        FacesMessageController.displayErrorMessage("File is too large.");
+    }
+    
     public Part getUpload() {
         return upload;
     }
