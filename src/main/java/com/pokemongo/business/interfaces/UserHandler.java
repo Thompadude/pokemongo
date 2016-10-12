@@ -1,19 +1,26 @@
 package com.pokemongo.business.interfaces;
 
+import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.models.User;
 
 import javax.ejb.Local;
-import java.util.List;
 
 @Local
 public interface UserHandler {
 
-    void saveUser(User user);
+    void saveUser(User user) throws DatabaseException;
     
     /**
-     * Returns true when the user is logged in
+     * @param user is the user who request the login
+     * @return true when the user log in
      */
-    boolean logIn(User user);
-    
-    void logOut();
+    boolean logIn(User user) throws DatabaseException;
+    /**
+     * @return false when the user log out
+     */
+    boolean logOut();
+
+    User getLoggedInUser();
+
+    boolean setLoggedInUser(User loggedInUser);
 }

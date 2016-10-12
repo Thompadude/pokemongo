@@ -1,9 +1,15 @@
 package com.pokemongo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Pokemon.fetchAll", query = "SELECT p FROM Pokemon p"),
+        @NamedQuery(name = "Pokemon.fetchPokemonByOwnerId", query = "SELECT p FROM Pokemon p WHERE p.owner.id=:id ORDER BY p.pokedexNumber")
+})
 public class Pokemon implements Serializable {
 
     private static final long serialVersionUID = -1790191399726700022L;
@@ -19,7 +25,11 @@ public class Pokemon implements Serializable {
     private String lat;
     @ManyToOne
     @JoinColumn(name = "ownerId")
+    @JsonIgnore // Do not serialize this - it will cause infinite recursion
     private User owner;
+
+    @Transient // This is for json serialization, not for database
+    private Long ownerId;
 
     public Pokemon() {
     }
@@ -91,6 +101,11 @@ public class Pokemon implements Serializable {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public Long getOwnerId() {
+        ownerId = owner.getId();
+        return ownerId;
     }
 
 }

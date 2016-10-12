@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <title>User Profile</title>
+
+    <h:outputStylesheet library="css" name="main.css"></h:outputStylesheet>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <h:outputScript library="js" name="user.js"></h:outputScript>
+
+</h:head>
+<h:body>
+
+    <!-- NavBar -->
+    <b:navBar brand="PokeMongo" brandHref="/PokeMongo" position="top" sticky="false">
+        <b:navbarLinks>
+            <b:navLink value="My Profile" href="/PokeMongo/user"></b:navLink>
+
+        </b:navbarLinks>
+    </b:navBar>
+
+    <b:container>
+        <b:row>
+
+            <!--Left Section-->
+            <b:column mediumScreen="5" styleClass="leftSection">
+                <div class="mainPanel">
+                    <div class="userInfo">
+                        <div class="userInfo__name"><h:outputText value="#{userController.userName}"/></div>
+                        <div class="userInfo__title">Pokémon Trainer</div>
+                        <div class="userInfo__picture">
+                            <b:image value="#{userController.profileImageUrl}"/>
+                        </div>
+
+                        <div class="userInfo__uploadShower">
+                            <span>Change picture </span><span class="button__arrow">&#8681;</span>
+                        </div>
+
+                        <div class="userInfo__upload">
+                            <h:form id="imageForm" enctype="multipart/form-data">
+                                <div class="userInfo__upload__file">
+                                    <h:inputFile id="upload" value="#{fileController.upload}"/>
+                                </div>
+                                <div class="userInfo__upload__button">
+                                    <b:commandButton value="Upload" action="#{fileController.uploadImage}"/>
+                                </div>
+                            </h:form>
+                        </div>
+
+
+                        <div class="userInfo__text">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <span class="userInfo__text__label">Trainer name: </span>
+                                    </td>
+                                    <td>
+                                        <span class="userInfo__text__value"><h:outputText value="#{userController.userName}"/></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="userInfo__text__label">Team allegiance: </span>
+                                    </td>
+                                    <td>
+                                        <span class="userInfo__text__value">Mystic</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="userInfo__text__label">Pokémons Registered: </span>
+                                    </td>
+                                    <td>
+                                        <span class="userInfo__text__value"><h:outputText value="#{userController.pokemons.size()}"/> </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </b:column>
+
+            <!--Right Section-->
+            <b:column colMd="7" styleClass="rightSection">
+                <div class="mainPanel">
+                    <div class="pokemonTitle">Collected Pokémon</div>
+
+                    <h:dataTable value="#{userController.pokemons}" var="pokemon" styleClass="fillWidth">
+                        <h:column>
+                            <li class="pokemonInfoList">
+
+                                <div class="pokemonInfobox">
+
+                                    <b:row>
+
+                                        <b:column colMd="2">
+                                            <div class="pokemonInfoBox__image">
+                                                <b:image library="img" name="pokemonImages/#{pokemon.pokedexNumber}.png" styleClass="fillWidth"/>
+                                            </div>
+                                        </b:column>
+
+                                        <b:column colMd="10">
+                                            <div class="pokemonInfoBox__name">
+                                                <h:outputText value="#{pokemon.name}"/>
+                                            </div>
+                                            <div class="pokemonInfoBox__stats">
+                                                Pokedex #:
+                                                <span class="pokemonInfoBox__stats__number"><h:outputText value="#{pokemon.pokedexNumber}"/></span>
+                                                CP:
+                                                <span class="pokemonInfoBox__stats__number"><h:outputText value="#{pokemon.combatPower}"/></span>
+                                                HP:
+                                                <span class="pokemonInfoBox__stats__number"><h:outputText value="#{pokemon.healthPoints}"/></span>
+                                            </div>
+                                        </b:column>
+
+                                    </b:row>
+
+                                </div>
+                            </li>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </b:column>
+        </b:row>
+    </b:container>
+
+</h:body>
+
+</html>

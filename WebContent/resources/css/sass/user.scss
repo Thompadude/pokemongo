@@ -1,0 +1,109 @@
+.mainPanel {
+    border: 1px solid $mediumGrey;
+    border-radius: $cornerRounding;
+    padding: $defaultMargin;
+}
+
+.userInfo__name {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.userInfo__title {
+    text-align: center;
+    font-style: italic;
+    font-size: 2rem;
+}
+
+.userInfo__picture {
+    border-radius: $cornerRounding;
+    border: 1px solid $mediumGrey;
+    margin-bottom: $defaultMargin;
+    padding: 15px;
+
+    box-shadow: 0 10px $defaultMargin -10px rgba(0,0,0,0.5);
+
+    img {
+        width: 100%;
+    }
+}
+
+.userInfo__uploadShower {
+    text-align: right;
+    cursor: pointer;
+}
+
+.userInfo__upload {
+    width: 100%;
+
+    background-color: $lightGrey;
+    border-radius: $cornerRounding;
+    border: 1px solid $mediumGrey;
+
+    padding: 10px;
+
+    display: none;
+}
+
+.userInfo__upload__file, .userInfo__upload__button {
+    display: inline-block;
+}
+
+.userInfo__text {
+    width: 100%;
+
+    margin-top: $defaultMargin;
+
+    background-color: $lightGrey;
+    border-radius: $cornerRounding;
+    border: 1px solid $mediumGrey;
+
+    tr td {
+        padding: 10px;
+    }
+}
+
+.pokemonTitle {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: $defaultMargin;
+}
+
+.pokemonInfoList {
+    list-style: none;
+}
+
+.pokemonInfobox {
+    background-color: $lightGrey;
+    margin-bottom: 1rem;
+    padding: $defaultMargin;
+
+    border: 1px solid $mediumGrey;
+    border-radius: $cornerRounding;
+}
+
+.pokemonInfoBox__image {
+    border-radius: 100px;
+    background-color: $mediumGrey;
+}
+
+.pokemonInfoBox__name {
+    font-size: 3rem;
+    font-style: italic;
+}
+
+.pokemonInfoBox__stats {
+    font-size: 1.5rem;
+
+    margin-top: 0.5rem;
+    border-top: 1px solid $darkGrey;
+}
+
+.pokemonInfoBox__stats__number {
+    font-size: 1.5rem;
+    font-weight: bold;
+
+
+    margin-right: 2rem;
+}
+

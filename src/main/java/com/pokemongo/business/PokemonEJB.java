@@ -1,38 +1,50 @@
 package com.pokemongo.business;
 
 import com.pokemongo.business.interfaces.PokemonHandler;
+import com.pokemongo.business.interfaces.UserHandler;
+import com.pokemongo.exceptions.DatabaseException;
+import com.pokemongo.exceptions.FormException;
+import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Pokemon;
 import com.pokemongo.models.User;
 import com.pokemongo.services.PokemonService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import java.util.Map;
+import java.util.List;
 
 @Stateless
 public class PokemonEJB implements PokemonHandler {
 
     @EJB
     private PokemonService pokemonService;
-    private ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-    private Map<String, Object> sessionMap = externalContext.getSessionMap();
-    private static final Logger logger = LogManager.getLogger(PokemonEJB.class);
+    @EJB
+    private UserHandler userHandler;
 
     @Override
-    public void savePokemon(Pokemon pokemon) {
-        // TODO add error handling
-        User owner = (User) sessionMap.get("loggedInUser");
-        logger.debug(owner);
-        pokemon.setOwner(owner);
-        pokemonService.savePokemon(pokemon);
+    public Pokemon savePokemon(Pokemon pokemon) throws DatabaseException, UserNotLoggedInException, FormException {
+        if (pokemon.getLat().equals("") || pokemon.getLng().equals("")) {
+            throw new FormException("No pokemon position picked on map");
+        }
+
+        User owner = userHandler.getLoggedInUser();
+        if (owner != null) {
+            pokemon.setOwner(owner);
+            pokemon = pokemonService.savePokemon(pokemon);
+            return pokemon;
+        }
+
+        throw new UserNotLoggedInException("You must be logged in to add pokemon");
     }
 
-    public void selectPokemontoMap(Pokemon pokemon) {
+    @Override
+    public List<Pokemon> fetchAllPokemons() {
+        return pokemonService.fetchAllPokemons();
+    }
 
+    @Override
+    public List<Pokemon> fetchPokemonByOwnerId(Long id) {
+        return pokemonService.fetchPokemonByOwnerId(id);
     }
 
 }

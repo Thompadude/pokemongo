@@ -3,14 +3,39 @@ $lightGrey: #eeeeee;
 $mediumGrey: #d1d1d1;
 $darkGrey: #b0b0b0;
 
+$cornerRounding: 5px;
+$defaultMargin: 15px;
+
 $childListPadding: 4rem;
+
+//imports
+@import "normalize";
+@import "user";
 
 html {
   margin-bottom: 10rem;
 }
 
+.fillWidth {
+  width: 100%;
+}
+
+.inline {
+  display: inline-block;
+}
+
 a:hover {
   text-decoration: none;
+}
+
+.messageBox {
+  z-index: 99;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  .alert {
+    margin-bottom: 0;
+  }
 }
 
 .label {
@@ -22,7 +47,7 @@ a:hover {
   margin: .75rem 1rem 0 0;
 }
 
-.postForm {
+.postForm, .addPokemonForm {
   margin-bottom: 0;
 }
 
@@ -36,7 +61,7 @@ a:hover {
 }
 
 .post {
-  border-radius: 3px;
+  border-radius: $cornerRounding;
   padding: 1rem;
   margin-top: 2rem;
 }
@@ -51,15 +76,36 @@ a:hover {
   border: 1px solid $darkGrey;
 }
 
+.post__image {
+  width:3rem;
+  height:3rem;
+
+  margin-right: 1rem;
+    margin-bottom: $defaultMargin;
+
+  float: left;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 .post__title {
   font-size: 2rem;
   margin-top: 0;
 }
 
 .post__author {
-  color: grey;
+  color: $mediumGrey;
   font-size: 1rem;
   float: right;
+}
+
+.post__content {
+  border-top: 1px solid $mediumGrey;
+
+  clear: both;
 }
 
 .postsDataTable {
@@ -76,7 +122,8 @@ a:hover {
 }
 
 .button--addPokemon {
-  margin-bottom: 1rem;
+  display: inline;
+  float: right;
 }
 
 .button--comments {
@@ -120,12 +167,16 @@ a:hover {
 }
 
 .selectMenu {
-
 }
 
-.selectMenu--postSortOrder {
+.selectMenu--small {
   min-width: 10rem;
   max-width: 20rem;
+}
+
+.selectMenu--full {
+  min-width: 30rem;
+  max-width: 100%;
 }
 
 .input {
@@ -133,7 +184,7 @@ a:hover {
 }
 
 .input--hidden {
-  display: none;
+  display: none !important;
 }
 
 #hiddenGoogleLoginForm {

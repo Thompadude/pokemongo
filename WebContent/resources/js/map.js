@@ -1,4 +1,3 @@
-
 var map;
 var markers = [];
 
@@ -15,41 +14,74 @@ function initMap() {
 
 	map.addListener('click', function(event) {
         var pok_id = document.getElementById('pokemonForm:pokemonSelectMenuInner').value;
-        console.log(pok_id);
 	    addPokemonLatLong(parseFloat(event.latLng.lat()),
 				      parseFloat(event.latLng.lng()), pok_id);
-        document.getElementById('input_savingPokemon:lat').value = event.latLng.lat();
-        document.getElementById('input_savingPokemon:lng').value = event.latLng.lng();
+        document.getElementById('input_pokemonForm:lat').value = event.latLng.lat();
+        document.getElementById('input_pokemonForm:lng').value = event.latLng.lng();
   });
-}
-
-// Add attributes to
-function populateCreatePokemonFields(){
-    document.getElementById('input_savingPokemon:pokedexNumber').value = document.getElementById('pokemonForm:pokemonSelectMenuInner').value;
-    //var name = document.getElementById('pokemonForm:itemLabel').value.split(' - ')[1];
-
-    document.getElementById('input_savingPokemon:pokemonName').value = document.getElementById('pokemonForm:selectedPokemonMenu.itemLabel').value;
 }
 
 
 // Adds a marker to the map and push to the array.
 function addPokemonLatLong(lati, longi, pokeIndex) {
-    var imageLink = link(pokeIndex);
+    // Delete previous marker while adding pokemon
+    deleteMarkers();
+
+    // Set the coords in the hidden input fields
+    setCoords(longi, lati);
+
+    // Fetch and set the image for the marker
+    var imageLink = setImageLink(pokeIndex);
+
+    // Create the marker
     var marker = new google.maps.Marker({
-    position: {
-		lat: parseFloat(lati),
-		lng: parseFloat(longi)
-	},
-    map: map,
-	// randomize pokemon
-	icon: imageLink,
-	draggable: true,
-	title: "Pokemon!"
-  });
-  markers.push(marker);
+        position: {
+            lat: parseFloat(lati),
+            lng: parseFloat(longi)
+        },
+        map: map,
+        icon: imageLink,
+        draggable: true,
+        title: "Pokemon!"
+    });
+
+    // Push the marker to markers array
+    markers.push(marker);
+
+    // Attach a listener to the marker which updates coords when after dragging
+    google.maps.event.addListener(marker, 'dragend', function (event) {
+        setCoords(event.latLng.lng(), event.latLng.lat());
+    })
 }
 
+function setCoords(longi, lati) {
+    document.getElementById('input_pokemonForm:lng').value = longi;
+    document.getElementById('input_pokemonForm:lat').value = lati;
+}
 
-function link(index) {
-	return "http://www.serebii.net/pokearth/sprites/em/" + index + ".png";
+function setImageLink(index) {
+    return '/PokeMongo/javax.faces.resource/pokemonImages/' + index + '.png.xhtml?ln=img';
+}
+
+// Sets the map on all markers in the array
+function setMapOnAll(map) {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }
+}
+
+// Removes the markers from the map, but keeps them in the array
+function clearMarkers() {
+    setMapOnAll(null);
+}
+
+// Shows any markers currently in the array
+function showMarkers() {
+    setMapOnAll(map);
+}
+
+// Deletes all markers in the array by removing references to them
+function deleteMarkers() {
+    clearMarkers();
+    markers = [];
 }

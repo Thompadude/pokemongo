@@ -2,8 +2,14 @@ package com.pokemongo.controllers;
 
 import com.pokemongo.business.interfaces.PokemonDataHandler;
 import com.pokemongo.business.interfaces.PokemonHandler;
+import com.pokemongo.business.interfaces.UserHandler;
+import com.pokemongo.exceptions.DatabaseException;
+import com.pokemongo.exceptions.FormException;
+import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Pokemon;
 import com.pokemongo.models.PokemonData;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -28,23 +34,41 @@ public class PokemonController implements Serializable {
 
     @EJB
     private PokemonHandler pokemonHandler;
-
     @EJB
     private PokemonDataHandler pokemonDataHandler;
+    @EJB
+    private UserHandler userHandler;
+
+    private static final Logger logger = LogManager.getLogger(PokemonController.class);
 
     @PostConstruct
     public void init() {
         pokemonDataList = pokemonDataHandler.fetchAllPokemonData();
     }
 
-    public void savePokemon() {
-        // TODO add loggers and error handlers
-        PokemonData pokemonData = pokemonDataHandler.fetchPokemonDataByPokedexNumber(pokedexNumber);
-        Pokemon pokemon = new Pokemon(pokedexNumber, pokemonData.getName(), lng, lat, cp, hp);
-        pokemonHandler.savePokemon(pokemon);
-        // TODO clear fields after adding pokemon
+    public String savePokemon() {
+        try {
+            System.out.println(pokedexNumber);
+            PokemonData pokemonData = pokemonDataHandler.fetchPokemonDataByPokedexNumber(pokedexNumber);
+            Pokemon pokemon = new Pokemon(pokedexNumber, pokemonData.getName(), lng, lat, cp, hp);
+            pokemonHandler.savePokemon(pokemon);
+            resetAddPokemonFields();
+            return "/index.xhtml?faces-redirect=true";
+        } catch (UserNotLoggedInException | DatabaseException | FormException e) {
+            logger.error(e.getMessage());
+            FacesMessageController.displayErrorMessage(e.getMessage());
+            return "/index.xhtml?faces-redirect=false";
+        }
     }
-   
+
+    private void resetAddPokemonFields() {
+        setPokedexNumber(null);
+        setCp(null);
+        setHp(null);
+        setLng(null);
+        setLat(null);
+    }
+
     /* Getters and Setters */
 
 

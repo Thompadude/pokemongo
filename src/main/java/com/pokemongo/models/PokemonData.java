@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * Serves as a model for 'hardcoded' pokemons.
@@ -14,14 +18,16 @@ import javax.persistence.NamedQuery;
         @NamedQuery(name = "PokemonData.fetchPokemonDataByPokedexNumber", query = "SELECT p FROM PokemonData p WHERE p.pokedexNumber=:pokedexNumber")
 
 })
-public class PokemonData {
+@XmlRootElement(name = "Pokemon")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class PokemonData implements Serializable {
+
+    private static final long serialVersionUID = 6195823249633841641L;
 
     @Id
     private Long id;
     private String pokedexNumber;
     private String name;
-    private String imageUrl;
-    private String spriteUrl;
 
     public Long getId() {
         return id;
@@ -35,22 +41,12 @@ public class PokemonData {
         return name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public String getSpriteUrl() {
-        return spriteUrl;
-    }
-
     @Override
     public String toString() {
         return "PokemonData"
                 + "\nID: " + id
                 + "\nPokedex Number: " + pokedexNumber
-                + "\nName: " + name
-                + "\nImage URL: " + imageUrl
-                + "\nSprite URL: " + spriteUrl;
+                + "\nName: " + name;
     }
 
 }

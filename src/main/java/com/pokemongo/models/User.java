@@ -2,7 +2,10 @@ package com.pokemongo.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NamedQueries({
@@ -19,8 +22,9 @@ public class User implements Serializable {
     private String userName;
     private String email;
     private String tokenId;
-    @OneToMany(mappedBy = "owner")
-    private List<Pokemon> pokemons;
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private Set<Pokemon> pokemons;
+    private String userImageName;
 
     public User(String userName, String email, String tokenId) {
         this.userName = userName;
@@ -37,10 +41,21 @@ public class User implements Serializable {
     }
 
     public List<Pokemon> getPokemons() {
-        return pokemons;
+        // TODO maybe replace this sort with a query?
+        List<Pokemon> pokemon = new ArrayList<Pokemon>();
+        pokemon.addAll(pokemons);
+
+        pokemon.sort(new Comparator<Pokemon>() {
+            @Override
+            public int compare(Pokemon p1, Pokemon p2) {
+                return Integer.parseInt(p1.getPokedexNumber()) - Integer.parseInt(p2.getPokedexNumber());
+            }
+        });
+
+        return pokemon;
     }
 
-    public void setPokemons(List<Pokemon> pokemons) {
+    public void setPokemons(Set<Pokemon> pokemons) {
         this.pokemons = pokemons;
     }
 
@@ -71,9 +86,17 @@ public class User implements Serializable {
     public void setTokenId(String tokenId) {
         this.tokenId = tokenId;
     }
-    
+
     @Override
     public String toString() {
-        return userName + " (" + email + "), ID: " + id;
+        return "[" + id + "] " + userName;
+    }
+    
+    public String getUserImageName() {
+        return userImageName;
+    }
+    
+    public void setUserImageName(String userImageName) {
+        this.userImageName = userImageName;
     }
 }

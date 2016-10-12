@@ -1,6 +1,7 @@
 package com.pokemongo.controllers;
 
 import com.pokemongo.business.interfaces.PostHandler;
+import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.exceptions.FormException;
 import com.pokemongo.exceptions.UserNotLoggedInException;
 import com.pokemongo.models.Post;
@@ -10,8 +11,6 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -36,35 +35,34 @@ public class PostController implements Serializable {
     @PostConstruct
     public void init() {
         posts = postHandler.fetchPostsWithoutParent();
+        logger.debug("@PostConstruct executed - posts loaded");
     }
 
     public void savePost() {
-        Post post = new Post(title, content);
-
         try {
+            Post post = new Post(title, content);
             postHandler.savePost(post);
-        } catch (UserNotLoggedInException e) {
-            // TODO add logger
-            displayPostFormMessage(e.getMessage());
+            resetPostFields();
+        } catch (UserNotLoggedInException | DatabaseException e) {
+            logger.error(e.getMessage());
+            FacesMessageController.displayErrorMessage("Error saving post. Contact web master.");
         }
-
-        resetPostFields();
     }
 
-    public String saveReply(long postId) {
-        Post reply = new Post(replyContent);
-
+    public String saveReply(long postId) throws DatabaseException {
         try {
+            Post reply = new Post(replyContent);
             postHandler.saveReply(reply, postId);
+            resetPostFields();
+            return "/index.xhtml?faces-redirect=true";
         } catch (UserNotLoggedInException e) {
-            // TODO add logger
+            logger.error(e.getMessage());
+            return "/index.xhtml?faces-redirect=false";
         }
-
-        resetPostFields();
-        return "/index.xhtml?faces-redirect=true";
     }
 
     public void changePostSortOrder(ValueChangeEvent event) {
+        logger.debug("Changing post sort order");
         String sortOrder = (String) event.getNewValue();
         if (sortOrder.equals("default")) {
             orderPostsInDefaultOrder();
@@ -85,21 +83,20 @@ public class PostController implements Serializable {
     }
 
     public String fetchPostsByKeyword() {
-        logger.debug("Fetching posts by keyword: {}", searchWord);
-
         try {
             setPostSearchResults(postHandler.fetchPostsByKeyword(searchWord));
             return "/index.xhtml?faces-redirect=true";
         } catch (FormException e) {
-            logger.error(e);
-            displayPostFormMessage("Please type more than two characters");
+            logger.error(e.getMessage());
+            FacesMessageController.displayErrorMessage("Please type more than two characters.");
             return "/index.xhtml?faces-redirect=false";
         }
     }
 
     public void resetSearchedPosts() {
+        logger.debug("Resetting searched posts section");
         setPostSearchResults(null);
-        setSearchWord("");
+        setSearchWord(null);
     }
 
     private void resetPostFields() {
@@ -112,17 +109,12 @@ public class PostController implements Serializable {
     }
 
     private void fetchFreshPosts() {
-        logger.debug("Fetching fresh posts...");
+        logger.debug("Fetching fresh posts");
         posts = postHandler.fetchPostsWithoutParent();
 
         // Only refresh the searched posts section if the user previously searched for posts
         if (searchWord != null)
             fetchPostsByKeyword();
-    }
-
-    private void displayPostFormMessage(String message) {
-        FacesMessage facesMessage = new FacesMessage(message);
-        FacesContext.getCurrentInstance().addMessage("formId:postForm", facesMessage);
     }
 
     /* Getters and Setters */
