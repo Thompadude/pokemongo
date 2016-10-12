@@ -51,7 +51,7 @@
                         <div class="userInfo__upload">
                             <h:form id="imageForm" enctype="multipart/form-data">
                                 <div class="userInfo__upload__file">
-                                    <h:inputFile id="upload" value="#{fileController.upload}"/>
+                                    <h:inputFile id="upload" value="#{fileController.upload}" onchange="checkFileSize(this)"/>
                                 </div>
                                 <div class="userInfo__upload__button">
                                     <b:commandButton value="Upload" action="#{fileController.uploadImage}"/>

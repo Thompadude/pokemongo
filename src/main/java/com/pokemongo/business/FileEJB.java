@@ -22,6 +22,8 @@ import java.nio.file.StandardCopyOption;
 @Stateful
 public class FileEJB implements FileHandler {
     
+    private static final int FILE_SIZE_LIMIT = 1024 * 1024; // 1Mb
+    
     @EJB
     UserHandler userHandler;
     
@@ -40,6 +42,13 @@ public class FileEJB implements FileHandler {
         
                 //Make the uploaded file into a stream
                 InputStream inputStream = upload.getInputStream();
+                
+                //Check the size
+                if (!verifySize(inputStream)) {
+                    throw new FileTypeException("File is too large.");
+                }
+    
+                inputStream = upload.getInputStream();
         
                 //Make sure it's an image
                 if (!verifyImage(inputStream)) {
@@ -75,6 +84,27 @@ public class FileEJB implements FileHandler {
             throw new FileTypeException("No file has been selected");
         }
         
+    }
+    
+    private boolean verifySize(InputStream inputStream) {
+        
+        int size = 0;
+    
+        try {
+            while(inputStream.read() != -1) {
+                size ++;
+                
+                if (size > FILE_SIZE_LIMIT) {
+                    logger.debug("File exceeds limit (" + FILE_SIZE_LIMIT + " bytes)");
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    
+        logger.debug("Size of file: " + size);
+        return true;
     }
     
     private boolean verifyImage(InputStream image) {
