@@ -2,21 +2,25 @@ var map;
 var markers = [];
 
 function initMap() {
-    var lat_lng = {lat: 57.70887000, lng: 11.97456000};
+	var lat_lng = {lat: 57.70887000, lng: 11.97456000};
 
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 18,
-        center: lat_lng,
-        mapTypeId: google.maps.MapTypeId.TERRAIN
-    });
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 18,
+    center: lat_lng,
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  });
 
-    // This event listener will call addPokemonLatLong() when the map is clicked.
-    map.addListener('click', function (event) {
-        var pok_id = document.getElementById('savingPokemon:pokemonSelectMenuInner').value;
-        addPokemonLatLong(parseFloat(event.latLng.lat()),
-            parseFloat(event.latLng.lng()), pok_id);
-    });
+  // This event listener will call addPokemonLatLong() when the map is clicked.
+
+	map.addListener('click', function(event) {
+        var pok_id = document.getElementById('pokemonForm:pokemonSelectMenuInner').value;
+	    addPokemonLatLong(parseFloat(event.latLng.lat()),
+				      parseFloat(event.latLng.lng()), pok_id);
+        document.getElementById('input_pokemonForm:lat').value = event.latLng.lat();
+        document.getElementById('input_pokemonForm:lng').value = event.latLng.lng();
+  });
 }
+
 
 // Adds a marker to the map and push to the array.
 function addPokemonLatLong(lati, longi, pokeIndex) {
@@ -51,8 +55,8 @@ function addPokemonLatLong(lati, longi, pokeIndex) {
 }
 
 function setCoords(longi, lati) {
-    document.getElementById('input_savingPokemon:lng').value = longi;
-    document.getElementById('input_savingPokemon:lat').value = lati;
+    document.getElementById('input_pokemonForm:lng').value = longi;
+    document.getElementById('input_pokemonForm:lat').value = lati;
 }
 
 function setImageLink(index) {
