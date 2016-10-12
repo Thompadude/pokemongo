@@ -2,7 +2,7 @@ package com.pokemongo.business.interfaces;
 
 import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.exceptions.FormException;
-import com.pokemongo.exceptions.UserNotLoggedInException;
+import com.pokemongo.exceptions.UserException;
 import com.pokemongo.models.Post;
 
 import javax.ejb.Local;
@@ -11,9 +11,9 @@ import java.util.List;
 @Local
 public interface PostHandler {
     
-    Post savePost(Post post) throws UserNotLoggedInException, DatabaseException;
+    Post savePost(Post post) throws UserException, DatabaseException;
     
-    Post saveReply(Post reply, long parentId) throws UserNotLoggedInException, DatabaseException;
+    Post saveReply(Post reply, long parentId) throws UserException, DatabaseException;
     
     List<Post> fetchPostsWithoutParent();
 

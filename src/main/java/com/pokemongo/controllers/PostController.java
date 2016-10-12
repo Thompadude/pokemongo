@@ -3,7 +3,7 @@ package com.pokemongo.controllers;
 import com.pokemongo.business.interfaces.PostHandler;
 import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.exceptions.FormException;
-import com.pokemongo.exceptions.UserNotLoggedInException;
+import com.pokemongo.exceptions.UserException;
 import com.pokemongo.models.Post;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,7 +43,7 @@ public class PostController implements Serializable {
             Post post = new Post(title, content);
             postHandler.savePost(post);
             resetPostFields();
-        } catch (UserNotLoggedInException | DatabaseException e) {
+        } catch (UserException | DatabaseException e) {
             logger.error(e.getMessage());
             FacesMessageController.displayErrorMessage("Error saving post. Contact web master.");
         }
@@ -55,7 +55,7 @@ public class PostController implements Serializable {
             postHandler.saveReply(reply, postId);
             resetPostFields();
             return "/index.xhtml?faces-redirect=true";
-        } catch (UserNotLoggedInException e) {
+        } catch (UserException e) {
             logger.error(e.getMessage());
             return "/index.xhtml?faces-redirect=false";
         }

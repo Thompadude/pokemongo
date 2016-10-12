@@ -5,7 +5,7 @@ import com.pokemongo.business.interfaces.PokemonHandler;
 import com.pokemongo.business.interfaces.UserHandler;
 import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.exceptions.FormException;
-import com.pokemongo.exceptions.UserNotLoggedInException;
+import com.pokemongo.exceptions.UserException;
 import com.pokemongo.models.Pokemon;
 import com.pokemongo.models.PokemonData;
 import org.apache.logging.log4j.LogManager;
@@ -52,7 +52,7 @@ public class PokemonController implements Serializable {
             pokemonHandler.savePokemon(pokemon);
             resetAddPokemonFields();
             return "/index.xhtml?faces-redirect=true";
-        } catch (UserNotLoggedInException | DatabaseException | FormException e) {
+        } catch (UserException | DatabaseException | FormException e) {
             logger.error(e.getMessage());
             FacesMessageController.displayErrorMessage(e.getMessage());
             return "/index.xhtml?faces-redirect=false";

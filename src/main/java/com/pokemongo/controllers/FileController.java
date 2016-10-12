@@ -25,12 +25,12 @@ public class FileController implements Serializable{
     
     public void uploadImage() {
         
-        logger.debug("Uploading image.");
+        logger.debug("Uploading image");
         
         if (upload != null) {
             fileHandler.uploadImage(upload);
         } else {
-            logger.warn("No image for upload.");
+            logger.warn("No image for upload");
         }
     }
     

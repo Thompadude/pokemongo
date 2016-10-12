@@ -4,7 +4,7 @@ import com.pokemongo.business.interfaces.PostHandler;
 import com.pokemongo.business.interfaces.UserHandler;
 import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.exceptions.FormException;
-import com.pokemongo.exceptions.UserNotLoggedInException;
+import com.pokemongo.exceptions.UserException;
 import com.pokemongo.models.Post;
 import com.pokemongo.models.User;
 import com.pokemongo.services.PostService;
@@ -22,7 +22,7 @@ public class PostEJB implements PostHandler {
     private UserHandler userHandler;
 
     @Override
-    public Post savePost(Post post) throws UserNotLoggedInException, DatabaseException {
+    public Post savePost(Post post) throws UserException, DatabaseException {
         User author = userHandler.getLoggedInUser();
 
         if (author != null) {
@@ -30,11 +30,11 @@ public class PostEJB implements PostHandler {
             post = postService.savePost(post);
             return post;
         }
-        throw new UserNotLoggedInException("You must be logged in to post.");
+        throw new UserException("You must be logged in to post.");
     }
 
     @Override
-    public Post saveReply(Post reply, long parentId) throws UserNotLoggedInException, DatabaseException {
+    public Post saveReply(Post reply, long parentId) throws UserException, DatabaseException {
         Post parentPost = postService.fetchPost(parentId);
         reply.setParentPost(parentPost);
         reply = savePost(reply);

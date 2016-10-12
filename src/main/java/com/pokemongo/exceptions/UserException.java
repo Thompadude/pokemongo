@@ -1,10 +1,10 @@
 package com.pokemongo.exceptions;
 
-public class UserNotLoggedInException extends Exception {
+public class UserException extends Exception {
 
     private static final long serialVersionUID = 575286978745880021L;
 
-    public UserNotLoggedInException(String message) {
+    public UserException(String message) {
         super(message);
     }
 

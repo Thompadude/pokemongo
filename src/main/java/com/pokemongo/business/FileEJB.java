@@ -40,6 +40,7 @@ public class FileEJB implements FileHandler {
             String extension = determineExtension(upload);
             
             // Create a file with the correct, calculated path
+            // NOTE: This makes the application WildFly only!
             File file = new File(System.getProperty("jboss.server.data.dir") + "/images");
             File finalFile = new File(file, id + extension);
             
@@ -50,11 +51,14 @@ public class FileEJB implements FileHandler {
             currentUser.setUserImageName(id + extension);
             userHandler.saveUser(currentUser);
             
-        } catch (IOException | DatabaseException e) {
-            // TODO if no image folder exists - CRASH!
-            logger.error(e.getMessage());
+            logger.debug("Image uploaded successfully");
+            
+        } catch (IOException e) {
+            logger.error("File write error! Check existence of data directory");
+        } catch (DatabaseException e) {
+            logger.error("Error saving picture to user!");
         }
-        
+    
     }
     
     private String determineExtension(Part upload) {
