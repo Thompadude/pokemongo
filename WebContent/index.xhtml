@@ -138,7 +138,7 @@
                 <!--styla h-->
                 <h:form styleClass="postForm" id="pokemonForm">
                     <b:selectOneMenu id="pokemonSelectMenu" label="Select a Pokemon" randerLabel="true"
-                                     value="#{pokemonController.pokedexNumber}">
+                                     value="#{pokemonController.pokedexNumber}" effect="fade" filter="true" filterMatchMode="contains">
                         <f:selectItems id="selectedPokemonMenu" value="#{pokemonController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}"
                                        itemLabel="#{pokemon.pokedexNumber} - #{pokemon.name}">
                         </f:selectItems>
