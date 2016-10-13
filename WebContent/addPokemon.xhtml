@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://bootsfaces.net/ui ">
+
+    <!--styla h-->
+    <h:form styleClass="postForm" id="pokemonForm">
+        <b:selectOneMenu id="pokemonSelectMenu" label="Select a Pokemon" randerLabel="true"
+                         value="#{pokemonController.pokedexNumber}">
+            <f:selectItems id="selectedPokemonMenu" value="#{pokemonController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}"
+                           itemLabel="#{pokemon.pokedexNumber} - #{pokemon.name}">
+            </f:selectItems>
+        </b:selectOneMenu>
+
+        <b:inputText placeholder="cp" id="cp" value="#{pokemonController.cp}"/>
+        <b:inputText placeholder="hp" id="hp" value="#{pokemonController.hp}"/>
+        <b:inputText styleClass="input--hidden" placeholder="lat" id="lat" value="#{pokemonController.lat}"/>
+        <b:inputText styleClass="input--hidden" placeholder="lng" id="lng" value="#{pokemonController.lng}"/>
+
+        <div class="btnWrapper--right">
+            <b:commandButton value="Create Pokemon" look="primary" action="#{pokemonController.savePokemon}"/>
+        </div>
+
+    </h:form>
+
+    <div id="map"></div>
+
+</ui:composition>
