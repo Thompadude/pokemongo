@@ -564,7 +564,7 @@ a:hover {
   max-width: 20rem; }
 
 .selectMenu--full {
-  min-width: 30rem;
+  min-width: 20rem;
   max-width: 100%; }
 
 .input--hidden {
@@ -573,12 +573,22 @@ a:hover {
 #hiddenGoogleLoginForm {
   display: none; }
 
-#map {
-  height: 500px;
-  width: 500px; }
+.pokemonMap {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  margin-bottom: 2rem; }
 
-#mapAllPokemon {
-  height: 500px;
-  width: 500px; }
+.pokemonMap > * {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%; }
 
 /*# sourceMappingURL=main.css.map */

@@ -8,24 +8,24 @@
 
     <!--styla h-->
     <h:form styleClass="postForm" id="pokemonForm">
-        <b:selectOneMenu id="pokemonSelectMenu" label="Select a Pokemon" randerLabel="true"
-                         value="#{pokemonController.pokedexNumber}">
-            <f:selectItems id="selectedPokemonMenu" value="#{pokemonController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}"
-                           itemLabel="#{pokemon.pokedexNumber} - #{pokemon.name}">
-            </f:selectItems>
-        </b:selectOneMenu>
+        <div class="inline">
+            <b:selectOneMenu styleClass="selectMenu selectMenu--full" id="pokemonSelectMenu" value="#{pokemonController.pokedexNumber}">
+                <f:selectItems id="selectedPokemonMenu" value="#{pokemonController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}"
+                               itemLabel="#{pokemon.pokedexNumber} - #{pokemon.name}"></f:selectItems>
+            </b:selectOneMenu>
+        </div>
+
+        <div class="button button--addPokemon">
+            <b:commandButton look="primary" value="Add Pokemon" action="#{pokemonController.savePokemon}"/>
+        </div>
 
         <b:inputText placeholder="cp" id="cp" value="#{pokemonController.cp}"/>
         <b:inputText placeholder="hp" id="hp" value="#{pokemonController.hp}"/>
         <b:inputText styleClass="input--hidden" placeholder="lat" id="lat" value="#{pokemonController.lat}"/>
         <b:inputText styleClass="input--hidden" placeholder="lng" id="lng" value="#{pokemonController.lng}"/>
 
-        <div class="btnWrapper--right">
-            <b:commandButton value="Create Pokemon" look="primary" action="#{pokemonController.savePokemon}"/>
-        </div>
-
     </h:form>
 
-    <div id="map"></div>
+    <div id="map" class="pokemonMap"></div>
 
 </ui:composition>
