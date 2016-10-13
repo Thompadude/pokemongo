@@ -1,12 +1,11 @@
 package com.pokemongo.rest;
 
-import com.pokemongo.models.PokemonData;
-import com.pokemongo.services.PokemonDataService;
+import com.pokemongo.models.Pokemon;
+import com.pokemongo.services.PokemonService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -15,29 +14,18 @@ import java.util.List;
 public class PokemonRestProvider {
 
     @EJB
-    private PokemonDataService pokemonDataService;
+    private PokemonService pokemonService;
 
     @GET
     @Produces("application/json")
-    public Response getAllPokemon() {
-        List<PokemonData> pokemonDataList = pokemonDataService.fetchAllPokemonData();
+    public Response getPokemonService() {
+        List<Pokemon> pokemonList = pokemonService.fetchAllPokemons();
 
-        if (pokemonDataList.isEmpty())
+        if (pokemonList.isEmpty()) {
             return Response.status(Response.Status.NO_CONTENT).build();
+        }
 
-        return Response.status(Response.Status.OK).entity(pokemonDataList).build();
-    }
-
-    @GET
-    @Path("/{pokedexNr}")
-    @Produces("application/json")
-    public Response getPokemon(@PathParam("pokedexNr") String pokedexNr) {
-        PokemonData pokemon = pokemonDataService.fetchPokemonDataByPokedexNumber(pokedexNr);
-
-        if (pokemon == null)
-            return Response.status(Response.Status.NO_CONTENT).build();
-
-        return Response.status(Response.Status.OK).entity(pokemon).build();
+        return Response.status(Response.Status.OK).entity(pokemonList).build();
     }
 
 }
