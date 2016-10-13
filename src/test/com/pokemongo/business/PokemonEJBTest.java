@@ -1,6 +1,8 @@
 package com.pokemongo.business;
 
+import com.pokemongo.business.interfaces.UserHandler;
 import com.pokemongo.models.Pokemon;
+import com.pokemongo.models.User;
 import com.pokemongo.services.PokemonService;
 import org.junit.After;
 import org.junit.Before;
@@ -20,22 +22,35 @@ public class PokemonEJBTest {
 
     @Mock
     private PokemonService mockedPokemonService;
+    @Mock
+    private UserHandler mockedUserHandler;
     @InjectMocks
     private PokemonEJB testPokemonEJB;
     private Pokemon testPokemon;
+    private User testUser;
     private List<Pokemon> testPokemonList;
 
     @Before
     public void setUp() throws Exception {
         testPokemonEJB = new PokemonEJB();
+
         testPokemon = new Pokemon();
+        testPokemon.setLng("fakeLng");
+        testPokemon.setLat("fakeLat");
+
+        testUser = new User();
+
         testPokemonList = new ArrayList<>();
         testPokemonList.add(testPokemon);
 
         MockitoAnnotations.initMocks(this);
 
+        // Create mocked methods for PokemonService
         when(mockedPokemonService.savePokemon((testPokemon))).thenReturn(testPokemon);
         when(mockedPokemonService.fetchAllPokemons()).thenReturn(testPokemonList);
+
+        // Create mocked methods for UserHandler
+        when(mockedUserHandler.getLoggedInUser()).thenReturn(testUser);
     }
 
     @After

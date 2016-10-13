@@ -2,7 +2,7 @@ package com.pokemongo.business;
 
 import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.exceptions.FormException;
-import com.pokemongo.exceptions.UserNotLoggedInException;
+import com.pokemongo.exceptions.UserException;
 import com.pokemongo.models.Post;
 import com.pokemongo.models.User;
 import com.pokemongo.services.PostService;
@@ -103,8 +103,8 @@ public class PostEJBTest {
         assertEquals("The post returned from savePost() is not equal to the post saved", testPost, postEJB.savePost(testPost));
     }
 
-    @Test(expected = UserNotLoggedInException.class)
-    public void testSavePost_UserNotLoggedIn_UserNotLoggedInExceptionThrown() throws UserNotLoggedInException, DatabaseException {
+    @Test(expected = UserException.class)
+    public void testSavePost_UserNotLoggedIn_UserNotLoggedInExceptionThrown() throws UserException, DatabaseException {
         when(mockedSessionMap.get("loggedInUser")).thenReturn(null);
         postEJB.savePost(testPost);
     }
@@ -115,8 +115,8 @@ public class PostEJBTest {
         assertEquals("The reply returned from saveReply() is not equal to the reply saved", testReply, postEJB.saveReply(testReply, 1L));
     }
 
-    @Test(expected = UserNotLoggedInException.class)
-    public void testSaveReply_UserNotLoggedIn_UserNotLoggedInExceptionThrown() throws UserNotLoggedInException, DatabaseException {
+    @Test(expected = UserException.class)
+    public void testSaveReply_UserNotLoggedIn_UserNotLoggedInExceptionThrown() throws UserException, DatabaseException {
         when(mockedSessionMap.get("loggedInUser")).thenReturn(null);
         postEJB.saveReply(testPost, 1L);
     }
