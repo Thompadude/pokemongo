@@ -38,7 +38,7 @@ function getMarker(pokemon, icon) {
         mapAllPokemon: mapAllPokemon,
         icon: icon,
         draggable: false,
-        title: pokemon.name
+        title: pokemon.name + "\nHP: " + pokemon.healthPoints + "\nCP: " + pokemon.combatPower
     });
 }
 
