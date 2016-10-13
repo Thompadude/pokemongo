@@ -19,6 +19,7 @@
     <script src="https://apis.google.com/js/platform.js" async="async" defer="defer"></script>
 
     <h:outputScript library="js" name="map.js"></h:outputScript>
+    <h:outputScript library="js" name="mapAllPokemon.js"></h:outputScript>
     <h:outputScript library="js" name="posts.js"></h:outputScript>
 
 </h:head>
@@ -132,10 +133,10 @@
             <!--Right Section-->
             <b:column mediumScreen="6" styleClass="rightSection">
 
-                <!--This should be included somewhere else! (Profile section?)-->
-                <ui:include src="addPokemon.xhtml"/>
+                <!--TODO this should be included somewhere else! (Profile section?)-->
+                <!--<ui:include src="addPokemon.xhtml"/>-->
 
-
+                <ui:include src="allPokemons.xhtml"/>
 
             </b:column>
 
@@ -146,6 +147,7 @@
         <h:inputText id="userName" value="#{userController.userName}"></h:inputText>
         <h:inputText id="email" value="#{userController.email}"></h:inputText>
         <h:inputText id="tokenId" value="#{userController.tokenId}"></h:inputText>
+        <!--TODO remove or use the addPokemonForm class?-->
         <b:commandButton styleClass="logInButton" ajax="true" update="@(.postForm) @(.addPokemonForm)" action="#{userController.logIn}"></b:commandButton>
         <b:commandButton styleClass="logOutButton" ajax="true" update="@(.postForm) @(.addPokemonForm)" action="#{userController.logOut}"></b:commandButton>
     </h:form>
