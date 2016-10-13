@@ -2,14 +2,14 @@ var mapAllPokemon;
 var markers = [];
 var pokemonList = [];
 
+// Get the list of user added pokemon via RESTful
 $.get('http://localhost:8080/PokeMongo/rest/pokemon', 'application/json',
     function (response) {
         pokemonList = response;
-        console.log('*LOG* pokemonList withing get function');
-        console.log(pokemonList);
         populateMap();
     });
 
+// Initialize the Google map
 function initMap() {
     var lat_lng = {lat: 57.70887000, lng: 11.97456000};
 
@@ -20,36 +20,44 @@ function initMap() {
     });
 }
 
+// Get google pin icon for the pokemon
+function getIcon(pokemon) {
+    return {
+        url: getImageLink(pokemon),
+        scaledSize: new google.maps.Size(40, 40)
+    };
+}
+
+// Get google marker for the pokemon
+function getMarker(pokemon, icon) {
+    return new google.maps.Marker({
+        position: {
+            lat: parseFloat(pokemon.lat),
+            lng: parseFloat(pokemon.lng)
+        },
+        mapAllPokemon: mapAllPokemon,
+        icon: icon,
+        draggable: false,
+        title: pokemon.name
+    });
+}
+
+// Populate Google map with all user added pokemon
 function populateMap() {
-    console.log('*LOG* pokemonList withing populateMap function');
-    console.log(pokemonList);
     var marker, icon;
     for (var i = 0; i < pokemonList.length; i++) {
-
-        icon = {
-            url: getImageLink(pokemonList[i].pokedexNumber),
-            scaledSize: new google.maps.Size(40, 40)
-        };
-
-        marker = new google.maps.Marker({
-            position: {
-                lat: parseFloat(pokemonList[i].lat),
-                lng: parseFloat(pokemonList[i].lng)
-            },
-            mapAllPokemon: mapAllPokemon,
-            icon: icon,
-            draggable: false,
-            title: pokemonList[i].name
-        });
+        icon = getIcon(pokemonList[i]);
+        marker = getMarker(pokemonList[i], icon);
         markers.push(marker);
     }
     setMapOnAll(mapAllPokemon);
 }
 
-function getImageLink(index) {
-    console.log("Getting image with index: " + index);
-    return '/PokeMongo/javax.faces.resource/pokemonImages/' + index + '.png.xhtml?ln=img';
+// Get image link for the pokemon
+function getImageLink(pokemon) {
+    return '/PokeMongo/javax.faces.resource/pokemonImages/' + pokemon.pokedexNumber + '.png.xhtml?ln=img';
 }
+
 // Sets the map on all markers in the array
 function setMapOnAll(mapAllPokemon) {
     for (var i = 0; i < markers.length; i++) {

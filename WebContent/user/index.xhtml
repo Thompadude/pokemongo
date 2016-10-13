@@ -3,7 +3,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core">
+>
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
@@ -33,7 +33,7 @@
             <b:column mediumScreen="5" styleClass="leftSection">
 
                 <div class="messageBox">
-                    <b:messages globalOnly="true" />
+                    <b:messages globalOnly="true"/>
                 </div>
 
                 <div class="mainPanel">
@@ -134,12 +134,20 @@
                 </div>
             </b:column>
         </b:row>
+
+        <b:row>
+            <ui:include src="../addPokemon.xhtml"/>
+            <h:outputScript library="js" name="map.js"></h:outputScript>
+        </b:row>
+
     </b:container>
 
     <h:form id="hiddenFileForm">
-        <h:commandButton id="hiddenFileButton" action="#{fileController.fileIsTooBig}" />
+        <h:commandButton id="hiddenFileButton" action="#{fileController.fileIsTooBig}"/>
     </h:form>
 
 </h:body>
+
+<script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?signed_in=true&amp;callback=initMap&amp;key=AIzaSyCgXXGotMPSlX-ZFpAGWt51_4cMQPWADuI"></script>
 
 </html>
