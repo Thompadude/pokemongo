@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @NamedQueries({
@@ -23,10 +24,12 @@ public class Pokemon implements Serializable {
     private Integer healthPoints;
     private String lng;
     private String lat;
+
     @ManyToOne
     @JoinColumn(name = "ownerId")
     @JsonIgnore // Do not serialize this - it will cause infinite recursion
     private User owner;
+    private LocalDateTime timeAdded;
 
     @Transient // This is for json serialization, not for database
     private Long ownerId;
@@ -101,6 +104,14 @@ public class Pokemon implements Serializable {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public LocalDateTime getTimeAdded() {
+        return timeAdded;
+    }
+
+    public void setTimeAdded(LocalDateTime timeAdded) {
+        this.timeAdded = timeAdded;
     }
 
     public Long getOwnerId() {
