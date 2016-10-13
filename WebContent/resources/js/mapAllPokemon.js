@@ -10,22 +10,6 @@ $.get('http://localhost:8080/PokeMongo/rest/pokemon', 'application/json',
         populateMap();
     });
 
-/*
- $.ajax({
- url: 'http://localhost:8080/PokeMongo/rest/pokemon',
- dataType: 'application/json',
- async: 'false',
- success: function (response) {
- pokemonList = response;
- },
- complete: function () {
- console.log('*LOG* pokemonList withing get function');
- console.log(pokemonList);
- populateMap();
- }
- });
- */
-
 function initMap() {
     var lat_lng = {lat: 57.70887000, lng: 11.97456000};
 
@@ -39,15 +23,21 @@ function initMap() {
 function populateMap() {
     console.log('*LOG* pokemonList withing populateMap function');
     console.log(pokemonList);
-    var marker;
+    var marker, icon;
     for (var i = 0; i < pokemonList.length; i++) {
+
+        icon = {
+            url: getImageLink(pokemonList[i].pokedexNumber),
+            scaledSize: new google.maps.Size(40, 40)
+        };
+
         marker = new google.maps.Marker({
             position: {
                 lat: parseFloat(pokemonList[i].lat),
                 lng: parseFloat(pokemonList[i].lng)
             },
             mapAllPokemon: mapAllPokemon,
-            icon: getImageLink(i),
+            icon: icon,
             draggable: false,
             title: pokemonList[i].name
         });
@@ -57,6 +47,7 @@ function populateMap() {
 }
 
 function getImageLink(index) {
+    console.log("Getting image with index: " + index);
     return '/PokeMongo/javax.faces.resource/pokemonImages/' + index + '.png.xhtml?ln=img';
 }
 // Sets the map on all markers in the array
