@@ -85,7 +85,7 @@ public class UserController implements Serializable {
     }
 
     public String getTeam() {
-        return team + ".css";
+        return team;
     }
 
     public void setTeam(String team) {

@@ -16,8 +16,8 @@
 
     <h:outputStylesheet library="css" name="normalize.css"></h:outputStylesheet>
     <h:outputStylesheet library="css" name="main.css" ></h:outputStylesheet>
+    <h:outputStylesheet library="css" name="#{userController.team}.css" position="last"></h:outputStylesheet>
 
-        <h:outputStylesheet library="css" name="#{userController.team}" rendered="#{not empty userController.team}" ></h:outputStylesheet>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async="async" defer="defer"></script>
@@ -26,13 +26,6 @@
 </h:head>
 <h:body>
 
-    <!-- Ta bort sen -->
-    <h:form>
-        <b:inputText value="#{userController.team}" ></b:inputText>
-        <h:commandButton value="Välj tema"></h:commandButton>
-    </h:form>
-
-    <!-- NavBar -->
     <b:navBar brand="PokeMongo" brandHref="#" position="top" sticky="false">
         <b:navbarLinks>
             <b:navLink value="PokePortal" href="#"></b:navLink>
@@ -43,6 +36,23 @@
             <a href="#" onclick="signOut();">Sign out</a>
         </b:navbarLinks>
     </b:navBar>
+
+    <div class="container">
+
+        <h:form>
+            <h:commandButton value="Blue" styleClass="btn btn-primary">
+                <f:setPropertyActionListener target="#{userController.team}" value="blue" />
+            </h:commandButton>
+            <h:commandButton value="Yellow" styleClass="btn btn-warning">
+                <f:setPropertyActionListener target="#{userController.team}" value="yellow" />
+            </h:commandButton>
+            <h:commandButton value="Red" styleClass="btn btn-danger">
+                <f:setPropertyActionListener target="#{userController.team}" value="red" />
+            </h:commandButton>
+
+        </h:form>
+
+    </div>
 
     <b:container>
         <b:row>
@@ -56,10 +66,10 @@
                         <h:form styleClass="postForm" id="searchForm">
                             <c:if test="#{userController.isUserLoggedIn}">
                                 <b:messages/>
-                                <b:inputText placeholder="Post title" id="title" value="#{postController.title}"/>
-                                <b:inputTextarea placeholder="Write new post..." id="content" value="#{postController.content}"/>
+                                <b:inputText styleClass="transparent" placeholder="Post title" id="title" value="#{postController.title}"/>
+                                <b:inputTextarea styleClass="transparent" placeholder="Write new post..." id="content" value="#{postController.content}"/>
 
-                                <div class="button button--post">
+                                <div class="button button--post normal">
                                     <b:commandButton value="Post!" look="primary" action="#{postController.savePost}"/>
                                 </div>
                             </c:if>
@@ -69,10 +79,10 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <label class="label label--postOrder">Order By:</label>
+                                        <label class="label label--postOrder textOnly">Order By:</label>
                                     </td>
                                     <td>
-                                        <b:selectOneMenu valueChangeListener="#{postController.changePostSortOrder}" onchange="submit()">
+                                        <b:selectOneMenu styleClass="transparent" valueChangeListener="#{postController.changePostSortOrder}" onchange="submit()">
                                             <f:selectItem itemLabel="Date" itemValue="default"></f:selectItem>
                                             <f:selectItem itemLabel="Comments" itemValue="comments"></f:selectItem>
                                         </b:selectOneMenu>
@@ -87,7 +97,7 @@
                         <ul class="postList">
                             <c:forEach var="post" items="#{postController.posts}">
                                 <li class="postList__item">
-                                    <div class="post post--default">
+                                    <div class="post post--default transparent">
                                         <div class="post__title">
                                             <h:outputText value="#{post.title}"/>
                                             <h:outputText styleClass="post__author" value="Posted by: #{post.author.userName} @ #{post.getPostTimeAsString()}"/>
@@ -98,7 +108,7 @@
                                         <div class="btnWrapper--right">
                                             <a class="button button--comments">
                                                 <b:badge styleClass="button__badge" value="#{post.childPosts.size()}"></b:badge>
-                                                <span class="button__arrow">&#8681;</span>
+                                                <span class="button__arrow textOnly">&#8681;</span>
                                             </a>
                                         </div>
                                     </div>
@@ -106,7 +116,7 @@
                                 <ul class="postList__childList hideable">
                                     <c:forEach items="#{post.childPosts}" var="child">
                                         <li class="postList__childList__item">
-                                            <div class="post post--comment">
+                                            <div class="post post--comment ">
                                                 <h:outputText styleClass="post__content" value="#{child.content}"/>
                                                 <h:outputText styleClass="post__author" value="Posted by: #{child.author.userName} @ #{child.getPostTimeAsString()}"/>
                                             </div>
@@ -116,7 +126,7 @@
                                 <div class="postList__formWrapper hideable">
                                     <h:form styleClass="postForm">
                                         <c:if test="#{userController.isUserLoggedIn}">
-                                            <b:inputTextarea placeholder="Write reply..." id="replyContent" value="#{postController.replyContent}"></b:inputTextarea>
+                                            <b:inputTextarea styleClass="transparent" placeholder="Write reply..." id="replyContent" value="#{postController.replyContent}"></b:inputTextarea>
 
                                             <div class="btnWrapper--right">
                                                 <b:commandButton value="Reply!" look="primary" action="#{postController.saveReply(post.id)}"/>
@@ -147,5 +157,6 @@
 </h:body>
 
 <h:outputScript library="js" name="googleLogin.js"></h:outputScript>
+
 
 </html>

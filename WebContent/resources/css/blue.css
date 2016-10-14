@@ -1,3 +1,57 @@
-body{
-  background-color: deepskyblue;
+body {
+    background-image: url("#{resource['img/blue.png']}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-bottom: 10%;
+}
+
+.transparent {
+    background-color: rgba(48,105,244,.5);
+    color: #FFF;
+}
+
+.btn-primary{
+    background-color: #3069FE;
+    color: #FFF;
+    border-color: #FFF;
+}
+
+.textOnly{
+    color: #FFF;
+}
+
+.button__badge {
+    background-color: #FFF;
+    color: #3069FE;
+}
+
+.navbar-default{
+    background: transparent;
+    border-color: transparent;
+}
+
+.navbar-default .navbar-brand {
+    background-color: #3069FE;
+    border: 1px solid #000;
+    color: #ffffff;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    background-color: rgba(48,105,244,.6);
+    border: 1px solid #000;
+    color: #fff;
+}
+.navbar-default .navbar-text {
+    color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a {
+    border: 1px solid #000;
+    background-color: #3069FE;
+    color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    background-color: rgba(48,105,244,.6);
+    border: 1px solid #000;
+    color: #fff;
 }
