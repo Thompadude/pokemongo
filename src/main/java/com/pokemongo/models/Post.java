@@ -1,13 +1,16 @@
 package com.pokemongo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pokemongo.utilities.Link;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NamedQueries({
@@ -35,8 +38,10 @@ public class Post implements Serializable, Comparator<Post> {
     @JsonIgnore
     private Post parentPost;
     @OneToMany(mappedBy = "parentPost", fetch = FetchType.EAGER)
-    private List<Post> childPosts;
+    private Set<Post> childPosts;
 
+    @Transient
+    private List<Link> links = new ArrayList<>();
     @Transient
     private Long authorId;
     @Transient
@@ -103,13 +108,25 @@ public class Post implements Serializable, Comparator<Post> {
         this.parentPost = parentPost;
     }
 
-    public List<Post> getChildPosts() {
+    public Set<Post> getChildPosts() {
 
         return childPosts;
     }
 
-    public void setChildPosts(List<Post> childPosts) {
+    public void setChildPosts(Set<Post> childPosts) {
         this.childPosts = childPosts;
+    }
+
+    public List<Link> getLinks() {
+        return links;
+    }
+
+    public void setLinks(List<Link> links) {
+        this.links = links;
+    }
+
+    public void addLink(Link link) {
+        links.add(link);
     }
 
     public Long getAuthorId() {
@@ -121,12 +138,12 @@ public class Post implements Serializable, Comparator<Post> {
     public int compare(Post o1, Post o2) {
         return o1.getPostTime().compareTo(o2.getPostTime());
     }
-    
+
     public String getAuthorImageURL() {
         authorImageURL = "/images/" + author.getUserImageName();
         return authorImageURL;
     }
-    
+
     public void setAuthorImageURL(String authorImageURL) {
         this.authorImageURL = authorImageURL;
     }
