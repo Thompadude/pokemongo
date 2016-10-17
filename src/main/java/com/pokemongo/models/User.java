@@ -26,10 +26,13 @@ public class User implements Serializable {
     private Set<Pokemon> pokemons;
     private String userImageName;
 
+    private String team;
+
     public User(String userName, String email, String tokenId) {
         this.userName = userName;
         this.email = email;
         this.tokenId = tokenId;
+        team = "none";
     }
 
     public User(String userName, String email) {
@@ -87,15 +90,23 @@ public class User implements Serializable {
         this.tokenId = tokenId;
     }
 
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
+    }
+
     @Override
     public String toString() {
         return "[" + id + "] " + userName;
     }
-    
+
     public String getUserImageName() {
         return userImageName;
     }
-    
+
     public void setUserImageName(String userImageName) {
         this.userImageName = userImageName;
     }

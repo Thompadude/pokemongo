@@ -13,11 +13,11 @@
 
     <title>PokeMongo</title>
 
-    <h:outputStylesheet library="css" name="main.css"></h:outputStylesheet>
+    <h:outputStylesheet library="css" name="main.css" ></h:outputStylesheet>
+    <h:outputStylesheet library="css" name="#{userController.team}.css" position="last"></h:outputStylesheet>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async="async" defer="defer"></script>
-
     <h:outputScript library="js" name="posts.js"></h:outputScript>
 
 </h:head>
@@ -34,6 +34,24 @@
         </b:navbarLinks>
     </b:navBar>
 
+    <!--TODO: remove later For testing purposes-->
+    <div class="container">
+
+        <h:form>
+            <h:commandButton value="Blue" styleClass="btn btn-primary">
+                <f:setPropertyActionListener target="#{userController.team}" value="blue" />
+            </h:commandButton>
+            <h:commandButton value="Yellow" styleClass="btn btn-warning">
+                <f:setPropertyActionListener target="#{userController.team}" value="yellow" />
+            </h:commandButton>
+            <h:commandButton value="Red" styleClass="btn btn-danger">
+                <f:setPropertyActionListener target="#{userController.team}" value="red" />
+            </h:commandButton>
+
+        </h:form>
+
+    </div>
+
     <b:container>
         <b:row>
 
@@ -49,18 +67,19 @@
                 <!-- New Post Form -->
                 <h:form styleClass="postForm" id="searchForm">
                     <c:if test="#{userController.isUserLoggedIn}">
-                        <b:inputText placeholder="Post title" id="title" value="#{postController.title}"/>
-                        <b:inputTextarea placeholder="Write new post..." id="content" value="#{postController.content}"/>
+                        <b:inputText styleClass="transparent" placeholder="Post title" id="title" value="#{postController.title}"/>
+                        <b:inputTextarea styleClass="transparent" placeholder="Write new post..." id="content" value="#{postController.content}"/>
 
-                        <div class="button button--post">
+                        <!--TODO refactor the css name-->
+                        <div class="button button--post normal">
                             <b:commandButton value="Post!" look="primary" action="#{postController.savePost}"/>
                         </div>
                     </c:if>
                 </h:form>
 
                 <h:form>
-                    <label class="label label--postOrder">Order By:</label>
-                    <b:selectOneMenu styleClass="selectMenu selectMenu--small" valueChangeListener="#{postController.changePostSortOrder}" onchange="submit()">
+                    <label class="label label--postOrder textOnly">Order By:</label>
+                    <b:selectOneMenu styleClass="selectMenu selectMenu--small transparent" valueChangeListener="#{postController.changePostSortOrder}" onchange="submit()">
                         <f:selectItem itemLabel="Date" itemValue="default"></f:selectItem>
                         <f:selectItem itemLabel="Comments" itemValue="comments"></f:selectItem>
                     </b:selectOneMenu>
@@ -73,7 +92,7 @@
                             <h:dataTable styleClass="postsDataTable" value="#{postController.posts}" var="post">
                                 <h:column>
                                     <li class="postList__item">
-                                        <div class="post post--default">
+                                        <div class="post post--default transparent">
 
                                             <div class="post__image">
                                                 <b:image value="#{post.authorImageURL}"/>
@@ -91,7 +110,7 @@
                                             <div class="btnWrapper--right">
                                                 <a class="button button--comments">
                                                     <b:badge styleClass="button__badge" value="#{post.childPosts.size()}"></b:badge>
-                                                    <span class="button__arrow">&#8681;</span>
+                                                    <span class="button__arrow textOnly">&#8681;</span>
                                                 </a>
                                             </div>
 
@@ -113,7 +132,7 @@
                                     <div class="postList__formWrapper hideable">
                                         <h:form styleClass="postForm">
                                             <c:if test="#{userController.isUserLoggedIn}">
-                                                <b:inputTextarea placeholder="Write reply..." id="replyContent" value="#{postController.replyContent}"></b:inputTextarea>
+                                                <b:inputTextarea styleClass="transparent" placeholder="Write reply..." id="replyContent" value="#{postController.replyContent}"></b:inputTextarea>
 
                                                 <div class="btnWrapper--right">
                                                     <b:commandButton value="Reply!" look="primary" action="#{postController.saveReply(post.id)}"/>
@@ -126,6 +145,7 @@
                         </ul>
                     </b:column>
                 </b:row>
+
             </b:column>
 
             <!--Right Section-->

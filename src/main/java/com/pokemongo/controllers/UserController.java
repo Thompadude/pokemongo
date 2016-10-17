@@ -26,6 +26,9 @@ public class UserController implements Serializable {
     private String email;
     private String tokenId;
     private List<Pokemon> pokemons;
+
+    private String team;
+
     private String profileImageUrl;
     @EJB
     private UserHandler userHandler;
@@ -100,6 +103,13 @@ public class UserController implements Serializable {
         this.pokemons = pokemons;
     }
 
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
+    }
     public String getProfileImageUrl() {
         profileImageUrl = "/images/" + userHandler.getLoggedInUser().getUserImageName();
         return profileImageUrl;

@@ -8,12 +8,12 @@
     <!--Search Posts Form-->
     <b:panelGrid colSpans="12">
         <h:form styleClass="postForm">
-            <b:inputText placeholder="Search in post titles and content..." value="#{postController.searchWord}">
+            <b:inputText styleClass="transparent" placeholder="Search in post titles and content..." value="#{postController.searchWord}">
                 <f:facet name="append">
-                    <b:commandButton styleClass="button--search" look="link" action="#{postController.fetchPostsByKeyword}">
+                    <b:commandButton styleClass="button--search textOnly" ajax="true" look="link" action="#{postController.fetchPostsByKeyword}">
                         <b:iconAwesome name="search"/>
                     </b:commandButton>
-                    <b:commandButton styleClass="button--reset" look="link" action="#{postController.resetSearchedPosts}">
+                    <b:commandButton styleClass="button--reset textOnly" look="link" action="#{postController.resetSearchedPosts}">
                         <b:iconAwesome name="times"/>
                     </b:commandButton>
                 </f:facet>
