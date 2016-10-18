@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.util.Collection;
 import java.util.List;
 
 @Path("/post")
@@ -22,12 +23,13 @@ public class PostRestProvider {
 
     @GET
     @Produces("application/json")
-    public Response getAllPosts() {
+    public Response getAllPosts(@Context UriInfo uriInfo) {
         List<Post> posts = postService.fetchPostsWithoutParent();
 
         if (posts.isEmpty())
             return Response.status(Response.Status.NO_CONTENT).build();
 
+        setChildPostsLinks(uriInfo, posts);
         return Response.status(Response.Status.OK).entity(posts).build();
     }
 
@@ -35,34 +37,38 @@ public class PostRestProvider {
     @Path("/{id}")
     @Produces("application/json")
     public Response getPostById(@PathParam("id") Long id, @Context UriInfo uriInfo) {
-        Link link = getLink(id, uriInfo);
-
         Post post = postService.fetchPost(id);
 
-        if (post != null) {
-            post.addLink(link);
+        if (post == null)
+            return Response.status(Response.Status.NO_CONTENT).build();
 
-            for (Post childPost : post.getChildPosts()) {
-                link = getLink(childPost.getId(), uriInfo);
-                childPost.addLink(link);
-            }
-
-            return Response.status(Response.Status.OK).entity(post).build();
-        }
-
-        return Response.status(Response.Status.NO_CONTENT).build();
+        post.addLink(getLink(id, uriInfo));
+        setChildPostsLinks(uriInfo, post.getChildPosts());
+        return Response.status(Response.Status.OK).entity(post).build();
     }
 
     @GET
     @Path("/search/{searchWord}")
     @Produces("application/json")
-    public Response getPostsByKeyword(@PathParam("searchWord") String searchWord) {
+    public Response getPostsByKeyword(@PathParam("searchWord") String searchWord, @Context UriInfo uriInfo) {
         List<Post> posts = postService.fetchPostsByKeyword(searchWord);
 
         if (posts.isEmpty())
             return Response.status(Response.Status.NO_CONTENT).build();
 
+        setChildPostsLinks(uriInfo, posts);
         return Response.status(Response.Status.OK).entity(posts).build();
+    }
+
+    private void setChildPostsLinks(@Context UriInfo uriInfo, Collection<Post> posts) {
+        for (Post post : posts) {
+            post.addLink(getLink(post.getId(), uriInfo));
+            if (!post.getChildPosts().isEmpty()) {
+                for (Post childPost : post.getChildPosts()) {
+                    childPost.addLink(getLink(childPost.getId(), uriInfo));
+                }
+            }
+        }
     }
 
     private Link getLink(@PathParam("id") Long id, @Context UriInfo uriInfo) {
