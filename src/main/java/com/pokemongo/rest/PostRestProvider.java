@@ -34,18 +34,19 @@ public class PostRestProvider {
     @GET
     @Path("/{id}")
     @Produces("application/json")
-    public Response getPostById(@PathParam("id") Integer id, @Context UriInfo uriInfo) {
-        String uri = uriInfo.getBaseUriBuilder()
-                .path(PostRestProvider.class)
-                .path(id.toString())
-                .build()
-                .toString();
-        Link link = new Link(uri, "self");
+    public Response getPostById(@PathParam("id") Long id, @Context UriInfo uriInfo) {
+        Link link = getLink(id, uriInfo);
 
         Post post = postService.fetchPost(id);
 
         if (post != null) {
             post.addLink(link);
+
+            for (Post childPost : post.getChildPosts()) {
+                link = getLink(childPost.getId(), uriInfo);
+                childPost.addLink(link);
+            }
+
             return Response.status(Response.Status.OK).entity(post).build();
         }
 
@@ -62,6 +63,15 @@ public class PostRestProvider {
             return Response.status(Response.Status.NO_CONTENT).build();
 
         return Response.status(Response.Status.OK).entity(posts).build();
+    }
+
+    private Link getLink(@PathParam("id") Long id, @Context UriInfo uriInfo) {
+        String uri = uriInfo.getBaseUriBuilder()
+                .path(PostRestProvider.class)
+                .path(id.toString())
+                .build()
+                .toString();
+        return new Link(uri, "self");
     }
 
 }
