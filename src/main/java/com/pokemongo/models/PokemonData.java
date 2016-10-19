@@ -1,13 +1,14 @@
 package com.pokemongo.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import com.pokemongo.utilities.RestLink;
+
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Serves as a model for 'hardcoded' pokemons.
@@ -28,7 +29,9 @@ public class PokemonData implements Serializable {
     private Long id;
     private Integer pokedexNumber;
     private String name;
-
+    @Transient
+    private List<RestLink> restLinks = new ArrayList<>();
+    
     public Long getId() {
         return id;
     }
@@ -40,7 +43,19 @@ public class PokemonData implements Serializable {
     public String getName() {
         return name;
     }
-
+    
+    public List<RestLink> getRestLinks() {
+        return restLinks;
+    }
+    
+    public void setRestLinks(List<RestLink> restLinks) {
+        this.restLinks = restLinks;
+    }
+    
+    public void addRestLink(RestLink restLink) {
+        this.restLinks.add(restLink);
+    }
+    
     @Override
     public String toString() {
         return "PokemonData"
