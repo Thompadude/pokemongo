@@ -2,8 +2,7 @@ package com.pokemongo.rest;
 
 import com.pokemongo.models.Post;
 import com.pokemongo.services.PostService;
-import com.pokemongo.utilities.Link;
-import com.pokemongo.utilities.LinkBuilder;
+import com.pokemongo.utilities.RestLinkBuilder;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
@@ -21,7 +20,7 @@ public class PostRestProvider {
 
     @EJB
     PostService postService;
-    private LinkBuilder<PostRestProvider> linkBuilder = new LinkBuilder<>(PostRestProvider.class);
+    private RestLinkBuilder<PostRestProvider> restLinkBuilder = new RestLinkBuilder<>(PostRestProvider.class);
 
     @GET
     @Produces("application/json")
@@ -44,8 +43,8 @@ public class PostRestProvider {
         if (post == null)
             return Response.status(Response.Status.NO_CONTENT).build();
 
-        post.addLink(linkBuilder.getSelfLink(id, uriInfo));
-        post.addLink(linkBuilder.getAuthorLink(post, uriInfo));
+        post.addLink(restLinkBuilder.getSelfLink(id, uriInfo));
+        post.addLink(restLinkBuilder.getAuthorLink(post, uriInfo));
         
         setChildPostsLinks(uriInfo, post.getChildPosts());
         return Response.status(Response.Status.OK).entity(post).build();
@@ -66,19 +65,14 @@ public class PostRestProvider {
     
     private void setChildPostsLinks(UriInfo uriInfo, Collection<Post> posts) {
         for (Post post : posts) {
-            post.addLink(linkBuilder.getSelfLink(post.getId(), uriInfo));
-            post.addLink(linkBuilder.getAuthorLink(post, uriInfo));
+            post.addLink(restLinkBuilder.getSelfLink(post.getId(), uriInfo));
+            post.addLink(restLinkBuilder.getAuthorLink(post, uriInfo));
             if (!post.getChildPosts().isEmpty()) {
                 for (Post childPost : post.getChildPosts()) {
-                    childPost.addLink(linkBuilder.getSelfLink(childPost.getId(), uriInfo));
-                    childPost.addLink(linkBuilder.getAuthorLink(childPost, uriInfo));
+                    childPost.addLink(restLinkBuilder.getSelfLink(childPost.getId(), uriInfo));
+                    childPost.addLink(restLinkBuilder.getAuthorLink(childPost, uriInfo));
                 }
             }
         }
     }
-    
-    
-
-    
-
 }

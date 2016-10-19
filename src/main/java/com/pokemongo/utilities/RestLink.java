@@ -1,14 +1,14 @@
 package com.pokemongo.utilities;
 
-public class Link {
+public class RestLink {
 
     private String uri;
     private String rel;
 
-    public Link() {
+    public RestLink() {
     }
 
-    public Link(String uri, String rel) {
+    public RestLink(String uri, String rel) {
         this.uri = uri;
         this.rel = rel;
     }

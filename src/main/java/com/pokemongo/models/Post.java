@@ -1,7 +1,7 @@
 package com.pokemongo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pokemongo.utilities.Link;
+import com.pokemongo.utilities.RestLink;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -41,7 +41,7 @@ public class Post implements Serializable, Comparator<Post> {
     private Set<Post> childPosts;
 
     @Transient
-    private List<Link> links = new ArrayList<>();
+    private List<RestLink> restLinks = new ArrayList<>();
     @Transient
     private Long authorId;
     @Transient
@@ -117,16 +117,16 @@ public class Post implements Serializable, Comparator<Post> {
         this.childPosts = childPosts;
     }
 
-    public List<Link> getLinks() {
-        return links;
+    public List<RestLink> getRestLinks() {
+        return restLinks;
     }
 
-    public void setLinks(List<Link> links) {
-        this.links = links;
+    public void setRestLinks(List<RestLink> restLinks) {
+        this.restLinks = restLinks;
     }
 
-    public void addLink(Link link) {
-        links.add(link);
+    public void addLink(RestLink restLink) {
+        restLinks.add(restLink);
     }
 
     public Long getAuthorId() {
