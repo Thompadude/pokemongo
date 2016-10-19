@@ -1,6 +1,7 @@
 package com.pokemongo.controllers;
 
 import com.pokemongo.business.interfaces.PostHandler;
+import com.pokemongo.controllers.enums.SortOrder;
 import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.exceptions.FormException;
 import com.pokemongo.exceptions.UserException;
@@ -26,6 +27,7 @@ public class PostController implements Serializable {
     private String content;
     private String replyContent;
     private String searchWord;
+    private SortOrder sortOrder;
     private List<Post> postSearchResults;
     private List<Post> posts;
     @EJB
@@ -43,44 +45,42 @@ public class PostController implements Serializable {
             Post post = new Post(title, content);
             postHandler.savePost(post);
             resetPostFields();
+            FacesMessageController.displaySuccessMessage("New post created.");
         } catch (UserException | DatabaseException | FormException e) {
             logger.error(e.getMessage());
             FacesMessageController.displayErrorMessage(e.getMessage());
         }
     }
 
-    public String saveReply(long postId) throws DatabaseException {
+    public void saveReply(long postId) throws DatabaseException {
         try {
             Post reply = new Post(replyContent);
-            postHandler.saveReply(reply, postId);
+            reply = postHandler.saveReply(reply, postId);
             resetPostFields();
-            return "/index.xhtml?faces-redirect=true";
+            FacesMessageController.displaySuccessMessage("You wrote a reply to post with title \""
+                    + reply.getParentPost().getTitle() + "\".");
         } catch (UserException | FormException e) {
             logger.error(e.getMessage());
             FacesMessageController.displayErrorMessage(e.getMessage());
-            return "/index.xhtml?faces-redirect=false";
         }
     }
 
-    public void changePostSortOrder(ValueChangeEvent event) {
+    public void setPostSortOrder(ValueChangeEvent event) {
         logger.debug("Changing post sort order");
-        String sortOrder = (String) event.getNewValue();
-        if (sortOrder.equals("default")) {
-            orderPostsInDefaultOrder();
-        } else {
-            orderPostsByChildPostsLength();
-        }
+        sortOrder = SortOrder.valueOf(event.getNewValue().toString().toUpperCase());
+        FacesMessageController.displaySuccessMessage("Posts is now sorted by "
+                + event.getNewValue().toString() + ".");
+        fetchFreshPosts();
     }
 
-    public String orderPostsInDefaultOrder() {
+    public void orderPostsByDate() {
+        sortOrder = SortOrder.DATE;
         setPosts(postHandler.fetchPostsWithoutParent());
-        return "/index?faces-redirect=true";
     }
 
-    public String orderPostsByChildPostsLength() {
-        // TODO fix: when the user sort by this and post a comment, the default sort order is loaded. Use enum? Boolean?
+    public void orderPostsByChildPostsLength() {
+        sortOrder = SortOrder.COMMENTS;
         setPosts(postHandler.fetchPostsOrderedByChildPostsLength());
-        return "/index?faces-redirect=true";
     }
 
     public String fetchPostsByKeyword() {
@@ -111,8 +111,14 @@ public class PostController implements Serializable {
 
     private void fetchFreshPosts() {
         logger.debug("Fetching fresh posts");
-        posts = postHandler.fetchPostsWithoutParent();
-
+        switch (sortOrder) {
+            case COMMENTS:
+                orderPostsByChildPostsLength();
+                break;
+            default:
+                orderPostsByDate();
+                break;
+        }
         // Only refresh the searched posts section if the user previously searched for posts
         if (searchWord != null)
             fetchPostsByKeyword();
@@ -158,6 +164,14 @@ public class PostController implements Serializable {
 
     public void setPostSearchResults(List<Post> postSearchResults) {
         this.postSearchResults = postSearchResults;
+    }
+
+    public SortOrder getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(SortOrder sortOrder) {
+        this.sortOrder = sortOrder;
     }
 
     public List<Post> getPosts() {

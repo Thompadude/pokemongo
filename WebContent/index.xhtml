@@ -79,8 +79,8 @@
 
                 <h:form>
                     <label class="label label--postOrder textOnly">Order By:</label>
-                    <b:selectOneMenu styleClass="selectMenu selectMenu--small transparent" valueChangeListener="#{postController.changePostSortOrder}" onchange="submit()">
-                        <f:selectItem itemLabel="Date" itemValue="default"></f:selectItem>
+                    <b:selectOneMenu styleClass="selectMenu selectMenu--small transparent" valueChangeListener="#{postController.setPostSortOrder}" onchange="submit()">
+                        <f:selectItem itemLabel="Date" itemValue="date"></f:selectItem>
                         <f:selectItem itemLabel="Comments" itemValue="comments"></f:selectItem>
                     </b:selectOneMenu>
                 </h:form>
@@ -172,5 +172,6 @@
 <h:outputScript library="js" name="googleLogin.js"></h:outputScript>
 <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?signed_in=true&amp;callback=initMap&amp;key=AIzaSyCgXXGotMPSlX-ZFpAGWt51_4cMQPWADuI"></script>
 <h:outputScript library="js" name="mapAllPokemon.js"></h:outputScript>
+<h:outputScript library="js" name="messageBox.js"></h:outputScript>
 
 </html>
