@@ -1,10 +1,13 @@
 package com.pokemongo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pokemongo.utilities.RestLink;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NamedQueries({
@@ -33,6 +36,8 @@ public class Pokemon implements Serializable {
 
     @Transient // This is for json serialization, not for database
     private Long ownerId;
+    @Transient
+    private List<RestLink> restLinks = new ArrayList<>();
 
     public Pokemon() {
     }
@@ -118,5 +123,16 @@ public class Pokemon implements Serializable {
         ownerId = owner.getId();
         return ownerId;
     }
-
+    
+    public List<RestLink> getRestLinks() {
+        return restLinks;
+    }
+    
+    public void setRestLinks(List<RestLink> restLinks) {
+        this.restLinks = restLinks;
+    }
+    
+    public void addRestLink(RestLink restLink) {
+        this.restLinks.add(restLink);
+    }
 }
