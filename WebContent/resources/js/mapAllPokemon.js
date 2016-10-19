@@ -45,12 +45,14 @@ function getMarker(pokemon, icon) {
 // Populate Google map with all user added pokemon
 function populateMap() {
     var marker, icon;
-    for (var i = 0; i < pokemonList.length; i++) {
-        icon = getIcon(pokemonList[i]);
-        marker = getMarker(pokemonList[i], icon);
-        markers.push(marker);
+    if (pokemonList != undefined) {
+        for (var i = 0; i < pokemonList.length; i++) {
+            icon = getIcon(pokemonList[i]);
+            marker = getMarker(pokemonList[i], icon);
+            markers.push(marker);
+        }
+        setMapOnAll(mapAllPokemon);
     }
-    setMapOnAll(mapAllPokemon);
 }
 
 // Get image link for the pokemon
