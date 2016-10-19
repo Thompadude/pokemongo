@@ -1,3 +1,3 @@
-/**
- * Created by thompadude on 19/10/16.
- */
+$(document).ready(function () {
+    $('.messageBox').delay(5000).fadeOut('slow');
+});

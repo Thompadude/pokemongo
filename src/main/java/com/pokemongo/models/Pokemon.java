@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Pokemon.fetchAll", query = "SELECT p FROM Pokemon p"),
-        @NamedQuery(name = "Pokemon.fetchPokemonByOwnerId", query = "SELECT p FROM Pokemon p WHERE p.owner.id=:id ORDER BY p.pokedexNumber")
+        @NamedQuery(name = "Pokemon.fetchPokemonByOwnerId", query = "SELECT p FROM Pokemon p WHERE p.owner.id=:id ORDER BY LENGTH(p.pokedexNumber), p.pokedexNumber")
 })
 public class Pokemon implements Serializable {
 
