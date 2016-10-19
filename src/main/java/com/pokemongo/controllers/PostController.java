@@ -43,28 +43,30 @@ public class PostController implements Serializable {
             Post post = new Post(title, content);
             postHandler.savePost(post);
             resetPostFields();
+            FacesMessageController.displaySuccessMessage("New post created.");
         } catch (UserException | DatabaseException | FormException e) {
             logger.error(e.getMessage());
             FacesMessageController.displayErrorMessage(e.getMessage());
         }
     }
 
-    public String saveReply(long postId) throws DatabaseException {
+    public void saveReply(long postId) throws DatabaseException {
         try {
             Post reply = new Post(replyContent);
-            postHandler.saveReply(reply, postId);
+            reply = postHandler.saveReply(reply, postId);
             resetPostFields();
-            return "/index.xhtml?faces-redirect=true";
+            FacesMessageController.displaySuccessMessage("You wrote a reply to post with title \""
+                    + reply.getParentPost().getTitle() + "\".");
         } catch (UserException | FormException e) {
             logger.error(e.getMessage());
             FacesMessageController.displayErrorMessage(e.getMessage());
-            return "/index.xhtml?faces-redirect=false";
         }
     }
 
     public void changePostSortOrder(ValueChangeEvent event) {
         logger.debug("Changing post sort order");
         String sortOrder = (String) event.getNewValue();
+        // TODO fix feedback for sort order
         if (sortOrder.equals("default")) {
             orderPostsInDefaultOrder();
         } else {

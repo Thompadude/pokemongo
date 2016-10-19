@@ -53,12 +53,10 @@ public class PokemonController implements Serializable {
             Pokemon pokemon = new Pokemon(pokedexNumber, pokemonData.getName(), lng, lat, cp, hp);
             pokemonHandler.savePokemon(pokemon);
             resetAddPokemonFields();
-            FacesMessageController.displaySuccessMessage("Pokemon " + pokemon.getName() + " added to your collection!");
-//            return "/index.xhtml?faces-redirect=false";
+            FacesMessageController.displaySuccessMessage("Pokemon " + pokemon.getName() + " added to your collection. Gotta catch 'em all!");
         } catch (UserException | DatabaseException | FormException e) {
             logger.error(e.getMessage());
             FacesMessageController.displayErrorMessage(e.getMessage());
-//            return "/index.xhtml?faces-redirect=false";
         }
     }
 
