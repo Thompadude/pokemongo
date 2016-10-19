@@ -37,6 +37,7 @@ public class PostController implements Serializable {
     @PostConstruct
     public void init() {
         posts = postHandler.fetchPostsWithoutParent();
+        sortOrder = SortOrder.DATE;
         logger.debug("@PostConstruct executed - posts loaded");
     }
 
