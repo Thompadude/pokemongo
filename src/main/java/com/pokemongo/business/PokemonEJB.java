@@ -27,6 +27,10 @@ public class PokemonEJB implements PokemonHandler {
             throw new FormException("No pokemon position picked on map");
         }
 
+        if (pokemon.getCombatPower() == null || pokemon.getHealthPoints() == null) {
+            throw new FormException("No pokemon stats are entered");
+        }
+
         User owner = userHandler.getLoggedInUser();
         if (owner != null) {
             pokemon.setOwner(owner);

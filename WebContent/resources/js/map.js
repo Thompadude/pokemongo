@@ -2,26 +2,36 @@ var map;
 var markers = [];
 
 function initMap() {
-	var lat_lng = {lat: 57.70887000, lng: 11.97456000};
+    var lat_lng = {lat: 57.70887000, lng: 11.97456000};
 
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 18,
-    center: lat_lng,
-    mapTypeId: google.maps.MapTypeId.TERRAIN
-  });
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 18,
+        center: lat_lng,
+        mapTypeId: google.maps.MapTypeId.TERRAIN
+    });
 
-  // This event listener will call addPokemonLatLong() when the map is clicked.
+    // This event listener will call addPokemonLatLong() when the map is clicked.
 
-	map.addListener('click', function(event) {
+    map.addListener('click', function (event) {
         var pok_id = document.getElementById('pokemonForm:pokemonSelectMenuInner').value;
         pok_id++; //TODO: maybe figure out this odd ob1 error
-	    addPokemonLatLong(parseFloat(event.latLng.lat()),
-				      parseFloat(event.latLng.lng()), pok_id);
+        addPokemonLatLong(parseFloat(event.latLng.lat()),
+            parseFloat(event.latLng.lng()), pok_id);
         document.getElementById('input_pokemonForm:lat').value = event.latLng.lat();
         document.getElementById('input_pokemonForm:lng').value = event.latLng.lng();
-  });
+    });
 }
 
+function initPokemon() {
+    var lat, lng;
+
+    lat = document.getElementById('input_pokemonForm:lat').value;
+    lng = document.getElementById('input_pokemonForm:lng').value;
+
+    if (lat) {
+        addPokemonLatLong(lat, lng)
+    }
+}
 
 // Adds a marker to the map and push to the array.
 function addPokemonLatLong(lati, longi, pokeIndex) {

@@ -8,6 +8,11 @@
 
     <!--styla h-->
     <h:form styleClass="postForm" id="pokemonForm">
+
+        <div class="messageBox messageDisplayBox">
+            <b:messages globalOnly="true"/>
+        </div>
+
         <div class="inline">
             <b:selectOneMenu styleClass="selectMenu selectMenu--full" id="pokemonSelectMenu" value="#{pokemonController.pokedexNumber}">
                 <f:selectItems id="selectedPokemonMenu" value="#{pokemonController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}"
@@ -16,7 +21,7 @@
         </div>
 
         <div class="button button--addPokemon">
-            <b:commandButton look="primary" value="Add Pokemon" action="#{pokemonController.savePokemon}"/>
+            <b:commandButton  ajax="true" update="@(.messageBox) @form @(.rightSection)" look="primary" value="Add Pokemon" action="#{pokemonController.savePokemon}"/>
         </div>
 
         <b:inputText placeholder="cp" id="cp" value="#{pokemonController.cp}"/>
