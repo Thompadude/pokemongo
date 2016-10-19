@@ -105,7 +105,7 @@ public class PostEJBTest {
     }
 
     @Test(expected = UserException.class)
-    public void testSavePost_UserNotLoggedIn_UserNotLoggedInExceptionThrown() throws UserException, DatabaseException {
+    public void testSavePost_UserNotLoggedIn_UserNotLoggedInExceptionThrown() throws UserException, DatabaseException, FormException {
         when(userHandler.getLoggedInUser()).thenReturn(null);
         postEJB.savePost(testPost);
     }
@@ -117,7 +117,7 @@ public class PostEJBTest {
     }
 
     @Test(expected = UserException.class)
-    public void testSaveReply_UserNotLoggedIn_UserNotLoggedInExceptionThrown() throws UserException, DatabaseException {
+    public void testSaveReply_UserNotLoggedIn_UserNotLoggedInExceptionThrown() throws UserException, DatabaseException, FormException {
         when(userHandler.getLoggedInUser()).thenReturn(null);
         postEJB.saveReply(testPost, 1L);
     }

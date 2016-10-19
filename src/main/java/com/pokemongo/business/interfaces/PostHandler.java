@@ -11,9 +11,9 @@ import java.util.List;
 @Local
 public interface PostHandler {
     
-    Post savePost(Post post) throws UserException, DatabaseException;
+    Post savePost(Post post) throws UserException, DatabaseException, FormException;
     
-    Post saveReply(Post reply, long parentId) throws UserException, DatabaseException;
+    Post saveReply(Post reply, long parentId) throws UserException, DatabaseException, FormException;
     
     List<Post> fetchPostsWithoutParent();
 

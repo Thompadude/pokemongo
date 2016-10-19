@@ -43,9 +43,9 @@ public class PostController implements Serializable {
             Post post = new Post(title, content);
             postHandler.savePost(post);
             resetPostFields();
-        } catch (UserException | DatabaseException e) {
+        } catch (UserException | DatabaseException | FormException e) {
             logger.error(e.getMessage());
-            FacesMessageController.displayErrorMessage("Error saving post. Contact web master.");
+            FacesMessageController.displayErrorMessage(e.getMessage());
         }
     }
 
@@ -55,7 +55,7 @@ public class PostController implements Serializable {
             postHandler.saveReply(reply, postId);
             resetPostFields();
             return "/index.xhtml?faces-redirect=true";
-        } catch (UserException e) {
+        } catch (UserException | FormException e) {
             logger.error(e.getMessage());
             return "/index.xhtml?faces-redirect=false";
         }

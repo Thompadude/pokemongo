@@ -22,19 +22,27 @@ public class PostEJB implements PostHandler {
     private UserHandler userHandler;
 
     @Override
-    public Post savePost(Post post) throws UserException, DatabaseException {
+    public Post savePost(Post post) throws UserException, DatabaseException, FormException {
         User author = userHandler.getLoggedInUser();
 
         if (author != null) {
             post.setAuthor(author);
             post = postService.savePost(post);
-            return post;
+        } else {
+            throw new UserException("You must be logged in to post.");
         }
-        throw new UserException("You must be logged in to post.");
+
+        if (post.getParentPost() == null && post.getTitle().length() < 5) {
+            throw new FormException("Title must be more than four characters.");
+        } else if (post.getContent().length() < 11) {
+            throw new FormException("Content must be more than 10 characters.");
+        }
+
+        return post;
     }
 
     @Override
-    public Post saveReply(Post reply, long parentId) throws UserException, DatabaseException {
+    public Post saveReply(Post reply, long parentId) throws UserException, DatabaseException, FormException {
         Post parentPost = postService.fetchPost(parentId);
         reply.setParentPost(parentPost);
         reply = savePost(reply);
@@ -55,7 +63,7 @@ public class PostEJB implements PostHandler {
     @Override
     public List<Post> fetchPostsByKeyword(String keyword) throws FormException {
         if (keyword.length() < 3) {
-            throw new FormException("Please type more than two characters.");
+            throw new FormException("Search phrase must be more than two characters.");
         } else {
             return postService.fetchPostsByKeyword(keyword);
         }
