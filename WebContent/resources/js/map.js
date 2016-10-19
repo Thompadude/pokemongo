@@ -14,6 +14,7 @@ function initMap() {
 
 	map.addListener('click', function(event) {
         var pok_id = document.getElementById('pokemonForm:pokemonSelectMenuInner').value;
+        pok_id++; //TODO: maybe figure out this odd ob1 error
 	    addPokemonLatLong(parseFloat(event.latLng.lat()),
 				      parseFloat(event.latLng.lng()), pok_id);
         document.getElementById('input_pokemonForm:lat').value = event.latLng.lat();

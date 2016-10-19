@@ -2,6 +2,7 @@ package com.pokemongo.rest;
 
 import com.pokemongo.models.PokemonData;
 import com.pokemongo.services.PokemonDataService;
+import com.pokemongo.utilities.RestLinkBuilder;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
@@ -16,6 +17,7 @@ public class PokemonDataRestProvider {
 
     @EJB
     private PokemonDataService pokemonDataService;
+    private RestLinkBuilder<PokemonDataRestProvider> pokemonDataLinkBuilder = new RestLinkBuilder<>(PokemonDataRestProvider.class);
 
     @GET
     @Produces("application/json")
@@ -31,11 +33,13 @@ public class PokemonDataRestProvider {
     @GET
     @Path("/{pokedexNr}")
     @Produces("application/json")
-    public Response getPokemon(@PathParam("pokedexNr") String pokedexNr) {
+    public Response getPokemon(@PathParam("pokedexNr") Integer pokedexNr) {
         PokemonData pokemon = pokemonDataService.fetchPokemonDataByPokedexNumber(pokedexNr);
 
         if (pokemon == null)
             return Response.status(Response.Status.NO_CONTENT).build();
+        
+        
 
         return Response.status(Response.Status.OK).entity(pokemon).build();
     }

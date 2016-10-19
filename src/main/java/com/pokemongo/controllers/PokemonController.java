@@ -24,7 +24,7 @@ public class PokemonController implements Serializable {
 
     private static final long serialVersionUID = -4300941170573356047L;
 
-    private String pokedexNumber;
+    private Integer pokedexNumber;
     private String name;
     private Integer cp;
     private Integer hp;
@@ -48,7 +48,6 @@ public class PokemonController implements Serializable {
 
     public String savePokemon() {
         try {
-            System.out.println(pokedexNumber);
             PokemonData pokemonData = pokemonDataHandler.fetchPokemonDataByPokedexNumber(pokedexNumber);
             Pokemon pokemon = new Pokemon(pokedexNumber, pokemonData.getName(), lng, lat, cp, hp);
             pokemonHandler.savePokemon(pokemon);
@@ -80,11 +79,11 @@ public class PokemonController implements Serializable {
         this.name = name;
     }
 
-    public String getPokedexNumber() {
+    public Integer getPokedexNumber() {
         return pokedexNumber;
     }
 
-    public void setPokedexNumber(String pokedexNumber) {
+    public void setPokedexNumber(Integer pokedexNumber) {
         this.pokedexNumber = pokedexNumber;
     }
 

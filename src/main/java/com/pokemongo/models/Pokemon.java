@@ -22,7 +22,7 @@ public class Pokemon implements Serializable, Ownable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String pokedexNumber;
+    private Integer pokedexNumber;
     private String name;
     private Integer combatPower;
     private Integer healthPoints;
@@ -43,7 +43,7 @@ public class Pokemon implements Serializable, Ownable {
     public Pokemon() {
     }
 
-    public Pokemon(String pokedexNumber, String name, String lng, String lat, Integer combatPower, Integer healthPoints) {
+    public Pokemon(Integer pokedexNumber, String name, String lng, String lat, Integer combatPower, Integer healthPoints) {
         this.pokedexNumber = pokedexNumber;
         this.name = name;
         this.lng = lng;
@@ -56,11 +56,11 @@ public class Pokemon implements Serializable, Ownable {
         return id;
     }
 
-    public String getPokedexNumber() {
+    public Integer getPokedexNumber() {
         return pokedexNumber;
     }
 
-    public void setPokedexNumber(String pokedexNumber) {
+    public void setPokedexNumber(Integer pokedexNumber) {
         this.pokedexNumber = pokedexNumber;
     }
 

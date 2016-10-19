@@ -26,14 +26,14 @@ public class PokemonData implements Serializable {
 
     @Id
     private Long id;
-    private String pokedexNumber;
+    private Integer pokedexNumber;
     private String name;
 
     public Long getId() {
         return id;
     }
 
-    public String getPokedexNumber() {
+    public Integer getPokedexNumber() {
         return pokedexNumber;
     }
 
