@@ -1,6 +1,6 @@
 package com.pokemongo.utilities;
 
-import com.pokemongo.models.Post;
+import com.pokemongo.models.Interfaces.Ownable;
 import com.pokemongo.rest.UserRestProvider;
 
 import javax.ws.rs.core.UriInfo;
@@ -22,13 +22,13 @@ public class RestLinkBuilder<T> {
         return new RestLink(uri, "Self");
     }
     
-    public RestLink getAuthorLink(Post post, UriInfo uriInfo) {
+    public RestLink getUserLink(Ownable ownable, UriInfo uriInfo, String rel) {
         String uri = uriInfo.getBaseUriBuilder()
                 .path(UserRestProvider.class)
-                .path(post.getAuthor().getId().toString())
+                .path(ownable.getOwner().getId().toString())
                 .build()
                 .toString();
-        return new RestLink(uri, "Author");
+        return new RestLink(uri, rel);
     }
     
     public RestLink getPokemonLink(Long id, UriInfo uriInfo) {

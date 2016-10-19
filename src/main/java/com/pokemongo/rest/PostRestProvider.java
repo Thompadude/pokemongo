@@ -44,7 +44,7 @@ public class PostRestProvider {
             return Response.status(Response.Status.NO_CONTENT).build();
 
         post.addLink(restLinkBuilder.getSelfLink(id, uriInfo));
-        post.addLink(restLinkBuilder.getAuthorLink(post, uriInfo));
+        post.addLink(restLinkBuilder.getUserLink(post, uriInfo, "Author"));
         
         setChildPostsLinks(uriInfo, post.getChildPosts());
         return Response.status(Response.Status.OK).entity(post).build();
@@ -66,11 +66,11 @@ public class PostRestProvider {
     private void setChildPostsLinks(UriInfo uriInfo, Collection<Post> posts) {
         for (Post post : posts) {
             post.addLink(restLinkBuilder.getSelfLink(post.getId(), uriInfo));
-            post.addLink(restLinkBuilder.getAuthorLink(post, uriInfo));
+            post.addLink(restLinkBuilder.getUserLink(post, uriInfo, "Author"));
             if (!post.getChildPosts().isEmpty()) {
                 for (Post childPost : post.getChildPosts()) {
                     childPost.addLink(restLinkBuilder.getSelfLink(childPost.getId(), uriInfo));
-                    childPost.addLink(restLinkBuilder.getAuthorLink(childPost, uriInfo));
+                    childPost.addLink(restLinkBuilder.getUserLink(childPost, uriInfo, "Author"));
                 }
             }
         }

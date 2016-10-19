@@ -1,6 +1,7 @@
 package com.pokemongo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pokemongo.models.Interfaces.Ownable;
 import com.pokemongo.utilities.RestLink;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import java.util.List;
         @NamedQuery(name = "Pokemon.fetchAll", query = "SELECT p FROM Pokemon p"),
         @NamedQuery(name = "Pokemon.fetchPokemonByOwnerId", query = "SELECT p FROM Pokemon p WHERE p.owner.id=:id ORDER BY p.pokedexNumber")
 })
-public class Pokemon implements Serializable {
+public class Pokemon implements Serializable, Ownable {
 
     private static final long serialVersionUID = -1790191399726700022L;
 

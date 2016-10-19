@@ -32,8 +32,12 @@ public class UserRestProvider {
         if (user == null || user.getPokemons().isEmpty())
             return Response.status(Response.Status.NO_CONTENT).build();
     
-        
-        
+        setPokemonLinks(uriInfo, user);
+        for (Pokemon pokemon :
+                user.getPokemons()) {
+            pokemon.addRestLink(userRestLinkBuilder.getUserLink(pokemon, uriInfo, "Owner"));
+        }
+    
         return Response.status(Response.Status.OK).entity(user.getPokemons()).build();
     }
     
@@ -49,12 +53,16 @@ public class UserRestProvider {
         user.addRestLink(userRestLinkBuilder.getSelfLink(user.getId(), uriInfo));
         user.addRestLink(userRestLinkBuilder.getPokemonLink(user.getId(), uriInfo));
     
+        setPokemonLinks(uriInfo, user);
+    
+        return Response.status(Response.Status.OK).entity(user).build();
+    }
+    
+    private void setPokemonLinks(@Context UriInfo uriInfo, User user) {
         for (Pokemon pokemon :
                 user.getPokemons()) {
             pokemon.addRestLink(pokemonRestLinkBuilder.getSelfLink(pokemon.getId(), uriInfo));
         }
-        
-        return Response.status(Response.Status.OK).entity(user).build();
     }
     
 }

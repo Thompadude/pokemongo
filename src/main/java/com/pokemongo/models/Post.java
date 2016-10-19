@@ -1,6 +1,7 @@
 package com.pokemongo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pokemongo.models.Interfaces.Ownable;
 import com.pokemongo.utilities.RestLink;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ import java.util.Set;
         @NamedQuery(name = "Post.fetchPostsByKeyWord", query = "SELECT p FROM Post p WHERE p.parentPost = NULL AND (p.content LIKE :keyword OR p.title LIKE :keyword) ORDER BY p.postTime DESC"),
         @NamedQuery(name = "Post.fetchPostsOrderedByChildPostsLength", query = "SELECT p FROM Post p WHERE p.parentPost = NULL ORDER BY p.childPosts.size DESC")
 })
-public class Post implements Serializable, Comparator<Post> {
+public class Post implements Serializable, Comparator<Post>,Ownable {
 
     private static final long serialVersionUID = 6787577451747845441L;
 
@@ -146,5 +147,16 @@ public class Post implements Serializable, Comparator<Post> {
 
     public void setAuthorImageURL(String authorImageURL) {
         this.authorImageURL = authorImageURL;
+    }
+    
+    @Override
+    @JsonIgnore
+    public User getOwner() {
+        return this.author;
+    }
+    
+    @Override
+    public void setOwner(User user) {
+        this.author = user;
     }
 }
