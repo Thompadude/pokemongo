@@ -27,17 +27,13 @@ public class PostEJB implements PostHandler {
 
         if (author != null) {
             post.setAuthor(author);
-            post = postService.savePost(post);
         } else {
             throw new UserException("You must be logged in to post.");
         }
 
-        if (post.getParentPost() == null && post.getTitle().length() < 5) {
-            throw new FormException("Title must be more than four characters.");
-        } else if (post.getContent().length() < 11) {
-            throw new FormException("Content must be more than 10 characters.");
-        }
+        validatePost(post);
 
+        post = postService.savePost(post);
         return post;
     }
 
@@ -66,6 +62,14 @@ public class PostEJB implements PostHandler {
             throw new FormException("Search phrase must be more than two characters.");
         } else {
             return postService.fetchPostsByKeyword(keyword);
+        }
+    }
+
+    private void validatePost(Post post) throws FormException {
+        if (post.getParentPost() == null && post.getTitle().length() < 5) {
+            throw new FormException("Title must be more than four characters.");
+        } else if (post.getContent().length() < 11) {
+            throw new FormException("Content must be more than 10 characters.");
         }
     }
 

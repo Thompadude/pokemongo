@@ -57,6 +57,7 @@ public class PostController implements Serializable {
             return "/index.xhtml?faces-redirect=true";
         } catch (UserException | FormException e) {
             logger.error(e.getMessage());
+            FacesMessageController.displayErrorMessage(e.getMessage());
             return "/index.xhtml?faces-redirect=false";
         }
     }
