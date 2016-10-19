@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -32,6 +33,16 @@ public class PokemonService {
 
     public List<Pokemon> fetchPokemonByOwnerId(Long id) {
         return em.createNamedQuery("Pokemon.fetchPokemonByOwnerId").setParameter("id", id).getResultList();
+    }
+    
+    public Pokemon fetchPokemonById(Long id) {
+        try {
+            logger.debug("Fetching Pokemon by id");
+            return em.find(Pokemon.class, id);
+        } catch (NoResultException e) {
+            logger.error(e.getMessage());
+            return null;
+        }
     }
 
 }

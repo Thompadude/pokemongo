@@ -1,13 +1,17 @@
 package com.pokemongo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pokemongo.models.Interfaces.Ownable;
+import com.pokemongo.utilities.RestLink;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NamedQueries({
@@ -16,7 +20,7 @@ import java.util.List;
         @NamedQuery(name = "Post.fetchPostsByKeyWord", query = "SELECT p FROM Post p WHERE p.parentPost = NULL AND (p.content LIKE :keyword OR p.title LIKE :keyword) ORDER BY p.postTime DESC"),
         @NamedQuery(name = "Post.fetchPostsOrderedByChildPostsLength", query = "SELECT p FROM Post p WHERE p.parentPost = NULL ORDER BY p.childPosts.size DESC")
 })
-public class Post implements Serializable, Comparator<Post> {
+public class Post implements Serializable, Comparator<Post>,Ownable {
 
     private static final long serialVersionUID = 6787577451747845441L;
 
@@ -35,8 +39,10 @@ public class Post implements Serializable, Comparator<Post> {
     @JsonIgnore
     private Post parentPost;
     @OneToMany(mappedBy = "parentPost", fetch = FetchType.EAGER)
-    private List<Post> childPosts;
+    private Set<Post> childPosts;
 
+    @Transient
+    private List<RestLink> restLinks = new ArrayList<>();
     @Transient
     private Long authorId;
     @Transient
@@ -103,13 +109,25 @@ public class Post implements Serializable, Comparator<Post> {
         this.parentPost = parentPost;
     }
 
-    public List<Post> getChildPosts() {
+    public Set<Post> getChildPosts() {
 
         return childPosts;
     }
 
-    public void setChildPosts(List<Post> childPosts) {
+    public void setChildPosts(Set<Post> childPosts) {
         this.childPosts = childPosts;
+    }
+
+    public List<RestLink> getRestLinks() {
+        return restLinks;
+    }
+
+    public void setRestLinks(List<RestLink> restLinks) {
+        this.restLinks = restLinks;
+    }
+
+    public void addLink(RestLink restLink) {
+        restLinks.add(restLink);
     }
 
     public Long getAuthorId() {
@@ -121,13 +139,24 @@ public class Post implements Serializable, Comparator<Post> {
     public int compare(Post o1, Post o2) {
         return o1.getPostTime().compareTo(o2.getPostTime());
     }
-    
+
     public String getAuthorImageURL() {
         authorImageURL = "/images/" + author.getUserImageName();
         return authorImageURL;
     }
-    
+
     public void setAuthorImageURL(String authorImageURL) {
         this.authorImageURL = authorImageURL;
+    }
+    
+    @Override
+    @JsonIgnore
+    public User getOwner() {
+        return this.author;
+    }
+    
+    @Override
+    public void setOwner(User user) {
+        this.author = user;
     }
 }

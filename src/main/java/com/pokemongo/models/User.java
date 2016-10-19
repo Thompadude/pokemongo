@@ -1,5 +1,7 @@
 package com.pokemongo.models;
 
+import com.pokemongo.utilities.RestLink;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,17 +23,16 @@ public class User implements Serializable {
     private Long id;
     private String userName;
     private String email;
-    private String tokenId;
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private Set<Pokemon> pokemons;
     private String userImageName;
-
     private String team;
+    @Transient
+    private List<RestLink> restLinks = new ArrayList<>();
 
     public User(String userName, String email, String tokenId) {
         this.userName = userName;
         this.email = email;
-        this.tokenId = tokenId;
         team = "none";
     }
 
@@ -82,14 +83,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getTokenId() {
-        return tokenId;
-    }
-
-    public void setTokenId(String tokenId) {
-        this.tokenId = tokenId;
-    }
-
     public String getTeam() {
         return team;
     }
@@ -109,5 +102,17 @@ public class User implements Serializable {
 
     public void setUserImageName(String userImageName) {
         this.userImageName = userImageName;
+    }
+    
+    public List<RestLink> getRestLinks() {
+        return restLinks;
+    }
+    
+    public void setRestLinks(List<RestLink> restLinks) {
+        this.restLinks = restLinks;
+    }
+    
+    public void addRestLink(RestLink restLink) {
+        this.restLinks.add(restLink);
     }
 }

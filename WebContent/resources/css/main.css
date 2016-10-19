@@ -490,11 +490,9 @@ a:hover {
   margin-top: 2rem; }
 
 .post--default {
-  background-color: #eeeeee;
   border: 1px solid #d1d1d1; }
 
 .post--comment {
-  background-color: #d1d1d1;
   border: 1px solid #b0b0b0; }
 
 .post__image {
@@ -512,7 +510,6 @@ a:hover {
   margin-top: 0; }
 
 .post__author {
-  color: #d1d1d1;
   font-size: 1rem;
   float: right; }
 

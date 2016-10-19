@@ -1,17 +1,21 @@
 package com.pokemongo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pokemongo.models.Interfaces.Ownable;
+import com.pokemongo.utilities.RestLink;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Pokemon.fetchAll", query = "SELECT p FROM Pokemon p"),
         @NamedQuery(name = "Pokemon.fetchPokemonByOwnerId", query = "SELECT p FROM Pokemon p WHERE p.owner.id=:id ORDER BY p.pokedexNumber")
 })
-public class Pokemon implements Serializable {
+public class Pokemon implements Serializable, Ownable {
 
     private static final long serialVersionUID = -1790191399726700022L;
 
@@ -33,6 +37,8 @@ public class Pokemon implements Serializable {
 
     @Transient // This is for json serialization, not for database
     private Long ownerId;
+    @Transient
+    private List<RestLink> restLinks = new ArrayList<>();
 
     public Pokemon() {
     }
@@ -118,5 +124,16 @@ public class Pokemon implements Serializable {
         ownerId = owner.getId();
         return ownerId;
     }
-
+    
+    public List<RestLink> getRestLinks() {
+        return restLinks;
+    }
+    
+    public void setRestLinks(List<RestLink> restLinks) {
+        this.restLinks = restLinks;
+    }
+    
+    public void addRestLink(RestLink restLink) {
+        this.restLinks.add(restLink);
+    }
 }
