@@ -15,26 +15,32 @@ function initMap() {
     map.addListener('click', function (event) {
         var pok_id = document.getElementById('pokemonForm:pokemonSelectMenuInner').value;
         pok_id++; //TODO: maybe figure out this odd ob1 error
-        addPokemonLatLong(parseFloat(event.latLng.lat()),
-            parseFloat(event.latLng.lng()), pok_id);
+        addPokemonMarker(parseFloat(event.latLng.lat()), parseFloat(event.latLng.lng()), pok_id);
         document.getElementById('input_pokemonForm:lat').value = event.latLng.lat();
         document.getElementById('input_pokemonForm:lng').value = event.latLng.lng();
     });
 }
 
+// If the user partially submitted a pokemon, get the old values.
 function initPokemon() {
-    var lat, lng;
+    var lat, lng, cp, hp, pokedex;
 
     lat = document.getElementById('input_pokemonForm:lat').value;
     lng = document.getElementById('input_pokemonForm:lng').value;
+    cp = document.getElementById('input_pokemonForm:cp').value;
+    hp = document.getElementById('input_pokemonForm:hp').value;
+    pokedex = document.getElementById('pokemonForm:pokemonSelectMenuInner').value;
+    pokedex++;
 
-    if (lat) {
-        addPokemonLatLong(lat, lng)
+    if (lat && lng && cp && hp) {
+        clearMarkers();
+    } else {
+        addPokemonMarker(lat, lng, pokedex);
     }
 }
 
 // Adds a marker to the map and push to the array.
-function addPokemonLatLong(lati, longi, pokeIndex) {
+function addPokemonMarker(lati, longi, pokeIndex) {
     // Delete previous marker while adding pokemon
     deleteMarkers();
 

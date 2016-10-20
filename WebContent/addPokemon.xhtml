@@ -9,7 +9,7 @@
     <!--styla h-->
     <h:form styleClass="postForm" id="pokemonForm">
 
-        <div class="messageBox messageDisplayBox">
+        <div class="messageBox">
             <b:messages globalOnly="true"/>
         </div>
 
@@ -21,7 +21,7 @@
         </div>
 
         <div class="button button--addPokemon">
-            <b:commandButton  ajax="true" update="@(.messageBox) @form @(.rightSection)" look="primary" value="Add Pokemon" action="#{pokemonController.savePokemon}"/>
+            <b:commandButton oncomplete="fadeOutMessageBox()" styleClass="addPokemonButton" ajax="true" update="@(.messageBox) @form @(.rightSection)" look="primary" value="Add Pokemon" action="#{pokemonController.savePokemon}"/>
         </div>
 
         <b:inputText placeholder="cp" id="cp" value="#{pokemonController.cp}"/>
