@@ -15,7 +15,7 @@
 
         <div class="inline">
             <b:selectOneMenu styleClass="selectMenu selectMenu--full" id="pokemonSelectMenu" value="#{pokemonController.pokedexNumber}">
-                <f:selectItems id="selectedPokemonMenu" value="#{pokemonController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}"
+                <f:selectItems id="selectedPokemonMenu" value="#{pokemonController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber.toString()}"
                                itemLabel="#{pokemon.pokedexNumber} - #{pokemon.name}"></f:selectItems>
             </b:selectOneMenu>
         </div>

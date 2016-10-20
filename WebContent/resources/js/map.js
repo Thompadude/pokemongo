@@ -2,7 +2,7 @@ var map;
 var markers = [];
 
 function initMap() {
-    var lat_lng = {lat: 57.70887000, lng: 11.97456000};
+	var lat_lng = {lat: 57.70887000, lng: 11.97456000};
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 18,
@@ -14,8 +14,8 @@ function initMap() {
 
     map.addListener('click', function (event) {
         var pok_id = document.getElementById('pokemonForm:pokemonSelectMenuInner').value;
-        pok_id++; //TODO: maybe figure out this odd ob1 error
-        addPokemonMarker(parseFloat(event.latLng.lat()), parseFloat(event.latLng.lng()), pok_id);
+	    addPokemonLatLong(parseFloat(event.latLng.lat()),
+				      parseFloat(event.latLng.lng()), pok_id);
         document.getElementById('input_pokemonForm:lat').value = event.latLng.lat();
         document.getElementById('input_pokemonForm:lng').value = event.latLng.lng();
     });
@@ -30,7 +30,6 @@ function initPokemon() {
     cp = document.getElementById('input_pokemonForm:cp').value;
     hp = document.getElementById('input_pokemonForm:hp').value;
     pokedex = document.getElementById('pokemonForm:pokemonSelectMenuInner').value;
-    pokedex++;
 
     if (lat && lng && cp && hp) {
         clearMarkers();
