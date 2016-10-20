@@ -21,7 +21,7 @@
         </div>
 
         <div class="button button--addPokemon">
-            <b:commandButton oncomplete="fadeOutMessageBox()" styleClass="addPokemonButton" ajax="true" update="@(.messageBox) @form @(.rightSection)" look="primary" value="Add Pokemon" action="#{pokemonController.savePokemon}"/>
+            <b:commandButton oncomplete="formCallback()" styleClass="addPokemonButton" ajax="true" update="@form @(.rightSection)" look="primary" value="Add Pokemon" action="#{pokemonController.savePokemon}"/>
         </div>
 
         <b:inputText placeholder="cp" id="cp" value="#{pokemonController.cp}"/>

@@ -3,6 +3,7 @@
 'use strict';
 
 const MAX_FILE_SIZE = 1024 * 1024;
+var selectedPokemon;
 
 $(document).ready(function () {
 
@@ -11,7 +12,7 @@ $(document).ready(function () {
         $('.userInfo__upload').slideToggle(200);
     });
 
-    $(document).on('click', '.addPokemonButton', function(){
+    $(document).on('click', '.addPokemonButton', function () {
         initPokemon();
     });
 
@@ -24,4 +25,9 @@ function checkFileSize(input) {
         document.getElementById("hiddenFileForm:hiddenFileButton").click();
         return false;
     }
+}
+
+function formCallback() {
+    document.getElementById('pokemonForm:pokemonSelectMenuInner').value = selectedPokemon;
+    fadeOutMessageBox();
 }

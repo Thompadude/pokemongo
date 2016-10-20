@@ -14,7 +14,7 @@ function initMap() {
 
     map.addListener('click', function (event) {
         var pok_id = document.getElementById('pokemonForm:pokemonSelectMenuInner').value;
-	    addPokemonLatLong(parseFloat(event.latLng.lat()),
+        addPokemonMarker(parseFloat(event.latLng.lat()),
 				      parseFloat(event.latLng.lng()), pok_id);
         document.getElementById('input_pokemonForm:lat').value = event.latLng.lat();
         document.getElementById('input_pokemonForm:lng').value = event.latLng.lng();
@@ -30,6 +30,7 @@ function initPokemon() {
     cp = document.getElementById('input_pokemonForm:cp').value;
     hp = document.getElementById('input_pokemonForm:hp').value;
     pokedex = document.getElementById('pokemonForm:pokemonSelectMenuInner').value;
+    selectedPokemon = pokedex;
 
     if (lat && lng && cp && hp) {
         clearMarkers();
