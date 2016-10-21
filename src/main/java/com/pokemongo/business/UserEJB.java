@@ -44,7 +44,6 @@ public class UserEJB implements UserHandler {
             setDefaultValues(user);
             saveUser(user);
         }
-
         return setLoggedInUser(user);
     }
     
@@ -95,7 +94,7 @@ public class UserEJB implements UserHandler {
         return isDuplicatedUser;
     }
 
-    private User fetchUserByEmail(String email) {
+    public User fetchUserByEmail(String email) {
         return userService.fetchUserByEmail(email);
     }
 }

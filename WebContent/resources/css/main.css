@@ -387,11 +387,11 @@ textarea {
   .userInfo__picture img {
     width: 100%; }
 
-.userInfo__uploadShower {
+.userInfo__uploadShower, .userInfo__changeTeam {
   text-align: right;
   cursor: pointer; }
 
-.userInfo__upload {
+.userInfo__upload, .userInfo__teamInfo {
   width: 100%;
   background-color: #eeeeee;
   border-radius: 5px;
@@ -399,7 +399,7 @@ textarea {
   padding: 10px;
   display: none; }
 
-.userInfo__upload__file, .userInfo__upload__button {
+.userInfo__upload__file, .userInfo__upload__button, .userInfo__select__teamt {
   display: inline-block; }
 
 .userInfo__text {
@@ -490,11 +490,9 @@ a:hover {
   margin-top: 2rem; }
 
 .post--default {
-  background-color: #eeeeee;
   border: 1px solid #d1d1d1; }
 
 .post--comment {
-  background-color: #d1d1d1;
   border: 1px solid #b0b0b0; }
 
 .post__image {
@@ -512,7 +510,6 @@ a:hover {
   margin-top: 0; }
 
 .post__author {
-  color: #d1d1d1;
   font-size: 1rem;
   float: right; }
 

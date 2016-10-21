@@ -14,6 +14,16 @@ $(document).ready(function() {
 
 });
 
+$(document).ready(function() {
+
+    // Toggle showing the upload field
+    $('.userInfo__changeTeam').click(function() {
+        $('.userInfo__teamInfo').slideToggle(200);
+    });
+
+
+});
+
 function checkFileSize(input){
     if(input.files && input.files[0].size > MAX_FILE_SIZE) {
         console.log("File too big!");

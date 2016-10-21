@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -27,6 +28,7 @@ public class UserController implements Serializable {
     private String tokenId;
     private List<Pokemon> pokemons;
 
+    private String theme;
     private String team;
 
     private String profileImageUrl;
@@ -51,6 +53,9 @@ public class UserController implements Serializable {
             User user = new User(userName, email, tokenId);
             isUserLoggedIn = userHandler.logIn(user);
         }
+
+        setTeam(userHandler.fetchUserByEmail(email).getTeam());
+
         return isUserLoggedIn;
     }
 
@@ -58,6 +63,15 @@ public class UserController implements Serializable {
         logger.debug("User is logging out");
         setIsUserLoggedIn(userHandler.logOut());
         return isUserLoggedIn;
+    }
+
+    public void changeTeam(ValueChangeEvent event) throws DatabaseException {
+        logger.debug("Change team method called");
+        User userToChange = userHandler.fetchUserByEmail(this.email);
+        String newTeam = (String) event.getNewValue();
+        setTeam(newTeam);
+        userToChange.setTeam(getTeam());
+        userHandler.saveUser(userToChange);
     }
     
     /* Getters and Setters */
@@ -110,6 +124,19 @@ public class UserController implements Serializable {
     public void setTeam(String team) {
         this.team = team;
     }
+
+    public String getTheme() {
+        if (team != null){
+            return team.toLowerCase() + ".css";
+        }else {
+            return team;
+        }
+    }
+
+    public void setTheme(String theme) {
+        team = theme;
+    }
+
     public String getProfileImageUrl() {
         profileImageUrl = "/images/" + userHandler.getLoggedInUser().getUserImageName();
         return profileImageUrl;

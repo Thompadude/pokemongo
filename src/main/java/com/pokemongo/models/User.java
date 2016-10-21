@@ -32,7 +32,6 @@ public class User implements Serializable {
         this.userName = userName;
         this.email = email;
         this.tokenId = tokenId;
-        team = "none";
     }
 
     public User(String userName, String email) {

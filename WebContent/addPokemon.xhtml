@@ -9,7 +9,7 @@
     <!--styla h-->
     <h:form styleClass="postForm" id="pokemonForm">
         <div class="inline">
-            <b:selectOneMenu styleClass="selectMenu selectMenu--full" id="pokemonSelectMenu" value="#{pokemonController.pokedexNumber}">
+            <b:selectOneMenu styleClass="selectMenu selectMenu--full transparent" id="pokemonSelectMenu" value="#{pokemonController.pokedexNumber}">
                 <f:selectItems id="selectedPokemonMenu" value="#{pokemonController.pokemonDataList}" var="pokemon" itemValue="#{pokemon.pokedexNumber}"
                                itemLabel="#{pokemon.pokedexNumber} - #{pokemon.name}"></f:selectItems>
             </b:selectOneMenu>
@@ -19,8 +19,8 @@
             <b:commandButton look="primary" value="Add Pokemon" action="#{pokemonController.savePokemon}"/>
         </div>
 
-        <b:inputText placeholder="cp" id="cp" value="#{pokemonController.cp}"/>
-        <b:inputText placeholder="hp" id="hp" value="#{pokemonController.hp}"/>
+        <b:inputText placeholder="cp" id="cp" value="#{pokemonController.cp}" styleClass="transparent"/>
+        <b:inputText placeholder="hp" id="hp" value="#{pokemonController.hp}" styleClass="transparent"/>
         <b:inputText styleClass="input--hidden" placeholder="lat" id="lat" value="#{pokemonController.lat}"/>
         <b:inputText styleClass="input--hidden" placeholder="lng" id="lng" value="#{pokemonController.lng}"/>
 
