@@ -2,15 +2,18 @@ package com.pokemongo.business;
 
 import com.pokemongo.business.interfaces.FileHandler;
 import com.pokemongo.business.interfaces.UserHandler;
+import com.pokemongo.controllers.PostController;
 import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.exceptions.FileTypeException;
 import com.pokemongo.models.User;
+import com.pokemongo.services.PostService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
 import javax.servlet.http.Part;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -26,6 +29,11 @@ public class FileEJB implements FileHandler {
     
     @EJB
     UserHandler userHandler;
+
+    @Inject
+    private PostController postController;
+    @EJB
+    private PostService postService;
     
     private static Logger logger = LogManager.getLogger(FileEJB.class);
     
@@ -72,7 +80,9 @@ public class FileEJB implements FileHandler {
                 //Save the filename with the user for later use
                 currentUser.setUserImageName(id + extension);
                 userHandler.saveUser(currentUser);
-        
+
+                postController.setPosts(postService.fetchPostsWithoutParent());
+
                 logger.debug("Image uploaded successfully");
         
             } catch (IOException e) {

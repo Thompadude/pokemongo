@@ -148,13 +148,13 @@ public class Post implements Serializable, Comparator<Post>,Ownable {
     public void setAuthorImageURL(String authorImageURL) {
         this.authorImageURL = authorImageURL;
     }
-    
+
     @Override
     @JsonIgnore
     public User getOwner() {
         return this.author;
     }
-    
+
     @Override
     public void setOwner(User user) {
         this.author = user;
