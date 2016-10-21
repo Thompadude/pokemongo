@@ -34,24 +34,6 @@
         </b:navbarLinks>
     </b:navBar>
 
-    <!--TODO: remove later For testing purposes-->
-    <div class="container">
-
-        <h:form>
-            <h:commandButton value="Blue" styleClass="btn btn-primary">
-                <f:setPropertyActionListener target="#{userController.team}" value="blue" />
-            </h:commandButton>
-            <h:commandButton value="Yellow" styleClass="btn btn-warning">
-                <f:setPropertyActionListener target="#{userController.team}" value="yellow" />
-            </h:commandButton>
-            <h:commandButton value="Red" styleClass="btn btn-danger">
-                <f:setPropertyActionListener target="#{userController.team}" value="red" />
-            </h:commandButton>
-
-        </h:form>
-
-    </div>
-
     <b:container>
         <b:row>
 
@@ -151,7 +133,7 @@
             <!--Right Section-->
             <b:column mediumScreen="6" styleClass="rightSection">
 
-                <ui:include src="allPokemons.xhtml"/>
+                <div id="mapAllPokemon" class="pokemonMap"></div>
 
             </b:column>
 
