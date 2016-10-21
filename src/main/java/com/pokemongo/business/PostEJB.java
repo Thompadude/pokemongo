@@ -68,6 +68,8 @@ public class PostEJB implements PostHandler {
     private void validatePost(Post post) throws FormException {
         if (post.getParentPost() == null && post.getTitle().length() < 5) {
             throw new FormException("Title must be more than four characters.");
+        } else if (post.getTitle().length() > 45) {
+            throw new FormException("Title must not be more than 45 characters.");
         } else if (post.getContent().length() < 11) {
             throw new FormException("Content must be more than 10 characters.");
         }
