@@ -47,8 +47,8 @@ function addPokemonMarker(lati, longi, pokeIndex) {
     // Set the coords in the hidden input fields
     setCoords(longi, lati);
 
-    // Fetch and set the image for the marker
-    var imageLink = setImageLink(pokeIndex);
+    // Fetch and set the icon for the marker
+    var icon = getIcon(pokeIndex);
 
     // Create the marker
     var marker = new google.maps.Marker({
@@ -57,7 +57,7 @@ function addPokemonMarker(lati, longi, pokeIndex) {
             lng: parseFloat(longi)
         },
         map: map,
-        icon: imageLink,
+        icon: icon,
         draggable: true,
         title: "Pokemon!"
     });
@@ -76,8 +76,15 @@ function setCoords(longi, lati) {
     document.getElementById('input_pokemonForm:lat').value = lati;
 }
 
-function setImageLink(index) {
+function getImageLink(index) {
     return '/PokeMongo/javax.faces.resource/pokemonImages/' + index + '.png.xhtml?ln=img';
+}
+
+function getIcon(pokeIndex) {
+    return {
+        url: getImageLink(pokeIndex),
+        scaledSize: new google.maps.Size(40, 40)
+    }
 }
 
 // Sets the map on all markers in the array
