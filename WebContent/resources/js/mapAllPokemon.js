@@ -3,7 +3,7 @@ var markers = [];
 var pokemonList = [];
 
 // Get the list of user added pokemon via RESTful
-$.get('http://localhost:8080/PokeMongo/rest/pokemon', 'application/json',
+$.get('http://localhost:8080/PokeMongo/rest/pokemon/newest', 'application/json',
     function (response) {
         pokemonList = response;
         populateMap();
@@ -38,7 +38,11 @@ function getMarker(pokemon, icon) {
         mapAllPokemon: mapAllPokemon,
         icon: icon,
         draggable: false,
-        title: pokemon.name + "\nHP: " + pokemon.healthPoints + "\nCP: " + pokemon.combatPower
+        title: pokemon.name + "\nHP: "
+        + pokemon.healthPoints + "\nCP: "
+        + pokemon.combatPower + "\nCatched @ "
+        + pokemon.timeAdded.hour + ":"
+        + pokemon.timeAdded.minute
     });
 }
 
