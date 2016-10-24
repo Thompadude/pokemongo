@@ -103,15 +103,15 @@ public class User implements Serializable {
     public void setUserImageName(String userImageName) {
         this.userImageName = userImageName;
     }
-    
+
     public List<RestLink> getRestLinks() {
         return restLinks;
     }
-    
+
     public void setRestLinks(List<RestLink> restLinks) {
         this.restLinks = restLinks;
     }
-    
+
     public void addRestLink(RestLink restLink) {
         this.restLinks.add(restLink);
     }

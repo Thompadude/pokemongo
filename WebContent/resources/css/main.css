@@ -387,11 +387,11 @@ textarea {
   .userInfo__picture img {
     width: 100%; }
 
-.userInfo__uploadShower {
+.userInfo__uploadShower, .userInfo__changeTeam {
   text-align: right;
   cursor: pointer; }
 
-.userInfo__upload {
+.userInfo__upload, .userInfo__teamInfo {
   width: 100%;
   background-color: #eeeeee;
   border-radius: 5px;
@@ -399,7 +399,7 @@ textarea {
   padding: 10px;
   display: none; }
 
-.userInfo__upload__file, .userInfo__upload__button {
+.userInfo__upload__file, .userInfo__upload__button, .userInfo__select__teamt {
   display: inline-block; }
 
 .userInfo__text {

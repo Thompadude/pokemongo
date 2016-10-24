@@ -14,7 +14,7 @@
     <title>PokeMongo</title>
 
     <h:outputStylesheet library="css" name="main.css" ></h:outputStylesheet>
-    <h:outputStylesheet library="css" name="#{userController.team}.css" position="last"></h:outputStylesheet>
+    <h:outputStylesheet class="theme" library="css" name="#{userController.theme}" position="last"></h:outputStylesheet>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async="async" defer="defer"></script>
@@ -30,27 +30,9 @@
         </b:navbarLinks>
         <b:navbarLinks pull="right">
             <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-            <a href="#" onclick="signOut();">Sign out</a>
+            <a href="#" onclick="signOut()">Sign out</a>
         </b:navbarLinks>
     </b:navBar>
-
-    <!--TODO: remove later For testing purposes-->
-    <div class="container">
-
-        <h:form>
-            <h:commandButton value="Blue" styleClass="btn btn-primary">
-                <f:setPropertyActionListener target="#{userController.team}" value="blue" />
-            </h:commandButton>
-            <h:commandButton value="Yellow" styleClass="btn btn-warning">
-                <f:setPropertyActionListener target="#{userController.team}" value="yellow" />
-            </h:commandButton>
-            <h:commandButton value="Red" styleClass="btn btn-danger">
-                <f:setPropertyActionListener target="#{userController.team}" value="red" />
-            </h:commandButton>
-
-        </h:form>
-
-    </div>
 
     <b:container>
         <b:row>
@@ -70,8 +52,7 @@
                         <b:inputText styleClass="transparent" placeholder="Post title" id="title" value="#{postController.title}"/>
                         <b:inputTextarea styleClass="transparent" placeholder="Write new post..." id="content" value="#{postController.content}"/>
 
-                        <!--TODO refactor the css name-->
-                        <div class="button button--post normal">
+                        <div class="button button--post">
                             <b:commandButton value="Post!" look="primary" action="#{postController.savePost}"/>
                         </div>
                     </c:if>
@@ -157,6 +138,8 @@
 
         </b:row>
     </b:container>
+
+   <h:inputHidden id="theme" value="#{userController.theme}"></h:inputHidden>
 
     <h:form id="hiddenGoogleLoginForm">
         <h:inputText id="userName" value="#{userController.userName}"></h:inputText>

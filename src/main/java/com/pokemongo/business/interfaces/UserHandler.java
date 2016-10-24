@@ -23,4 +23,6 @@ public interface UserHandler {
     User getLoggedInUser();
 
     boolean setLoggedInUser(User loggedInUser);
+
+    User fetchUserByEmail(String email);
 }

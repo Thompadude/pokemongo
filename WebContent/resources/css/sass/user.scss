@@ -28,12 +28,12 @@
     }
 }
 
-.userInfo__uploadShower {
+.userInfo__uploadShower, .userInfo__changeTeam {
     text-align: right;
     cursor: pointer;
 }
 
-.userInfo__upload {
+.userInfo__upload, .userInfo__teamInfo {
     width: 100%;
 
     background-color: $lightGrey;
@@ -45,7 +45,7 @@
     display: none;
 }
 
-.userInfo__upload__file, .userInfo__upload__button {
+.userInfo__upload__file, .userInfo__upload__button, .userInfo__select__team {
     display: inline-block;
 }
 
@@ -111,4 +111,5 @@
 
     margin-right: 2rem;
 }
+
 
