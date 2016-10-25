@@ -57,7 +57,6 @@ public class PokemonRestProvider {
         if (pokemonList.isEmpty())
             return Response.status(Response.Status.NO_CONTENT).build();
 
-        System.out.println("*TEMPLOG* pokemonList size in REST: " + pokemonList.size());
         return Response.status(Response.Status.OK).entity(pokemonList).build();
     }
 

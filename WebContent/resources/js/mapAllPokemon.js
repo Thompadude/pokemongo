@@ -2,12 +2,16 @@ var mapAllPokemon;
 var markers = [];
 var pokemonList = [];
 
+setPokemonList();
+
 // Get the list of user added pokemon via RESTful
-$.get('http://localhost:8080/PokeMongo/rest/pokemon/newest', 'application/json',
-    function (response) {
-        pokemonList = response;
-        populateMap();
-    });
+function setPokemonList() {
+    $.get('http://localhost:8080/PokeMongo/rest/pokemon/newest', 'application/json',
+        function (response) {
+            pokemonList = response;
+            populateMap();
+        });
+}
 
 // Initialize the Google map
 function initMap() {
@@ -86,3 +90,9 @@ function deleteMarkers() {
     clearMarkers();
     markers = [];
 }
+
+// Every second, update the list of pokemon
+setInterval(function () {
+    clearMarkers();
+    setPokemonList();
+}, 60000);
