@@ -36,6 +36,8 @@ public class UserEJB implements UserHandler {
     private void setDefaultValues(User user) {
         //Default profile picture
         user.setUserImageName("default.png");
+        //default team
+        user.setTeam("none");
     }
     
     @Override

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <meta name="google-signin-scope" content="profile email"></meta>
+    <meta name="google-signin-client_id" content="85390473584-aead42mt4mhtf5d2brevqd0dan46s0d7.apps.googleusercontent.com"></meta>
+
+    <title>PokeMongo</title>
+
+    <h:outputStylesheet library="css" name="main.css" ></h:outputStylesheet>
+    <h:outputStylesheet class="theme" library="css" name="#{userController.theme}" position="last"></h:outputStylesheet>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async="async" defer="defer"></script>
+    <h:outputScript library="js" name="posts.js"></h:outputScript>
+
+</h:head>
+<h:body>
+
+    <!-- NavBar -->
+    <b:navBar brand="PokeMongo" brandHref="/PokeMongo" position="top" sticky="false">
+        <b:navbarLinks>
+            <b:navLink value="My Profile" href="/PokeMongo/user"></b:navLink>
+        </b:navbarLinks>
+        <b:navbarLinks pull="right">
+            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+            <a href="#" onclick="signOut()">Sign out</a>
+        </b:navbarLinks>
+    </b:navBar>
+
+    <p>Invalid google token</p>
+
+    <h:inputHidden id="theme" value="#{userController.theme}"></h:inputHidden>
+
+    <h:form id="hiddenGoogleLoginForm">
+        <h:inputText id="userName" value="#{userController.userName}"></h:inputText>
+        <h:inputText id="email" value="#{userController.email}"></h:inputText>
+        <h:inputText id="tokenId" value="#{userController.tokenId}"></h:inputText>
+        <!--TODO remove or use the addPokemonForm class?-->
+        <b:commandButton styleClass="logInButton" ajax="true" update="@(.postForm) @(.addPokemonForm)" action="#{userController.validateBeforeLogin}"></b:commandButton>
+        <b:commandButton styleClass="logOutButton" ajax="true" update="@(.postForm) @(.addPokemonForm)" action="#{userController.logOut}"></b:commandButton>
+    </h:form>
+
+</h:body>
+
+<h:outputScript library="js" name="googleLogin.js"></h:outputScript>
+<script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?signed_in=true&amp;callback=initMap&amp;key=AIzaSyCgXXGotMPSlX-ZFpAGWt51_4cMQPWADuI"></script>
+<h:outputScript library="js" name="mapAllPokemon.js"></h:outputScript>
+<h:outputScript library="js" name="messageBox.js"></h:outputScript>
+
+</html>

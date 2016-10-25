@@ -46,6 +46,7 @@ public class UserService {
 
     public User fetchUserByEmail(String email) {
         logger.debug("Fetching user by e-mail");
+
         return em.createNamedQuery("User.fetchByEmail", User.class).setParameter("email", email).getSingleResult();
     }
 

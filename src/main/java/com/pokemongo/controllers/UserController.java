@@ -5,15 +5,19 @@ import com.pokemongo.business.interfaces.UserHandler;
 import com.pokemongo.exceptions.DatabaseException;
 import com.pokemongo.models.Pokemon;
 import com.pokemongo.models.User;
+import com.pokemongo.utilities.GoogleAuthenticator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
+import java.io.IOException;
 import java.io.Serializable;
+import java.security.GeneralSecurityException;
 import java.util.List;
 
 @Named(value = "userController")
@@ -39,6 +43,8 @@ public class UserController implements Serializable {
 
     private static Logger logger = LogManager.getLogger(UserController.class);
 
+    GoogleAuthenticator googleAuthenticator;
+
     @PostConstruct
     public void init() {
 
@@ -47,16 +53,50 @@ public class UserController implements Serializable {
         isUserLoggedIn = false;
     }
 
-    public boolean logIn() throws DatabaseException {
-        if (!isUserLoggedIn) {
-            logger.debug("User is logging in");
-            User user = new User(userName, email, tokenId);
-            isUserLoggedIn = userHandler.logIn(user);
+    public void validateBeforeLogin() throws IOException {
+        googleAuthenticator = new GoogleAuthenticator();
+
+        boolean isGoogleTokenValid = googleAuthenticator.verifyToken(tokenId);
+
+        if (isGoogleTokenValid){
+
+            try {
+                logIn(googleAuthenticator.getValidatedUser());
+            } catch (DatabaseException e) {
+                e.printStackTrace();
+            }
+
+        }else {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("invalidToken.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
-        setTeam(userHandler.fetchUserByEmail(email).getTeam());
+    }
 
-        return isUserLoggedIn;
+
+    public boolean logIn(User user) throws DatabaseException {
+
+            if (isUserLoggedIn == false) {
+                System.out.println("Hej hej för fan");
+                logger.debug("User is logging in");
+                isUserLoggedIn = userHandler.logIn(user);
+                User currentUser = userHandler.fetchUserByEmail(user.getEmail());
+                setUserName(currentUser.getUserName());
+                setEmail(currentUser.getEmail());
+                setTeam(currentUser.getTeam());
+
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return isUserLoggedIn;
+
     }
 
     public boolean logOut() {
@@ -67,7 +107,7 @@ public class UserController implements Serializable {
 
     public void changeTeam(ValueChangeEvent event) throws DatabaseException {
         logger.debug("Change team method called");
-        User userToChange = userHandler.fetchUserByEmail(this.email);
+        User userToChange = userHandler.fetchUserByEmail(email);
         String newTeam = (String) event.getNewValue();
         setTeam(newTeam);
         userToChange.setTeam(getTeam());
@@ -123,6 +163,7 @@ public class UserController implements Serializable {
 
     public void setTeam(String team) {
         this.team = team;
+        setTheme(team);
     }
 
     public String getTheme() {
