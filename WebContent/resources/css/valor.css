@@ -1,61 +1,29 @@
-body {
-    background-image: url("#{resource['img/red.png']}");
-    background-size: cover;
-    background-repeat: no-repeat;
-}
+.colorizer {
+  background-color: #4b1914;
+  mix-blend-mode: overlay;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  pointer-events: none;
+  width: 100%;
+  height: 100%; }
 
-.fullColor {
-    background-color: #F7535A;
-    color: #FFF;
-}
+.navbar {
+  background-color: #cc402a; }
 
-.transparent {
-    background-color: rgba(247,83,90,.8);
-    color: #FFF;
-}
+.navbar-default .navbar-brand, .navbar-default .navbar-nav li a {
+  color: #f9f9f9; }
+  .navbar-default .navbar-brand:hover, .navbar-default .navbar-nav li a:hover {
+    color: #f9f9f9;
+    text-decoration: underline; }
 
-.btn-primary{
-    background-color: #F7535A;
-    color: #FFF;
-    border-color: #FFF;
-}
+.signOutButton {
+  color: #f9f9f9; }
+  .signOutButton:hover {
+    color: #f9f9f9;
+    text-decoration: underline; }
 
-.textOnly{
-    color: #FFF;
-}
-
-.button__badge {
-    background-color: #FFF;
-    color: #F7535A;
-}
-
-.navbar-default{
-    background: transparent;
-    border-color: transparent;
-}
-
-.navbar-default .navbar-brand {
-    background-color: #F7535A;
-    border: 1px solid #000;
-    color: #ffffff;
-}
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus {
-    background-color: rgba(247,83,90,.6);
-    border: 1px solid #000;
-    color: #fff;
-}
-.navbar-default .navbar-text {
-    color: #ffffff;
-}
-.navbar-default .navbar-nav > li > a {
-    border: 1px solid #000;
-    background-color: #F7535A;
-    color: #ffffff;
-}
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-    background-color: rgba(247,83,90,.6);
-    border: 1px solid #000;
-    color: #fff;
-}
+/*# sourceMappingURL=valor.css.map */

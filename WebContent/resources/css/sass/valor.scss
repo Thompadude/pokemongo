@@ -1,0 +1,43 @@
+$lightText: #f9f9f9;
+
+$creamyRed: #cc402a;
+$darkRed: #4b1914;
+
+.colorizer {
+  background-color: $darkRed;
+  mix-blend-mode: overlay;
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 5;
+  pointer-events: none;
+
+  width: 100%;
+  height: 100%;
+}
+
+.navbar {
+  background-color: $creamyRed;
+}
+
+.navbar-default {
+  .navbar-brand, .navbar-nav li a {
+    color: $lightText;
+    &:hover {
+      color: $lightText;
+      text-decoration: underline;
+    }
+  }
+}
+
+.signOutButton {
+  color: $lightText;
+  &:hover {
+    color: $lightText;
+    text-decoration: underline;
+  }
+}

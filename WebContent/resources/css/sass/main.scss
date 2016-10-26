@@ -18,7 +18,7 @@ html {
   margin-bottom: 10rem;
 }
 
-@media screen and (max-width: 992px){
+@media screen and (max-width: 992px) {
   html {
     margin-bottom: 90%;
   }
@@ -28,6 +28,16 @@ html {
   .container {
     margin-left: $defaultMargin !important;
   }
+}
+
+.navbar .navbar-default {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  background: $lightGrey none;
+}
+
+.g-signin2{
+  display: inline-block;
 }
 
 .leftSection {
@@ -125,8 +135,8 @@ a:hover {
 }
 
 .post__author {
-    font-size: 1rem;
-    float: right;
+  font-size: 1rem;
+  float: right;
 }
 
 .post__content {
@@ -223,7 +233,7 @@ a:hover {
   left: 0;
   top: 0;
   width: 100%;
-  height:100%;
+  height: 100%;
 
   z-index: 0;
 

@@ -399,7 +399,7 @@ textarea {
   padding: 10px;
   display: none; }
 
-.userInfo__upload__file, .userInfo__upload__button, .userInfo__select__teamt {
+.userInfo__upload__file, .userInfo__upload__button, .userInfo__select__team {
   display: inline-block; }
 
 .userInfo__text {
@@ -456,6 +456,14 @@ html {
 @media screen and (min-width: 993px) {
   .container {
     margin-left: 15px !important; } }
+.navbar .navbar-default {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  background: #eeeeee none; }
+
+.g-signin2 {
+  display: inline-block; }
+
 .leftSection {
   z-index: 10;
   background-color: rgba(255, 255, 255, 0.5);
