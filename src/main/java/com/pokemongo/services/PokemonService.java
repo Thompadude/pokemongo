@@ -9,6 +9,7 @@ import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Stateful
@@ -34,7 +35,7 @@ public class PokemonService {
     public List<Pokemon> fetchPokemonByOwnerId(Long id) {
         return em.createNamedQuery("Pokemon.fetchPokemonByOwnerId").setParameter("id", id).getResultList();
     }
-    
+
     public Pokemon fetchPokemonById(Long id) {
         try {
             logger.debug("Fetching Pokemon by id");
@@ -43,6 +44,12 @@ public class PokemonService {
             logger.error(e.getMessage());
             return null;
         }
+    }
+
+    public List<Pokemon> fetchNewestPokemon() {
+        return em.createNamedQuery("Pokemon.fetchNewest").setParameter("date", LocalDateTime.now()
+                .minusMinutes(30L))
+                .getResultList();
     }
 
 }
