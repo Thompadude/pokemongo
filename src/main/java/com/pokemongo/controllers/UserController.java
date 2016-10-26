@@ -63,14 +63,14 @@ public class UserController implements Serializable {
             try {
                 logIn(googleAuthenticator.getValidatedUser());
             } catch (DatabaseException e) {
-                e.printStackTrace();
+                logger.error("Error in getting validated user");
             }
 
         }else {
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("invalidToken.xhtml");
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Error while redirecting to invalidToken page");
             }
         }
 
@@ -91,7 +91,7 @@ public class UserController implements Serializable {
                 try {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error("Error while updating index when ligging in");
                 }
             }
 
