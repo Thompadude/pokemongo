@@ -25,4 +25,6 @@ public class PokemonSoapProvider {
         return pokemonDataService.fetchPokemonData(pokedexNr);
     }
 
+
+
 }

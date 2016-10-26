@@ -20,7 +20,7 @@ public class PokemonRestProvider {
     @EJB
     private PokemonService pokemonService;
     private RestLinkBuilder<PokemonRestProvider> pokemonRestLinkBuilder = new RestLinkBuilder<>(PokemonRestProvider.class);
-    
+
     @GET
     @Produces("application/json")
     public Response getAllPokemon() {
@@ -32,20 +32,32 @@ public class PokemonRestProvider {
 
         return Response.status(Response.Status.OK).entity(pokemonList).build();
     }
-    
+
     @GET
     @Path("/{id}")
     @Produces("application/json")
     public Response getPokemonById(@PathParam("id") Long id, @Context UriInfo uriInfo) {
         Pokemon pokemon = pokemonService.fetchPokemonById(id);
-        
+
         if (pokemon == null)
             return Response.status(Response.Status.NO_CONTENT).build();
-    
+
         pokemon.addRestLink(pokemonRestLinkBuilder.getSelfLink(pokemon.getId(), uriInfo));
         pokemon.addRestLink(pokemonRestLinkBuilder.getUserLink(pokemon, uriInfo, "Owner"));
-        
+
         return Response.status(Response.Status.OK).entity(pokemon).build();
+    }
+
+    @GET
+    @Path("/newest")
+    @Produces("application/json")
+    public Response getNewestPokemon() {
+        List<Pokemon> pokemonList = pokemonService.fetchNewestPokemon();
+
+        if (pokemonList.isEmpty())
+            return Response.status(Response.Status.NO_CONTENT).build();
+
+        return Response.status(Response.Status.OK).entity(pokemonList).build();
     }
 
 }

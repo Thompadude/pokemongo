@@ -5,6 +5,7 @@ import com.pokemongo.models.Interfaces.Ownable;
 import com.pokemongo.utilities.RestLink;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,7 +41,6 @@ public class Post implements Serializable, Comparator<Post>,Ownable {
     private Post parentPost;
     @OneToMany(mappedBy = "parentPost", fetch = FetchType.EAGER)
     private Set<Post> childPosts;
-
     @Transient
     private List<RestLink> restLinks = new ArrayList<>();
     @Transient
@@ -101,6 +101,7 @@ public class Post implements Serializable, Comparator<Post>,Ownable {
         return this.postTime.format(dateTimeFormatter);
     }
 
+    @XmlTransient
     public Post getParentPost() {
         return parentPost;
     }
