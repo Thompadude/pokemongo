@@ -1,18 +1,20 @@
 .colorizer {
-  background-color: #4b1914;
-  mix-blend-mode: overlay;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 5;
-  pointer-events: none;
-  width: 100%;
-  height: 100%; }
+  background-color: #642c1b; }
 
-.navbar {
+.navbar, .userInfo__picture, .rightSection .mainPanel {
   background-color: #cc402a; }
+
+button.btn-primary {
+  background-color: #cc402a;
+  border-color: #4b1914; }
+  button.btn-primary:hover {
+    background-color: #4b1914; }
+
+.button--search, .button--reset {
+  color: #4b1914; }
+
+.pokemonTitle {
+  color: #f9f9f9; }
 
 .navbar-default .navbar-brand, .navbar-default .navbar-nav li a {
   color: #f9f9f9; }
