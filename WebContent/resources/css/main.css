@@ -454,7 +454,7 @@ html {
   html {
     margin-bottom: 90%; } }
 @media screen and (min-width: 993px) {
-  .container {
+  .indexContainer {
     margin-left: 15px !important; } }
 .navbar .navbar-default {
   box-shadow: none;

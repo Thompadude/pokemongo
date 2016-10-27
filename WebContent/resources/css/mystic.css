@@ -1,7 +1,7 @@
 .colorizer {
   background-color: #1d3264; }
 
-.navbar, .userInfo__picture, .rightSection .mainPanel {
+.navbar, .userInfo__picture, .pokemonInfoBox__image {
   background-color: #5683c5; }
 
 button.btn-primary {
