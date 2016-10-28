@@ -79,8 +79,7 @@ public class UserController implements Serializable {
 
     public boolean logIn(User user) throws DatabaseException {
 
-            if (isUserLoggedIn == false) {
-                System.out.println("Hej hej för fan");
+            if (!isUserLoggedIn) {
                 logger.debug("User is logging in");
                 isUserLoggedIn = userHandler.logIn(user);
                 User currentUser = userHandler.fetchUserByEmail(user.getEmail());
@@ -91,7 +90,7 @@ public class UserController implements Serializable {
                 try {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
                 } catch (IOException e) {
-                    logger.error("Error while updating index when ligging in");
+                    logger.error("Error while updating index when logging in");
                 }
             }
 
@@ -107,7 +106,7 @@ public class UserController implements Serializable {
 
     public void changeTeam(ValueChangeEvent event) throws DatabaseException {
         logger.debug("Change team method called");
-        User userToChange = userHandler.fetchUserByEmail(email);
+        User userToChange = userHandler.getLoggedInUser();
         String newTeam = (String) event.getNewValue();
         setTeam(newTeam);
         userToChange.setTeam(getTeam());
