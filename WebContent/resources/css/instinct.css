@@ -1,61 +1,31 @@
-body {
-    background-image: url("#{resource['img/yellow.png']}");
-    background-size: cover;
-    background-repeat: no-repeat;
-}
+.colorizer {
+  background-color: #766f37; }
 
-.fullColor {
-    background-color: #EEEF2F;
-    color: #000;
-}
+.navbar, .userInfo__picture, .pokemonInfoBox__image {
+  background-color: #ebd962; }
 
-.transparent {
-    background-color: rgba(238,239,47,.8);
-    color: #000;
-}
+button.btn-primary {
+  background-color: #ebd962;
+  border-color: #5a3f16; }
+  button.btn-primary:hover {
+    background-color: #5a3f16; }
 
-.btn-primary{
-    background-color: #EEEF2F;
-    color: #000;
-    border-color: #000;
-}
+.button--search, .button--reset {
+  color: #5a3f16; }
 
-.textOnly{
-    color: #000;
-}
+.pokemonTitle {
+  color: #3b2e0d; }
 
-.button__badge {
-    background-color: #000;
-    color: #EEEF2F;
-}
+.navbar-default .navbar-brand, .navbar-default .navbar-nav li a {
+  color: #3b2e0d; }
+  .navbar-default .navbar-brand:hover, .navbar-default .navbar-nav li a:hover {
+    color: #3b2e0d;
+    text-decoration: underline; }
 
-.navbar-default{
-    background: transparent;
-    border-color: transparent;
-}
+.signOutButton {
+  color: #3b2e0d; }
+  .signOutButton:hover {
+    color: #3b2e0d;
+    text-decoration: underline; }
 
-.navbar-default .navbar-brand {
-    background-color: #EEEF2F;
-    border: 1px solid #000;
-    color: #000;
-}
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus {
-    background-color: rgba(238,239,47,.6);
-    border: 1px solid #000;
-    color: #000;
-}
-.navbar-default .navbar-text {
-    color: #ffffff;
-}
-.navbar-default .navbar-nav > li > a {
-    border: 1px solid #000;
-    background-color: #EEEF2F;
-    color: #000;
-}
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-    background-color: rgba(238,239,47,.6);
-    border: 1px solid #000;
-    color: #000;
-}
+/*# sourceMappingURL=instinct.css.map */

@@ -1,0 +1,47 @@
+$textColor: #3b2e0d;
+
+$primary: #ebd962;
+$darkPrimary: #5a3f16;
+$overlayColor: #766f37;
+
+.colorizer {
+  background-color: $overlayColor;
+}
+
+.navbar, .userInfo__picture, .pokemonInfoBox__image {
+  background-color: $primary;
+}
+
+button.btn-primary {
+  background-color: $primary;
+  border-color: $darkPrimary;
+  &:hover {
+    background-color: $darkPrimary;
+  }
+}
+
+.button--search, .button--reset {
+  color: $darkPrimary;
+}
+
+.pokemonTitle {
+  color: $textColor;
+}
+
+.navbar-default {
+  .navbar-brand, .navbar-nav li a {
+    color: $textColor;
+    &:hover {
+      color: $textColor;
+      text-decoration: underline;
+    }
+  }
+}
+
+.signOutButton {
+  color: $textColor;
+  &:hover {
+    color: $textColor;
+    text-decoration: underline;
+  }
+}

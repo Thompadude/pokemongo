@@ -9,11 +9,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <meta name="google-signin-scope" content="profile email"></meta>
-    <meta name="google-signin-client_id" content="85390473584-aead42mt4mhtf5d2brevqd0dan46s0d7.apps.googleusercontent.com"></meta>
+    <meta name="google-signin-client_id"
+          content="85390473584-aead42mt4mhtf5d2brevqd0dan46s0d7.apps.googleusercontent.com"></meta>
 
     <title>PokeMongo</title>
 
-    <h:outputStylesheet library="css" name="main.css" ></h:outputStylesheet>
+    <h:outputStylesheet library="css" name="main.css"></h:outputStylesheet>
     <h:outputStylesheet class="theme" library="css" name="#{userController.theme}" position="last"></h:outputStylesheet>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -23,18 +24,23 @@
 </h:head>
 <h:body>
 
+    <div class="colorizer">
+
+    </div>
+
     <!-- NavBar -->
     <b:navBar brand="PokeMongo" brandHref="/PokeMongo" position="top" sticky="false">
         <b:navbarLinks>
             <b:navLink value="My Profile" href="/PokeMongo/user"></b:navLink>
         </b:navbarLinks>
         <b:navbarLinks pull="right">
-            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-            <a href="#" onclick="signOut()">Sign out</a>
+            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="light"></div>
+            <b:navLink value="Sign Out" onclick="signOut()">
+            </b:navLink>
         </b:navbarLinks>
     </b:navBar>
 
-    <b:container>
+    <b:container styleClass="indexContainer">
         <b:row>
 
             <!--Left Section-->
@@ -49,8 +55,10 @@
                 <!-- New Post Form -->
                 <h:form styleClass="postForm" id="searchForm">
                     <c:if test="#{userController.isUserLoggedIn}">
-                        <b:inputText styleClass="transparent" placeholder="Post title" id="title" value="#{postController.title}"/>
-                        <b:inputTextarea styleClass="transparent" placeholder="Write new post..." id="content" value="#{postController.content}"/>
+                        <b:inputText styleClass="transparent" placeholder="Post title" id="title"
+                                     value="#{postController.title}"/>
+                        <b:inputTextarea styleClass="transparent" placeholder="Write new post..." id="content"
+                                         value="#{postController.content}"/>
 
                         <div class="button button--post">
                             <b:commandButton value="Post!" look="primary" action="#{postController.savePost}"/>
@@ -60,7 +68,8 @@
 
                 <h:form>
                     <label class="label label--postOrder textOnly">Order By:</label>
-                    <b:selectOneMenu styleClass="selectMenu selectMenu--small transparent" valueChangeListener="#{postController.setPostSortOrder}" onchange="submit()">
+                    <b:selectOneMenu styleClass="selectMenu selectMenu--small transparent"
+                                     valueChangeListener="#{postController.setPostSortOrder}" onchange="submit()">
                         <f:selectItem itemLabel="Date" itemValue="date"></f:selectItem>
                         <f:selectItem itemLabel="Comments" itemValue="comments"></f:selectItem>
                     </b:selectOneMenu>
@@ -81,7 +90,8 @@
 
                                             <div class="post__title">
                                                 <h:outputText value="#{post.title}"/>
-                                                <h:outputText styleClass="post__author" value="Posted by: #{post.author.userName} @ #{post.getPostTimeAsString()}"/>
+                                                <h:outputText styleClass="post__author"
+                                                              value="Posted by: #{post.author.userName} @ #{post.getPostTimeAsString()}"/>
                                             </div>
 
                                             <div class="post__content">
@@ -90,7 +100,8 @@
 
                                             <div class="btnWrapper--right">
                                                 <a class="button button--comments">
-                                                    <b:badge styleClass="button__badge" value="#{post.childPosts.size()}"></b:badge>
+                                                    <b:badge styleClass="button__badge"
+                                                             value="#{post.childPosts.size()}"></b:badge>
                                                     <span class="button__arrow textOnly">&#8681;</span>
                                                 </a>
                                             </div>
@@ -102,8 +113,10 @@
                                             <h:column>
                                                 <li class="postList__childList__item">
                                                     <div class="post post--comment">
-                                                        <h:outputText styleClass="post__content" value="#{child.content}"/>
-                                                        <h:outputText styleClass="post__author" value="Posted by: #{child.author.userName} @ #{child.getPostTimeAsString()}"/>
+                                                        <h:outputText styleClass="post__content"
+                                                                      value="#{child.content}"/>
+                                                        <h:outputText styleClass="post__author"
+                                                                      value="Posted by: #{child.author.userName} @ #{child.getPostTimeAsString()}"/>
                                                     </div>
                                                 </li>
                                             </h:column>
@@ -113,10 +126,13 @@
                                     <div class="postList__formWrapper hideable">
                                         <h:form styleClass="postForm">
                                             <c:if test="#{userController.isUserLoggedIn}">
-                                                <b:inputTextarea styleClass="transparent" placeholder="Write reply..." id="replyContent" value="#{postController.replyContent}"></b:inputTextarea>
+                                                <b:inputTextarea styleClass="transparent" placeholder="Write reply..."
+                                                                 id="replyContent"
+                                                                 value="#{postController.replyContent}"></b:inputTextarea>
 
                                                 <div class="btnWrapper--right">
-                                                    <b:commandButton value="Reply!" look="primary" action="#{postController.saveReply(post.id)}"/>
+                                                    <b:commandButton value="Reply!" look="primary"
+                                                                     action="#{postController.saveReply(post.id)}"/>
                                                 </div>
                                             </c:if>
                                         </h:form>
@@ -139,7 +155,11 @@
         </b:row>
     </b:container>
 
+    <h:inputHidden id="theme" value="#{userController.theme}"></h:inputHidden>
+
     <h:form id="hiddenGoogleLoginForm">
+        <h:inputText id="userName" value="#{userController.userName}"></h:inputText>
+        <h:inputText id="email" value="#{userController.email}"></h:inputText>
         <h:inputText id="tokenId" value="#{userController.tokenId}"></h:inputText>
         <!--TODO remove or use the addPokemonForm class?-->
         <b:commandButton styleClass="logInButton" ajax="true" update="@(.postForm) @(.addPokemonForm)" action="#{userController.validateBeforeLogin}"></b:commandButton>
@@ -149,7 +169,8 @@
 </h:body>
 
 <h:outputScript library="js" name="googleLogin.js"></h:outputScript>
-<script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?signed_in=true&amp;callback=initMap&amp;key=AIzaSyCgXXGotMPSlX-ZFpAGWt51_4cMQPWADuI"></script>
+<script async="async" defer="defer"
+        src="https://maps.googleapis.com/maps/api/js?signed_in=true&amp;callback=initMap&amp;key=AIzaSyCgXXGotMPSlX-ZFpAGWt51_4cMQPWADuI"></script>
 <h:outputScript library="js" name="mapAllPokemon.js"></h:outputScript>
 <h:outputScript library="js" name="messageBox.js"></h:outputScript>
 
