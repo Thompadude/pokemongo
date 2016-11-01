@@ -47,7 +47,6 @@ public class UserController implements Serializable {
 
     @PostConstruct
     public void init() {
-
         logger.debug("@PostConstruct executed");
 
         isUserLoggedIn = false;
