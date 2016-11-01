@@ -26,6 +26,7 @@ public class PokemonEJBTest {
     private UserHandler mockedUserHandler;
     @InjectMocks
     private PokemonEJB testPokemonEJB;
+
     private Pokemon testPokemon;
     private User testUser;
     private List<Pokemon> testPokemonList;
@@ -45,11 +46,9 @@ public class PokemonEJBTest {
 
         MockitoAnnotations.initMocks(this);
 
-        // Create mocked methods for PokemonService
         when(mockedPokemonService.savePokemon((testPokemon))).thenReturn(testPokemon);
         when(mockedPokemonService.fetchAllPokemons()).thenReturn(testPokemonList);
 
-        // Create mocked methods for UserHandler
         when(mockedUserHandler.getLoggedInUser()).thenReturn(testUser);
     }
 

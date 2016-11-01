@@ -1,6 +1,5 @@
 package com.pokemongo.controllers;
 
-import com.pokemongo.business.UserEJB;
 import com.pokemongo.business.interfaces.UserHandler;
 import com.pokemongo.models.User;
 import org.junit.After;
@@ -17,11 +16,9 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import java.util.Map;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
@@ -31,33 +28,24 @@ public class UserControllerTest {
     private User testLoggedInUser;
 
     @Mock
-    private UserEJB mockedUserEJB;
+    private UserHandler mockedUserHandler;
     @Mock
-    private UserHandler userHandler;
-
-    // Mocks for the context
+    private ExternalContext mockedExternalContext; // For PowerMockito
     @Mock
-    private ExternalContext mockedExternalContext;
-    @Mock
-    private FacesContext mockedFacesContext;
+    private FacesContext mockedFacesContext; // For PowerMockito
 
     @InjectMocks
     private UserController userController;
 
     @Before
     public void setUp() throws Exception {
-        testLoggedInUser = new User("User Name", "User Email", "User Token");
         userController = new UserController();
+        testLoggedInUser = new User("User Name", "User Email", "User Token");
 
         MockitoAnnotations.initMocks(this);
+        when(mockedUserHandler.fetchUserByEmail(testLoggedInUser.getEmail())).thenReturn(testLoggedInUser);
 
-        when(mockedUserEJB.logIn(any())).thenReturn(true);
-        when(mockedUserEJB.logOut()).thenReturn(false);
-
-        when(userHandler.logIn(testLoggedInUser)).thenReturn(true);
-        when(userHandler.fetchUserByEmail(testLoggedInUser.getEmail())).thenReturn(testLoggedInUser);
-
-        // Mock the context
+        // Use PowerMockito to mock the context
         PowerMockito.mockStatic(FacesContext.class);
         when(FacesContext.getCurrentInstance()).thenReturn(mockedFacesContext);
         when(mockedFacesContext.getExternalContext()).thenReturn(mockedExternalContext);
@@ -70,14 +58,20 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testLogIn() throws Exception {
-
-
+    public void testLogIn_Should_Return_True() throws Exception {
+        when(mockedUserHandler.logIn(testLoggedInUser)).thenReturn(true);
         assertTrue(userController.logIn(testLoggedInUser));
     }
 
     @Test
+    public void testLogIn_Should_Return_False() throws Exception {
+        when(mockedUserHandler.logIn(testLoggedInUser)).thenReturn(false);
+        assertFalse(userController.logIn(testLoggedInUser));
+    }
+
+    @Test
     public void testLogOut() throws Exception {
+        when(mockedUserHandler.logOut()).thenReturn(false);
         assertFalse(userController.logOut());
     }
 

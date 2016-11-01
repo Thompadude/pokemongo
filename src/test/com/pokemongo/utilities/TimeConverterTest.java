@@ -31,6 +31,7 @@ public class TimeConverterTest {
         LocalDateTime localDateTimeToConvert = LocalDateTime.of(2000, 1, 1, 12, 0);
         Timestamp actualTimestamp = testTimeConverter.convertToDatabaseColumn(localDateTimeToConvert);
 
+        // The actual tests
         assertNotNull(actualTimestamp);
         assertEquals(expectedResult, actualTimestamp);
     }
@@ -42,6 +43,7 @@ public class TimeConverterTest {
         Timestamp timestampToConvert = Timestamp.valueOf("2000-01-01 12:00:00");
         LocalDateTime actualLocalDateTime = testTimeConverter.convertToEntityAttribute(timestampToConvert);
 
+        // The actual tests
         assertNotNull(actualLocalDateTime);
         assertEquals(expectedResult, actualLocalDateTime);
     }
