@@ -1,6 +1,7 @@
 package com.pokemongo.business;
 
 import com.pokemongo.business.interfaces.UserHandler;
+import com.pokemongo.exceptions.FormException;
 import com.pokemongo.models.Pokemon;
 import com.pokemongo.models.User;
 import com.pokemongo.services.PokemonService;
@@ -34,10 +35,7 @@ public class PokemonEJBTest {
     @Before
     public void setUp() throws Exception {
         testPokemonEJB = new PokemonEJB();
-
-        testPokemon = new Pokemon();
-        testPokemon.setLng("fakeLng");
-        testPokemon.setLat("fakeLat");
+        testPokemon = new Pokemon(null, null, "fakeLng", "fakeLat", 10, 10);
 
         testUser = new User();
 
@@ -48,6 +46,7 @@ public class PokemonEJBTest {
 
         when(mockedPokemonService.savePokemon((testPokemon))).thenReturn(testPokemon);
         when(mockedPokemonService.fetchAllPokemons()).thenReturn(testPokemonList);
+        when(mockedPokemonService.fetchPokemonByOwnerId(1L)).thenReturn(testPokemonList);
 
         when(mockedUserHandler.getLoggedInUser()).thenReturn(testUser);
     }
@@ -56,14 +55,36 @@ public class PokemonEJBTest {
     public void tearDown() throws Exception {
         testPokemonEJB = null;
         testPokemon = null;
+        testUser = null;
+        testPokemonList = null;
+        mockedUserHandler = null;
+        mockedPokemonService = null;
     }
 
     @Test
     public void testSavePokemon() throws Exception {
         Pokemon actualPokemon = testPokemonEJB.savePokemon(testPokemon);
-
         assertNotNull(testPokemon);
         assertEquals(testPokemon, actualPokemon);
+    }
+
+    /**
+     * Test three different scenarios which all should throw Form Exception.
+     * First scenario: test save pokemon with hp but without cp.
+     * Second scenario: test save pokemon with cp but without hp.
+     * Third scenario: test save pokemon without both hp and cp.
+     */
+    @Test(expected = FormException.class)
+    public void testSavePokemon_Without_Stats() throws Exception {
+        testPokemon.setCombatPower(null);
+        testPokemonEJB.savePokemon(testPokemon); // First test
+
+        testPokemon.setCombatPower(10);
+        testPokemon.setHealthPoints(null);
+        testPokemonEJB.savePokemon(testPokemon); // Second test
+
+        testPokemon.setCombatPower(null);
+        testPokemonEJB.savePokemon(testPokemon); // Third test
     }
 
     @Test
@@ -72,6 +93,12 @@ public class PokemonEJBTest {
 
         assertNotNull(actualPokemonList);
         assertEquals(testPokemonList, actualPokemonList);
+    }
+
+    @Test
+    public void testFetchPokemonByOwnerId() throws Exception {
+        assertNotNull(testPokemonEJB.fetchPokemonByOwnerId(1L));
+        assertEquals(testPokemonList, testPokemonEJB.fetchPokemonByOwnerId(1L));
     }
 
 }
