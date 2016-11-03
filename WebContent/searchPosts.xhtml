@@ -29,6 +29,9 @@
                     <h:column>
                         <li class="postList__item">
                             <div class="post post--default">
+                                <div class="post__image">
+                                    <b:image value="#{post.authorImageURL}"/>
+                                </div>
                                 <div class="post__title">
                                     <h:outputText value="#{post.title}"/>
                                     <h:outputText styleClass="post__author" value="Posted by: #{post.author.userName} @ #{post.getPostTimeAsString()}"/>
