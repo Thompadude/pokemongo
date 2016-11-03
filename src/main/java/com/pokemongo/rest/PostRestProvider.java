@@ -23,16 +23,17 @@ public class PostRestProvider {
     private RestLinkBuilder<PostRestProvider> restLinkBuilder = new RestLinkBuilder<>(PostRestProvider.class);
 
     @GET
-    @Path("/post")
+    @Path("/posts")
     @Produces("application/json")
     public Response getAllPosts(@Context UriInfo uriInfo) {
         List<Post> posts = postService.fetchPostsWithoutParent();
 
-        if (posts.isEmpty())
-            return Response.status(Response.Status.NO_CONTENT).build();
+        if (!posts.isEmpty()) {
+            setChildPostsLinks(uriInfo, posts);
+            return Response.status(Response.Status.OK).entity(posts).build();
+        }
 
-        setChildPostsLinks(uriInfo, posts);
-        return Response.status(Response.Status.OK).entity(posts).build();
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 
     @GET
@@ -41,14 +42,15 @@ public class PostRestProvider {
     public Response getPostById(@PathParam("id") Long id, @Context UriInfo uriInfo) {
         Post post = postService.fetchPost(id);
 
-        if (post == null)
-            return Response.status(Response.Status.NO_CONTENT).build();
+        if (!(post == null)) {
+            post.addLink(restLinkBuilder.getSelfLink(id, uriInfo));
+            post.addLink(restLinkBuilder.getUserLink(post, uriInfo, "Author"));
+            setChildPostsLinks(uriInfo, post.getChildPosts());
 
-        post.addLink(restLinkBuilder.getSelfLink(id, uriInfo));
-        post.addLink(restLinkBuilder.getUserLink(post, uriInfo, "Author"));
+            return Response.status(Response.Status.OK).entity(post).build();
+        }
 
-        setChildPostsLinks(uriInfo, post.getChildPosts());
-        return Response.status(Response.Status.OK).entity(post).build();
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 
     @GET
@@ -57,11 +59,12 @@ public class PostRestProvider {
     public Response getPostsByKeyword(@PathParam("searchWord") String searchWord, @Context UriInfo uriInfo) {
         List<Post> posts = postService.fetchPostsByKeyword(searchWord);
 
-        if (posts.isEmpty())
-            return Response.status(Response.Status.NO_CONTENT).build();
+        if (!posts.isEmpty()) {
+            setChildPostsLinks(uriInfo, posts);
+            return Response.status(Response.Status.OK).entity(posts).build();
+        }
 
-        setChildPostsLinks(uriInfo, posts);
-        return Response.status(Response.Status.OK).entity(posts).build();
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 
     private void setChildPostsLinks(UriInfo uriInfo, Collection<Post> posts) {
@@ -76,4 +79,5 @@ public class PostRestProvider {
             }
         }
     }
+
 }
