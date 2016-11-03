@@ -15,7 +15,7 @@ import javax.ws.rs.core.UriInfo;
 import java.util.Collection;
 import java.util.List;
 
-@Path("/post")
+@Path("/")
 public class PostRestProvider {
 
     @EJB
@@ -23,6 +23,7 @@ public class PostRestProvider {
     private RestLinkBuilder<PostRestProvider> restLinkBuilder = new RestLinkBuilder<>(PostRestProvider.class);
 
     @GET
+    @Path("/post")
     @Produces("application/json")
     public Response getAllPosts(@Context UriInfo uriInfo) {
         List<Post> posts = postService.fetchPostsWithoutParent();
@@ -35,7 +36,7 @@ public class PostRestProvider {
     }
 
     @GET
-    @Path("/{id}")
+    @Path("post/{id}")
     @Produces("application/json")
     public Response getPostById(@PathParam("id") Long id, @Context UriInfo uriInfo) {
         Post post = postService.fetchPost(id);
@@ -45,13 +46,13 @@ public class PostRestProvider {
 
         post.addLink(restLinkBuilder.getSelfLink(id, uriInfo));
         post.addLink(restLinkBuilder.getUserLink(post, uriInfo, "Author"));
-        
+
         setChildPostsLinks(uriInfo, post.getChildPosts());
         return Response.status(Response.Status.OK).entity(post).build();
     }
-    
+
     @GET
-    @Path("/search/{searchWord}")
+    @Path("posts/search/{searchWord}")
     @Produces("application/json")
     public Response getPostsByKeyword(@PathParam("searchWord") String searchWord, @Context UriInfo uriInfo) {
         List<Post> posts = postService.fetchPostsByKeyword(searchWord);
@@ -62,7 +63,7 @@ public class PostRestProvider {
         setChildPostsLinks(uriInfo, posts);
         return Response.status(Response.Status.OK).entity(posts).build();
     }
-    
+
     private void setChildPostsLinks(UriInfo uriInfo, Collection<Post> posts) {
         for (Post post : posts) {
             post.addLink(restLinkBuilder.getSelfLink(post.getId(), uriInfo));
