@@ -23,14 +23,13 @@ public class PokemonRestProvider {
 
     @GET
     @Produces("application/json")
-    public Response getAllPokemon() {
+    public Response getAllPokemon(@Context UriInfo uriInfo) {
         List<Pokemon> pokemonList = pokemonService.fetchAllPokemons();
 
-        if (pokemonList.isEmpty()) {
-            return Response.status(Response.Status.NO_CONTENT).build();
-        }
+        if (setPokemonListRestLinks(uriInfo, pokemonList))
+            return Response.status(Response.Status.OK).entity(pokemonList).build();
 
-        return Response.status(Response.Status.OK).entity(pokemonList).build();
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 
     @GET
@@ -39,25 +38,37 @@ public class PokemonRestProvider {
     public Response getPokemonById(@PathParam("id") Long id, @Context UriInfo uriInfo) {
         Pokemon pokemon = pokemonService.fetchPokemonById(id);
 
-        if (pokemon == null)
-            return Response.status(Response.Status.NO_CONTENT).build();
+        if (!(pokemon == null)) {
+            pokemon.addRestLink(pokemonRestLinkBuilder.getSelfLink(pokemon.getId(), uriInfo));
+            pokemon.addRestLink(pokemonRestLinkBuilder.getUserLink(pokemon, uriInfo, "Owner"));
 
-        pokemon.addRestLink(pokemonRestLinkBuilder.getSelfLink(pokemon.getId(), uriInfo));
-        pokemon.addRestLink(pokemonRestLinkBuilder.getUserLink(pokemon, uriInfo, "Owner"));
+            return Response.status(Response.Status.OK).entity(pokemon).build();
+        }
 
-        return Response.status(Response.Status.OK).entity(pokemon).build();
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 
     @GET
     @Path("/newest")
     @Produces("application/json")
-    public Response getNewestPokemon() {
+    public Response getNewestPokemon(@Context UriInfo uriInfo) {
         List<Pokemon> pokemonList = pokemonService.fetchNewestPokemon();
 
-        if (pokemonList.isEmpty())
-            return Response.status(Response.Status.NO_CONTENT).build();
+        if (setPokemonListRestLinks(uriInfo, pokemonList))
+            return Response.status(Response.Status.OK).entity(pokemonList).build();
 
-        return Response.status(Response.Status.OK).entity(pokemonList).build();
+        return Response.status(Response.Status.NO_CONTENT).build();
+    }
+
+    private boolean setPokemonListRestLinks(@Context UriInfo uriInfo, List<Pokemon> pokemonList) {
+        if (!pokemonList.isEmpty()) {
+            for (Pokemon pokemon : pokemonList) {
+                pokemon.addRestLink(pokemonRestLinkBuilder.getSelfLink(pokemon.getId(), uriInfo));
+                pokemon.addRestLink(pokemonRestLinkBuilder.getUserLink(pokemon, uriInfo, "Owner"));
+            }
+            return true;
+        }
+        return false;
     }
 
 }

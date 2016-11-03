@@ -26,15 +26,14 @@ public class PokemonDataRestProvider {
     public Response getAllPokemon(@Context UriInfo uriInfo) {
         List<PokemonData> pokemonDataList = pokemonDataService.fetchAllPokemonData();
 
-        if (pokemonDataList.isEmpty())
-            return Response.status(Response.Status.NO_CONTENT).build();
-    
-        for (PokemonData pokemon :
-                pokemonDataList) {
-            pokemon.addRestLink(pokemonDataLinkBuilder.getSelfLink(pokemon.getId(), uriInfo));
+        if (!pokemonDataList.isEmpty()) {
+            for (PokemonData pokemon : pokemonDataList) {
+                pokemon.addRestLink(pokemonDataLinkBuilder.getSelfLink(pokemon.getId(), uriInfo));
+            }
+            return Response.status(Response.Status.OK).entity(pokemonDataList).build();
         }
 
-        return Response.status(Response.Status.OK).entity(pokemonDataList).build();
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 
     @GET
@@ -43,12 +42,12 @@ public class PokemonDataRestProvider {
     public Response getPokemon(@PathParam("pokedexNr") Integer pokedexNr, @Context UriInfo uriInfo) {
         PokemonData pokemon = pokemonDataService.fetchPokemonDataByPokedexNumber(pokedexNr);
 
-        if (pokemon == null)
-            return Response.status(Response.Status.NO_CONTENT).build();
-        
-        pokemon.addRestLink(pokemonDataLinkBuilder.getSelfLink(pokemon.getId(), uriInfo));
+        if (!(pokemon == null)) {
+            pokemon.addRestLink(pokemonDataLinkBuilder.getSelfLink(pokemon.getId(), uriInfo));
+            return Response.status(Response.Status.OK).entity(pokemon).build();
+        }
 
-        return Response.status(Response.Status.OK).entity(pokemon).build();
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 
 }
