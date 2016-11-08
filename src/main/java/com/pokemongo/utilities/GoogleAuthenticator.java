@@ -26,6 +26,12 @@ public class GoogleAuthenticator{
 
     }
 
+    /**
+     * Verifies the Google token.
+     *
+     * @param userIdToken is the token to verify.
+     * @return true if validation is successful, else catch exception and return false.
+     */
     public boolean verifyToken(String userIdToken) {
 
 

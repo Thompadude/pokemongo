@@ -5,6 +5,11 @@ import com.pokemongo.rest.UserRestProvider;
 
 import javax.ws.rs.core.UriInfo;
 
+/**
+ * Class responsible for building HATEOAS links.
+ *
+ * @param <T> is the object which needs the HATEOAS link.
+ */
 public class RestLinkBuilder<T> {
     
     private Class<T> t;
