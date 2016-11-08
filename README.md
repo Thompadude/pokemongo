@@ -8,7 +8,7 @@ The user can sign in via Google.
 On the user's profile page the user can interact with a Google Map and add pokémon they've catched.  
 All user's can see other user's pokémon for 30 minutes.  
 There is a forum part where user's can post new comments as well as search for existing posts.  
-User's can upload a profile image and change theme on the web page depending on what team they choose to join.
+User's can upload a profile image and change theme on the web page depending on what team they choose to join.  
 REST and SOAP support.
 ## Tech Used
 * Java EE
