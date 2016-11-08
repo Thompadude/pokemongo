@@ -36,7 +36,13 @@ public class FileEJB implements FileHandler {
     private PostService postService;
     
     private static Logger logger = LogManager.getLogger(FileEJB.class);
-    
+
+    /**
+     * Handles uploading of the user profile image.
+     *
+     * @param upload is the file the user want to upload.
+     * @throws FileTypeException if the file is too large, not an image or if no file is chosen.
+     */
     @Override
     public void uploadImage(Part upload) throws FileTypeException {
         
@@ -95,7 +101,13 @@ public class FileEJB implements FileHandler {
         }
         
     }
-    
+
+    /**
+     * Verifies file size.
+     *
+     * @param inputStream is the input stream which we read the size from.
+     * @return false if the file size is too large, else true.
+     */
     private boolean verifySize(InputStream inputStream) {
         
         int size = 0;
@@ -116,7 +128,13 @@ public class FileEJB implements FileHandler {
         logger.debug("Size of file: " + size);
         return true;
     }
-    
+
+    /**
+     * Verifies that the file is an image.
+     *
+     * @param image is the image to verify.
+     * @return true if the file is an image, else false.
+     */
     private boolean verifyImage(InputStream image) {
         logger.debug("Verifying image...");
         try {
@@ -130,7 +148,14 @@ public class FileEJB implements FileHandler {
         }
         return false;
     }
-    
+
+
+    /**
+     * Determines the file extension.
+     *
+     * @param upload is the file to check.
+     * @return the file extension.
+     */
     private String determineExtension(Part upload) {
         switch (upload.getContentType()) {
             case "image/png":

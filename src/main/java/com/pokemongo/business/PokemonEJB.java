@@ -21,6 +21,15 @@ public class PokemonEJB implements PokemonHandler {
     @EJB
     private UserHandler userHandler;
 
+    /**
+     * Handles logic before saving the pokemon to the database.
+     *
+     * @param pokemon is the pokemon to save.
+     * @return the saved pokemon if save is successful.
+     * @throws DatabaseException if something goes wrong while saving the pokemon to the database.
+     * @throws UserException if the user is not logged in while trying to save the pokemon.
+     * @throws FormException if some values are missing while trying to save the pokemon.
+     */
     @Override
     public Pokemon savePokemon(Pokemon pokemon) throws DatabaseException, UserException, FormException {
         if (pokemon.getLat().equals("") || pokemon.getLng().equals("")) {
