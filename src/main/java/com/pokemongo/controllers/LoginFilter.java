@@ -1,6 +1,5 @@
 package com.pokemongo.controllers;
 
-import com.pokemongo.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,6 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Filter class catching unapproved requests.
+ * The user must be logged in to access certain parts of the application.
+ */
 public class LoginFilter implements Filter {
     
     private static Logger logger = LogManager.getLogger(LoginFilter.class);

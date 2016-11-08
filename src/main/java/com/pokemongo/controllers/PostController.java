@@ -41,6 +41,10 @@ public class PostController implements Serializable {
         logger.debug("@PostConstruct executed - posts loaded");
     }
 
+    /**
+     * Saves the post and reset the post fields.
+     * Displays a feedback message.
+     */
     public void savePost() {
         try {
             Post post = new Post(title, content);
@@ -53,6 +57,12 @@ public class PostController implements Serializable {
         }
     }
 
+    /**
+     * Saves the reply.
+     *
+     * @param postId is the id of the post which is replied to.
+     * @throws DatabaseException if something goes wrong while saving the post to the database.
+     */
     public void saveReply(long postId) throws DatabaseException {
         try {
             Post reply = new Post(replyContent);
@@ -66,6 +76,11 @@ public class PostController implements Serializable {
         }
     }
 
+    /**
+     * Changes the post list sort order.
+     *
+     * @param event is the value from the drop-down list.
+     */
     public void setPostSortOrder(ValueChangeEvent event) {
         logger.debug("Changing post sort order");
         sortOrder = SortOrder.valueOf(event.getNewValue().toString().toUpperCase());

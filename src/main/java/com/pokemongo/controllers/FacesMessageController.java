@@ -6,6 +6,9 @@ import org.apache.logging.log4j.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+/**
+ * Handles all the faces messages throughout the application.
+ */
 public class FacesMessageController {
 
     private static final Logger logger = LogManager.getLogger(FacesMessageController.class);

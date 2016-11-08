@@ -82,7 +82,10 @@ public class UserEJB implements UserHandler {
     }
 
     /**
-     * Returns true if the user is already in the database
+     * Check if the user is already in the database.
+     *
+     * @param loggedInUser is the user to check.
+     * @return true true if the user already exist, else false.
      */
     private boolean isDuplicate(User loggedInUser) {
         boolean isDuplicatedUser = false;

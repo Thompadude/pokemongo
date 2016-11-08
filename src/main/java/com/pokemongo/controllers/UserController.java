@@ -17,7 +17,6 @@ import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import java.io.IOException;
 import java.io.Serializable;
-import java.security.GeneralSecurityException;
 import java.util.List;
 
 @Named(value = "userController")
@@ -52,6 +51,11 @@ public class UserController implements Serializable {
         isUserLoggedIn = false;
     }
 
+    /**
+     * Validates the Google token and checks if it is actually from Google.
+     *
+     * @throws IOException if something goes wrong during the check.
+     */
     public void validateBeforeLogin() throws IOException {
         googleAuthenticator = new GoogleAuthenticator();
 
@@ -103,6 +107,12 @@ public class UserController implements Serializable {
         return isUserLoggedIn;
     }
 
+    /**
+     * Changes the user team.
+     *
+     * @param event is the choice from the drop-down list.
+     * @throws DatabaseException if something goes wrong while saving the team choice to the database.
+     */
     public void changeTeam(ValueChangeEvent event) throws DatabaseException {
         logger.debug("Change team method called");
         User userToChange = userHandler.getLoggedInUser();

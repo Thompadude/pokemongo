@@ -26,9 +26,9 @@ public class PostEJB implements PostHandler {
      *
      * @param post is the post to save.
      * @return the saved post if save is successful.
-     * @throws UserException if the user is not logged in while trying to save the pokemon.
-     * @throws DatabaseException if something goes wrong while saving the pokemon to the database.
-     * @throws FormException if some values are missing while trying to save the pokemon.
+     * @throws UserException if the user is not logged in while trying to save the post.
+     * @throws DatabaseException if something goes wrong while saving the post to the database.
+     * @throws FormException if some values are missing while trying to save the post.
      */
     @Override
     public Post savePost(Post post) throws UserException, DatabaseException, FormException {
@@ -52,9 +52,9 @@ public class PostEJB implements PostHandler {
      * @param reply is the reply to save.
      * @param parentId the post which was replied to.
      * @return the saved reply if save is successful.
-     * @throws UserException if the user is not logged in while trying to save the pokemon.
-     * @throws DatabaseException if something goes wrong while saving the pokemon to the database.
-     * @throws FormException if some values are missing while trying to save the pokemon.
+     * @throws UserException if the user is not logged in while trying to save the post.
+     * @throws DatabaseException if something goes wrong while saving the post to the database.
+     * @throws FormException if some values are missing while trying to save the post.
      */
     @Override
     public Post saveReply(Post reply, long parentId) throws UserException, DatabaseException, FormException {
